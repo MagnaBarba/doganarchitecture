@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>DOGAN ARCHITECTURE</title>
 
 <style>
+
+/* =========================================================
+   RESET
+========================================================= */
 
 * {
     margin: 0;
@@ -19,9 +26,10 @@ html {
 }
 
 body {
+    background: #f4f4f2;
+    color: #111;
     font-family: Arial, Helvetica, sans-serif;
-    background: #111;
-    color: white;
+    overflow-x: hidden;
 }
 
 a {
@@ -30,106 +38,128 @@ a {
 }
 
 
-/* =========================
+/* =========================================================
    HEADER
-========================= */
+========================================================= */
 
-header {
+.header {
+
     position: fixed;
+
     top: 0;
     left: 0;
 
     width: 100%;
+
     height: 90px;
 
-    padding: 0 45px;
+    padding: 0 40px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
-    z-index: 100;
+    z-index: 1000;
+
+    mix-blend-mode: difference;
+
+    color: white;
+
 }
 
 
-/* =========================
-   LOGO
-========================= */
+/* LOGO */
+
+.logo-link {
+
+    width: 75px;
+
+    display: block;
+
+    cursor: pointer;
+
+}
 
 .logo-image {
-    width: 85px;
+
+    width: 100%;
+
     height: auto;
 
     display: block;
 
-    /* Logo artık blend edilmiyor */
-    mix-blend-mode: normal;
-
-    object-fit: contain;
 }
 
 
-/* =========================
-   MENU
-========================= */
+/* HEADER RIGHT */
 
-.menu {
+.header-right {
+
     display: flex;
+
     align-items: center;
+
     gap: 35px;
+
 }
 
-.menu a,
-.language {
+.header-link {
+
     font-size: 11px;
+
     letter-spacing: 1.5px;
+
     text-transform: uppercase;
-}
 
-.language {
     cursor: pointer;
+
 }
 
 
-/* =========================
+/* =========================================================
    HERO
-========================= */
+========================================================= */
 
 .hero {
+
     height: 100vh;
-    min-height: 650px;
+
+    width: 100%;
 
     position: relative;
+
     overflow: hidden;
 
-    display: flex;
-    align-items: flex-end;
+    background: #111;
+
 }
 
 
+/* HERO IMAGE */
+
 .hero-image {
+
     position: absolute;
+
     inset: 0;
 
-    background-image:
-        linear-gradient(
-            to bottom,
-            rgba(0,0,0,0.02),
-            rgba(0,0,0,0.5)
-        ),
-        url("images/villa-ozdemir/cover.jpg");
+    width: 100%;
 
-    background-size: cover;
-    background-position: center;
+    height: 100%;
 
-    animation: heroZoom 12s ease-out forwards;
+    object-fit: cover;
+
+    animation: heroZoom 14s cubic-bezier(.2,.6,.2,1) forwards;
+
 }
 
 
 @keyframes heroZoom {
 
     from {
-        transform: scale(1.08);
+        transform: scale(1.12);
     }
 
     to {
@@ -139,124 +169,173 @@ header {
 }
 
 
-/* =========================
-   HERO TITLE
-========================= */
+/* DARK GRADIENT */
 
-.hero-bottom {
+.hero::after {
 
-    position: relative;
-
-    z-index: 2;
-
-    width: 100%;
-
-    padding: 0 45px 45px;
-}
-
-
-.hero-name {
-
-    font-size: clamp(50px, 8vw, 125px);
-
-    line-height: 0.86;
-
-    font-weight: 500;
-
-    letter-spacing: -4px;
-
-    text-transform: uppercase;
-
-    animation: fadeUp 1.2s ease-out;
-
-}
-
-
-@keyframes fadeUp {
-
-    from {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-}
-
-
-/* =========================
-   PROJECTS
-========================= */
-
-.projects {
-    background: #111;
-}
-
-
-.project {
-
-    position: relative;
-
-    height: 100vh;
-    min-height: 650px;
-
-    overflow: hidden;
-
-    display: flex;
-    align-items: flex-end;
-}
-
-
-.project-image {
-
-    position: absolute;
-
-    inset: 0;
-
-    background-size: cover;
-    background-position: center;
-
-    transition:
-        transform 1.2s cubic-bezier(.2,.7,.2,1);
-
-}
-
-
-.project:hover .project-image {
-
-    transform: scale(1.045);
-
-}
-
-
-.project-overlay {
+    content: "";
 
     position: absolute;
 
     inset: 0;
 
     background:
+
         linear-gradient(
-            to bottom,
-            rgba(0,0,0,0.05),
-            rgba(0,0,0,0.5)
+            to top,
+            rgba(0,0,0,.55),
+            transparent 45%
         );
+
+    pointer-events: none;
 
 }
 
 
-.project-content {
+/* HERO CONTENT */
 
-    position: relative;
+.hero-content {
 
-    z-index: 2;
+    position: absolute;
 
-    width: 100%;
+    z-index: 5;
 
-    padding: 0 45px 45px;
+    left: 40px;
+
+    right: 40px;
+
+    bottom: 45px;
+
+    color: white;
+
+}
+
+
+/* MAIN OFFICE NAME */
+
+.office-name {
+
+    font-size: clamp(55px, 10vw, 155px);
+
+    line-height: .82;
+
+    letter-spacing: -7px;
+
+    font-weight: 500;
+
+    text-transform: uppercase;
+
+    animation: titleIn 1.3s cubic-bezier(.16,1,.3,1) both;
+
+}
+
+
+@keyframes titleIn {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(80px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+/* SMALL HERO INFO */
+
+.hero-meta {
+
+    margin-top: 25px;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    animation: metaIn 1.5s .25s both;
+
+}
+
+
+@keyframes metaIn {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(20px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+/* SCROLL */
+
+.scroll-indicator {
+
+    position: absolute;
+
+    right: 40px;
+
+    bottom: 45px;
+
+    z-index: 10;
+
+    color: white;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    writing-mode: vertical-rl;
+
+    text-transform: uppercase;
+
+    animation: scrollPulse 2s infinite;
+
+}
+
+
+@keyframes scrollPulse {
+
+    0%,100% {
+        opacity: .35;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+}
+
+
+/* =========================================================
+   PROJECTS INTRO
+========================================================= */
+
+.projects-intro {
+
+    padding: 140px 40px 80px;
 
     display: flex;
 
@@ -267,13 +346,125 @@ header {
 }
 
 
-.project-left {
+.projects-label {
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+}
+
+
+.projects-description {
+
+    max-width: 550px;
+
+    font-size: 22px;
+
+    line-height: 1.35;
+
+    font-weight: 300;
+
+}
+
+
+/* =========================================================
+   PROJECT
+========================================================= */
+
+.project {
+
+    position: relative;
+
+    width: 100%;
+
+    margin-bottom: 3px;
+
+    overflow: hidden;
+
+}
+
+
+.project-link {
+
+    display: block;
+
+    position: relative;
+
+    overflow: hidden;
+
+}
+
+
+/* IMAGE */
+
+.project-image {
+
+    width: 100%;
+
+    height: 78vh;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition:
+        transform 1.2s cubic-bezier(.2,.7,.2,1),
+        filter 1s ease;
+
+}
+
+
+/* OVERLAY */
+
+.project-link::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.65),
+            transparent 55%
+        );
+
+    opacity: .7;
+
+    transition: opacity .8s ease;
+
+}
+
+
+/* PROJECT INFO */
+
+.project-info {
+
+    position: absolute;
+
+    z-index: 5;
+
+    left: 40px;
+
+    right: 40px;
+
+    bottom: 35px;
+
+    color: white;
 
     display: flex;
 
     align-items: flex-end;
 
-    gap: 25px;
+    justify-content: space-between;
+
+    pointer-events: none;
 
 }
 
@@ -284,7 +475,7 @@ header {
 
     letter-spacing: 2px;
 
-    margin-bottom: 9px;
+    margin-bottom: 12px;
 
 }
 
@@ -293,11 +484,11 @@ header {
 
     font-size: clamp(50px, 8vw, 125px);
 
-    line-height: 0.86;
+    line-height: .85;
+
+    letter-spacing: -5px;
 
     font-weight: 500;
-
-    letter-spacing: -4px;
 
     text-transform: uppercase;
 
@@ -319,17 +510,53 @@ header {
 }
 
 
-/* =========================
+/* HOVER */
+
+.project-link:hover .project-image {
+
+    transform: scale(1.045);
+
+    filter: brightness(.88);
+
+}
+
+
+.project-link:hover::after {
+
+    opacity: .95;
+
+}
+
+
+.project-link:hover .project-title {
+
+    transform: translateX(12px);
+
+}
+
+
+.project-title {
+
+    transition:
+
+        transform .8s cubic-bezier(.2,.7,.2,1);
+
+}
+
+
+/* =========================================================
    CONTACT
-========================= */
+========================================================= */
 
-.about {
+.contact {
 
-    min-height: 80vh;
+    min-height: 70vh;
 
-    padding: 130px 45px;
+    padding: 140px 40px;
 
     background: #111;
+
+    color: white;
 
     display: grid;
 
@@ -340,40 +567,7 @@ header {
 }
 
 
-.about-title {
-
-    font-size: clamp(50px, 7vw, 110px);
-
-    line-height: .9;
-
-    font-weight: 500;
-
-    letter-spacing: -4px;
-
-}
-
-
-.about-right {
-
-    max-width: 600px;
-
-}
-
-
-.about-text {
-
-    font-size: 18px;
-
-    line-height: 1.5;
-
-    font-weight: 300;
-
-    margin-bottom: 70px;
-
-}
-
-
-.contact-title {
+.contact-label {
 
     font-size: 11px;
 
@@ -381,29 +575,66 @@ header {
 
     text-transform: uppercase;
 
-    margin-bottom: 20px;
+}
+
+
+.contact-title {
+
+    font-size: clamp(55px, 9vw, 135px);
+
+    line-height: .85;
+
+    letter-spacing: -6px;
+
+    font-weight: 500;
 
 }
 
 
 .contact-info {
 
-    font-size: 18px;
+    align-self: end;
 
-    line-height: 1.7;
+    font-size: 14px;
 
-    font-weight: 300;
+    line-height: 2;
 
 }
 
 
-/* =========================
+.contact-info a {
+
+    border-bottom: 1px solid #555;
+
+}
+
+
+.contact-small {
+
+    margin-top: 35px;
+
+    font-size: 10px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+
+    color: #aaa;
+
+}
+
+
+/* =========================================================
    FOOTER
-========================= */
+========================================================= */
 
-footer {
+.footer {
 
-    padding: 45px;
+    padding: 30px 40px;
+
+    background: #111;
+
+    color: white;
 
     border-top: 1px solid #333;
 
@@ -411,7 +642,7 @@ footer {
 
     justify-content: space-between;
 
-    font-size: 10px;
+    font-size: 9px;
 
     letter-spacing: 1.5px;
 
@@ -420,13 +651,42 @@ footer {
 }
 
 
-/* =========================
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+.reveal {
+
+    opacity: 0;
+
+    transform: translateY(70px);
+
+    transition:
+
+        opacity 1.1s ease,
+
+        transform 1.1s cubic-bezier(.16,1,.3,1);
+
+}
+
+
+.reveal.visible {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+}
+
+
+/* =========================================================
    MOBILE
-========================= */
+========================================================= */
 
-@media (max-width: 700px) {
+@media(max-width: 700px) {
 
-    header {
+
+    .header {
 
         height: 70px;
 
@@ -435,36 +695,39 @@ footer {
     }
 
 
-    .logo-image {
+    .logo-link {
 
         width: 55px;
 
     }
 
 
-    .menu {
+    .header-right {
 
         gap: 15px;
 
     }
 
 
-    .menu a,
-    .language {
+    .header-link {
 
         font-size: 9px;
 
     }
 
 
-    .hero-bottom {
+    .hero-content {
 
-        padding: 0 20px 40px;
+        left: 20px;
+
+        right: 20px;
+
+        bottom: 35px;
 
     }
 
 
-    .hero-name {
+    .office-name {
 
         font-size: 15vw;
 
@@ -473,43 +736,58 @@ footer {
     }
 
 
-    .project {
+    .scroll-indicator {
 
-        min-height: 600px;
+        right: 20px;
+
+        bottom: 35px;
 
     }
 
 
-    .project-content {
-
-        padding: 0 20px 40px;
+    .projects-intro {
 
         display: block;
 
+        padding: 90px 20px 60px;
+
     }
 
 
-    .project-left {
+    .projects-description {
+
+        margin-top: 40px;
+
+        font-size: 18px;
+
+    }
+
+
+    .project-image {
+
+        height: 65vh;
+
+    }
+
+
+    .project-info {
+
+        left: 20px;
+
+        right: 20px;
+
+        bottom: 25px;
 
         display: block;
-
-    }
-
-
-    .project-number {
-
-        margin-bottom: 15px;
 
     }
 
 
     .project-title {
 
-        font-size: 15vw;
+        font-size: 14vw;
 
         letter-spacing: -2px;
-
-        margin-bottom: 25px;
 
     }
 
@@ -518,53 +796,39 @@ footer {
 
         text-align: left;
 
+        margin-top: 20px;
+
     }
 
 
-    .about {
-
-        padding: 90px 20px;
+    .contact {
 
         display: block;
 
-    }
-
-
-    .about-title {
-
-        margin-bottom: 60px;
+        padding: 90px 20px;
 
     }
 
 
-    .about-text {
+    .contact-title {
 
-        font-size: 16px;
+        margin-top: 50px;
 
-        margin-bottom: 60px;
+        font-size: 15vw;
 
     }
 
 
     .contact-info {
 
-        font-size: 16px;
+        margin-top: 80px;
 
     }
 
 
-    footer {
+    .footer {
 
-        padding: 30px 20px;
-
-        display: block;
-
-    }
-
-
-    footer div {
-
-        margin-bottom: 10px;
+        padding: 25px 20px;
 
     }
 
@@ -575,16 +839,21 @@ footer {
 </head>
 
 
-<body>
+<body id="top">
 
 
-<!-- =========================
+<!-- =====================================================
      HEADER
-========================= -->
+===================================================== -->
 
-<header>
+<header class="header">
 
-    <a href="#" aria-label="DOGAN ARCHITECTURE">
+
+    <!-- LOGO → ANA SAYFA -->
+
+    <a href="index.html"
+       class="logo-link"
+       aria-label="DOGAN ARCHITECTURE">
 
         <img
             src="images/logo.jpg"
@@ -595,467 +864,575 @@ footer {
     </a>
 
 
-    <nav class="menu">
+    <div class="header-right">
 
-        <a href="#projects">
+        <a href="#projects" class="header-link">
             PROJETS
         </a>
 
-        <a href="#about">
+        <a href="#contact" class="header-link">
             CONTACT
         </a>
 
-        <div
-            class="language"
-            onclick="changeLanguage()"
-        >
-            FR / EN
-        </div>
+        <span class="header-link">
+            FR
+        </span>
 
-    </nav>
+    </div>
 
 </header>
 
 
 
-<!-- =========================
+<!-- =====================================================
      HERO
-========================= -->
+===================================================== -->
 
 <section class="hero">
 
-    <div class="hero-image"></div>
+
+    <!-- VILLA OZDEMIR COVER -->
+
+    <img
+        src="images/villa-ozdemir/cover.jpg"
+        class="hero-image"
+        alt="Villa Ozdemir"
+    >
 
 
-    <div class="hero-bottom">
+    <div class="hero-content">
 
-        <div class="hero-name">
-            DOGAN ARCHITECTURE
+
+        <h1 class="office-name">
+            DOGAN<br>
+            ARCHITECTURE
+        </h1>
+
+
+        <div class="hero-meta">
+            ARCHITECTURE · DESIGN · CONSTRUCTION
         </div>
 
+
     </div>
+
+
+    <div class="scroll-indicator">
+        SCROLL
+    </div>
+
 
 </section>
 
 
 
-<!-- =========================
-     PROJECTS
-========================= -->
+<!-- =====================================================
+     PROJECTS INTRO
+===================================================== -->
 
-<section
-    class="projects"
-    id="projects"
+<section class="projects-intro" id="projects">
+
+
+    <div class="projects-label">
+        07 PROJECTS
+    </div>
+
+
+    <div class="projects-description">
+
+        Une sélection de projets d'architecture,
+        de bureaux, de bâtiments industriels
+        et de maisons individuelles.
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     01 — BUREAU ZAFER
+===================================================== -->
+
+<section class="project reveal">
+
+<a
+    href="projects/bureau-zafer.html"
+    class="project-link"
+>
+
+<img
+    src="images/bureau-zafer/cover.jpg"
+    class="project-image"
+    alt="Bureau Zafer"
 >
 
 
-<!-- 01 BUREAU ZAFER -->
+<div class="project-info">
 
-<article class="project">
 
-    <div
-        class="project-image"
-        style="
-        background-image:
-        url('images/bureau-zafer/cover.jpg');
-        "
-    ></div>
+<div>
 
-    <div class="project-overlay"></div>
+<div class="project-number">
+01 / 07
+</div>
 
+<h2 class="project-title">
+BUREAU<br>
+ZAFER
+</h2>
 
-    <div class="project-content">
+</div>
 
-        <div class="project-left">
 
-            <div class="project-number">
-                01
-            </div>
+<div class="project-details">
 
-            <h2 class="project-title">
-                BUREAU<br>ZAFER
-            </h2>
+STE GENEVIEVE DES BOIS<br>
+2023<br>
+BUREAUX<br>
+670 m²
 
-        </div>
+</div>
 
 
-        <div class="project-details">
-            FRANCE<br>
-            OFFICE
-        </div>
+</div>
 
-    </div>
-
-</article>
-
-
-
-<!-- 02 UKS TRANSPORT -->
-
-<article class="project">
-
-    <div
-        class="project-image"
-        style="
-        background-image:
-        url('images/uks-transport/cover.jpg');
-        "
-    ></div>
-
-    <div class="project-overlay"></div>
-
-
-    <div class="project-content">
-
-        <div class="project-left">
-
-            <div class="project-number">
-                02
-            </div>
-
-            <h2 class="project-title">
-                UKS<br>TRANSPORT
-            </h2>
-
-        </div>
-
-
-        <div class="project-details">
-            FRANCE<br>
-            INDUSTRIAL
-        </div>
-
-    </div>
-
-</article>
-
-
-
-<!-- 03 MGC CONSTRUCTION -->
-
-<article class="project">
-
-    <div
-        class="project-image"
-        style="
-        background-image:
-        url('images/mgc-construction/cover.jpg');
-        "
-    ></div>
-
-    <div class="project-overlay"></div>
-
-
-    <div class="project-content">
-
-        <div class="project-left">
-
-            <div class="project-number">
-                03
-            </div>
-
-            <h2 class="project-title">
-                MGC<br>CONSTRUCTION
-            </h2>
-
-        </div>
-
-
-        <div class="project-details">
-            FRANCE<br>
-            CONSTRUCTION
-        </div>
-
-    </div>
-
-</article>
-
-
-
-<!-- 04 MK CONSTRUCTION -->
-
-<article class="project">
-
-    <div
-        class="project-image"
-        style="
-        background-image:
-        url('images/mk-construction/cover.jpg');
-        "
-    ></div>
-
-    <div class="project-overlay"></div>
-
-
-    <div class="project-content">
-
-        <div class="project-left">
-
-            <div class="project-number">
-                04
-            </div>
-
-            <h2 class="project-title">
-                MK<br>CONSTRUCTION
-            </h2>
-
-        </div>
-
-
-        <div class="project-details">
-            FRANCE<br>
-            CONSTRUCTION
-        </div>
-
-    </div>
-
-</article>
-
-
-
-<!-- 05 VILLA GOK -->
-
-<article class="project">
-
-    <div
-        class="project-image"
-        style="
-        background-image:
-        url('images/villa-gok/cover.jpg');
-        "
-    ></div>
-
-    <div class="project-overlay"></div>
-
-
-    <div class="project-content">
-
-        <div class="project-left">
-
-            <div class="project-number">
-                05
-            </div>
-
-            <h2 class="project-title">
-                VILLA<br>GOK
-            </h2>
-
-        </div>
-
-
-        <div class="project-details">
-            FRANCE<br>
-            RESIDENTIAL
-        </div>
-
-    </div>
-
-</article>
-
-
-
-<!-- 06 VILLA OZDEMIR -->
-
-<article class="project">
-
-    <div
-        class="project-image"
-        style="
-        background-image:
-        url('images/villa-ozdemir/cover.jpg');
-        "
-    ></div>
-
-    <div class="project-overlay"></div>
-
-
-    <div class="project-content">
-
-        <div class="project-left">
-
-            <div class="project-number">
-                06
-            </div>
-
-            <h2 class="project-title">
-                VILLA<br>OZDEMIR
-            </h2>
-
-        </div>
-
-
-        <div class="project-details">
-            ESBLY — FRANCE<br>
-            RESIDENTIAL
-        </div>
-
-    </div>
-
-</article>
-
-
-
-<!-- 07 VILLA DOGAN -->
-
-<article class="project">
-
-    <div
-        class="project-image"
-        style="
-        background-image:
-        url('images/villa-dogan/cover.jpg');
-        "
-    ></div>
-
-    <div class="project-overlay"></div>
-
-
-    <div class="project-content">
-
-        <div class="project-left">
-
-            <div class="project-number">
-                07
-            </div>
-
-            <h2 class="project-title">
-                VILLA<br>DOGAN
-            </h2>
-
-        </div>
-
-
-        <div class="project-details">
-            FRANCE<br>
-            RESIDENTIAL
-        </div>
-
-    </div>
-
-</article>
-
+</a>
 
 </section>
 
 
 
-<!-- =========================
+<!-- =====================================================
+     02 — UKS TRANSPORT
+===================================================== -->
+
+<section class="project reveal">
+
+<a
+    href="projects/uks-transport.html"
+    class="project-link"
+>
+
+<img
+    src="images/uks-transport/cover.jpg"
+    class="project-image"
+    alt="UKS Transport"
+>
+
+
+<div class="project-info">
+
+
+<div>
+
+<div class="project-number">
+02 / 07
+</div>
+
+<h2 class="project-title">
+UKS<br>
+TRANSPORT
+</h2>
+
+</div>
+
+
+<div class="project-details">
+
+MITRY-MORY<br>
+2025<br>
+BUREAUX<br>
+1500 m²
+
+</div>
+
+
+</div>
+
+</a>
+
+</section>
+
+
+
+<!-- =====================================================
+     03 — MGC CONSTRUCTION
+===================================================== -->
+
+<section class="project reveal">
+
+<a
+    href="projects/mgc-construction.html"
+    class="project-link"
+>
+
+<img
+    src="images/mgc-construction/cover.jpg"
+    class="project-image"
+    alt="MGC Construction"
+>
+
+
+<div class="project-info">
+
+
+<div>
+
+<div class="project-number">
+03 / 07
+</div>
+
+<h2 class="project-title">
+MGC<br>
+CONSTRUCTION
+</h2>
+
+</div>
+
+
+<div class="project-details">
+
+BREUIL-LE-SEC<br>
+2025<br>
+ENTREPÔT<br>
+4527 m²
+
+</div>
+
+
+</div>
+
+</a>
+
+</section>
+
+
+
+<!-- =====================================================
+     04 — MK CONSTRUCTION
+===================================================== -->
+
+<section class="project reveal">
+
+<a
+    href="projects/mk-construction.html"
+    class="project-link"
+>
+
+<img
+    src="images/mk-construction/cover.jpg"
+    class="project-image"
+    alt="MK Construction"
+>
+
+
+<div class="project-info">
+
+
+<div>
+
+<div class="project-number">
+04 / 07
+</div>
+
+<h2 class="project-title">
+MK<br>
+CONSTRUCTION
+</h2>
+
+</div>
+
+
+<div class="project-details">
+
+SACY-LE-GRAND<br>
+2024<br>
+BUREAU ET ENTREPÔT<br>
+2512 m²
+
+</div>
+
+
+</div>
+
+</a>
+
+</section>
+
+
+
+<!-- =====================================================
+     05 — VILLA GOK
+===================================================== -->
+
+<section class="project reveal">
+
+<a
+    href="projects/villa-gok.html"
+    class="project-link"
+>
+
+<img
+    src="images/villa-gok/cover.jpg"
+    class="project-image"
+    alt="Villa Gok"
+>
+
+
+<div class="project-info">
+
+
+<div>
+
+<div class="project-number">
+05 / 07
+</div>
+
+<h2 class="project-title">
+VILLA<br>
+GOK
+</h2>
+
+</div>
+
+
+<div class="project-details">
+
+SAINT-GERMAIN-SUR-MORIN<br>
+2021<br>
+VILLA<br>
+2064 m²
+
+</div>
+
+
+</div>
+
+</a>
+
+</section>
+
+
+
+<!-- =====================================================
+     06 — VILLA OZDEMIR
+===================================================== -->
+
+<section class="project reveal">
+
+<a
+    href="projects/villa-ozdemir.html"
+    class="project-link"
+>
+
+<img
+    src="images/villa-ozdemir/cover.jpg"
+    class="project-image"
+    alt="Villa Ozdemir"
+>
+
+
+<div class="project-info">
+
+
+<div>
+
+<div class="project-number">
+06 / 07
+</div>
+
+<h2 class="project-title">
+VILLA<br>
+OZDEMIR
+</h2>
+
+</div>
+
+
+<div class="project-details">
+
+ESBLY<br>
+2023<br>
+VILLA<br>
+7329 m²
+
+</div>
+
+
+</div>
+
+</a>
+
+</section>
+
+
+
+<!-- =====================================================
+     07 — VILLA DOGAN
+===================================================== -->
+
+<section class="project reveal">
+
+<a
+    href="projects/villa-dogan.html"
+    class="project-link"
+>
+
+<img
+    src="images/villa-dogan/cover.jpg"
+    class="project-image"
+    alt="Villa Dogan"
+>
+
+
+<div class="project-info">
+
+
+<div>
+
+<div class="project-number">
+07 / 07
+</div>
+
+<h2 class="project-title">
+VILLA<br>
+DOGAN
+</h2>
+
+</div>
+
+
+<div class="project-details">
+
+SAINT-MICHEL-SUR-ORGE<br>
+2024<br>
+MAISON INDIVIDUELLE<br>
+732 m²
+
+</div>
+
+
+</div>
+
+</a>
+
+</section>
+
+
+
+<!-- =====================================================
      CONTACT
-========================= -->
+===================================================== -->
 
-<section
-    class="about"
-    id="about"
->
+<section class="contact" id="contact">
 
 
-    <div class="about-title">
+<div>
 
-        DOGAN<br>
-        ARCHITECTURE
-
-    </div>
-
-
-    <div class="about-right">
+<div class="contact-label">
+CONTACT
+</div>
 
 
-        <div class="about-text">
+<h2 class="contact-title">
+PARLONS<br>
+DE VOTRE<br>
+PROJET
+</h2>
 
-            <p>
-                DOGAN ARCHITECTURE est un studio
-                d'architecture travaillant sur des
-                projets résidentiels, commerciaux
-                et industriels.
-            </p>
-
-            <br>
-
-            <p>
-                Notre approche recherche une
-                architecture contemporaine,
-                fonctionnelle et liée à son contexte.
-            </p>
-
-        </div>
+</div>
 
 
-        <div class="contact-title">
-            CONTACT
-        </div>
+
+<div class="contact-info">
+
+<a href="tel:+330658036077">
++33 6 58 03 60 77
+</a>
+
+<br>
+
+60180 Nogent-sur-Oise
+<br>
+France
 
 
-        <div class="contact-info">
+<div class="contact-small">
 
-            <div>
-                Tél. : 06 58 03 60 77
-            </div>
+DOGAN ARCHITECTURE<br>
+Architecture · Design · Construction
 
-            <div>
-                60180 NOGENT-SUR-OISE
-            </div>
+</div>
 
-        </div>
+</div>
 
-
-    </div>
 
 </section>
 
 
 
-<!-- =========================
+<!-- =====================================================
      FOOTER
-========================= -->
+===================================================== -->
 
-<footer>
+<footer class="footer">
 
-    <div>
-        DOGAN ARCHITECTURE
-    </div>
+<div>
+© 2026 DOGAN ARCHITECTURE
+</div>
 
-    <div>
-        NOGENT-SUR-OISE — FRANCE
-    </div>
-
-    <div>
-        © 2026
-    </div>
+<div>
+FRANCE
+</div>
 
 </footer>
 
 
 
+<!-- =====================================================
+     SCROLL ANIMATION
+===================================================== -->
+
 <script>
 
-let currentLanguage = "fr";
-
-function changeLanguage() {
-
-    currentLanguage =
-        currentLanguage === "fr"
-        ? "en"
-        : "fr";
+const reveals = document.querySelectorAll(".reveal");
 
 
-    const language =
-        document.querySelector(".language");
+const observer = new IntersectionObserver(
 
+(entries) => {
 
-    if (currentLanguage === "en") {
+entries.forEach((entry) => {
 
-        language.innerHTML = "EN / FR";
+if (entry.isIntersecting) {
 
-    } else {
-
-        language.innerHTML = "FR / EN";
-
-    }
+entry.target.classList.add("visible");
 
 }
+
+});
+
+},
+
+{
+    threshold: 0.12
+}
+
+);
+
+
+reveals.forEach((element) => {
+
+observer.observe(element);
+
+});
+
 
 </script>
 
 
 </body>
+
 </html>
