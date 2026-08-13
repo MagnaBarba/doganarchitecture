@@ -1,1 +1,304 @@
+<!DOCTYPE html>
+<html lang="fr">
 
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VILLA GOK — DOGAN ARCHITECTURE</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #111;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    padding: 0 45px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.logo {
+    width: 85px;
+}
+
+.logo img {
+    width: 100%;
+    display: block;
+}
+
+.back {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.hero {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: zoom 12s ease-out forwards;
+}
+
+@keyframes zoom {
+    from { transform: scale(1.08); }
+    to { transform: scale(1); }
+}
+
+.hero-info {
+    position: absolute;
+    bottom: 45px;
+    left: 45px;
+    right: 45px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.title {
+    font-size: clamp(55px, 9vw, 140px);
+    line-height: .85;
+    letter-spacing: -5px;
+    font-weight: 500;
+}
+
+.number {
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.details {
+    text-align: right;
+    font-size: 11px;
+    line-height: 1.8;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.intro {
+    min-height: 70vh;
+    padding: 150px 45px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+}
+
+.intro-title {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.description {
+    max-width: 650px;
+    font-size: 23px;
+    line-height: 1.4;
+    font-weight: 300;
+}
+
+.gallery {
+    width: 100%;
+}
+
+.gallery img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 2px;
+    transition: transform .8s ease;
+}
+
+.gallery img:hover {
+    transform: scale(1.01);
+}
+
+.next {
+    min-height: 50vh;
+    padding: 100px 45px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #333;
+}
+
+.next-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+.next-title {
+    font-size: clamp(45px, 7vw, 110px);
+    letter-spacing: -4px;
+}
+
+@media(max-width:700px) {
+
+    header {
+        height: 70px;
+        padding: 0 20px;
+    }
+
+    .logo {
+        width: 55px;
+    }
+
+    .hero-info {
+        left: 20px;
+        right: 20px;
+        bottom: 35px;
+        display: block;
+    }
+
+    .title {
+        font-size: 15vw;
+        margin-bottom: 25px;
+    }
+
+    .details {
+        text-align: left;
+    }
+
+    .intro {
+        display: block;
+        padding: 90px 20px;
+    }
+
+    .intro-title {
+        margin-bottom: 50px;
+    }
+
+    .description {
+        font-size: 18px;
+    }
+
+    .next {
+        padding: 70px 20px;
+        display: block;
+    }
+
+    .next-title {
+        margin-top: 30px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<a href="../index.html" class="logo">
+<img src="../images/logo.jpg" alt="DOGAN ARCHITECTURE">
+</a>
+
+<a href="../index.html" class="back">
+← PROJETS
+</a>
+
+</header>
+
+<section class="hero">
+
+<img src="../images/villa-gok/cover.jpg" alt="Villa Gok">
+
+<div class="hero-info">
+
+<div>
+
+<div class="number">
+05 / 07
+</div>
+
+<h1 class="title">
+VILLA<br>GOK
+</h1>
+
+</div>
+
+<div class="details">
+SAINT-GERMAIN-SUR-MORIN<br>
+2021<br>
+VILLA<br>
+2064 m²
+</div>
+
+</div>
+
+</section>
+
+<section class="intro">
+
+<div class="intro-title">
+PROJECT
+</div>
+
+<div class="description">
+
+Villa Gok est un projet résidentiel situé
+à Saint-Germain-sur-Morin.
+
+Le projet développe une villa contemporaine
+pensée autour de ses espaces de vie,
+de ses vues et de son environnement.
+
+</div>
+
+</section>
+
+<section class="gallery">
+
+<img src="../images/villa-gok/01.jpg" alt="Villa Gok 01">
+<img src="../images/villa-gok/02.jpg" alt="Villa Gok 02">
+<img src="../images/villa-gok/03.jpg" alt="Villa Gok 03">
+<img src="../images/villa-gok/04.jpg" alt="Villa Gok 04">
+
+</section>
+
+<a href="villa-ozdemir.html" class="next">
+
+<div class="next-label">
+NEXT PROJECT
+</div>
+
+<div class="next-title">
+VILLA OZDEMIR →
+</div>
+
+</a>
+
+</body>
+</html>
