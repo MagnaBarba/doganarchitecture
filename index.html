@@ -20,7 +20,7 @@ html {
 body {
     font-family: Arial, Helvetica, sans-serif;
     background: #111;
-    color: #fff;
+    color: white;
 }
 
 a {
@@ -48,11 +48,15 @@ header {
     mix-blend-mode: difference;
 }
 
-.logo {
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: 2px;
+/* LOGO */
+
+.logo-image {
+    width: 65px;
+    height: auto;
+    display: block;
 }
+
+/* MENU */
 
 .menu {
     display: flex;
@@ -60,8 +64,9 @@ header {
     gap: 35px;
 }
 
-.menu a {
-    font-size: 12px;
+.menu a,
+.language {
+    font-size: 11px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
 }
@@ -76,13 +81,13 @@ header {
 
 .hero {
     height: 100vh;
-    min-height: 700px;
+    min-height: 650px;
+
     position: relative;
+    overflow: hidden;
 
     display: flex;
     align-items: flex-end;
-
-    overflow: hidden;
 }
 
 .hero-image {
@@ -104,6 +109,7 @@ header {
 }
 
 @keyframes heroZoom {
+
     from {
         transform: scale(1.08);
     }
@@ -111,61 +117,70 @@ header {
     to {
         transform: scale(1);
     }
+
 }
 
-.hero-content {
+/* HERO BOTTOM */
+
+.hero-bottom {
     position: relative;
     z-index: 2;
 
     width: 100%;
-    padding: 0 45px 55px;
+
+    padding: 0 45px 45px;
 
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-
-    animation: heroText 1.2s ease-out forwards;
 }
 
-@keyframes heroText {
+.hero-name {
+    font-size: 17px;
+    letter-spacing: 2px;
+    font-weight: 500;
+
+    text-transform: uppercase;
+
+    animation: fadeUp 1.2s ease-out;
+}
+
+.hero-counter {
+    font-size: 11px;
+    letter-spacing: 2px;
+    opacity: 0.8;
+}
+
+@keyframes fadeUp {
+
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(25px);
     }
 
     to {
         opacity: 1;
         transform: translateY(0);
     }
+
 }
 
-.hero-title {
-    font-size: clamp(55px, 9vw, 150px);
-    line-height: 0.85;
-    font-weight: 500;
-    letter-spacing: -5px;
-}
-
-.hero-info {
-    text-align: right;
-    font-size: 12px;
-    line-height: 1.7;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
+/* SCROLL */
 
 .scroll {
     position: absolute;
-    bottom: 28px;
+
+    bottom: 25px;
     left: 50%;
 
     transform: translateX(-50%);
 
-    font-size: 10px;
+    font-size: 9px;
     letter-spacing: 2px;
-    text-transform: uppercase;
 
     z-index: 5;
+
+    opacity: 0.8;
 }
 
 /* =========================
@@ -178,8 +193,9 @@ header {
 
 .project {
     position: relative;
+
     height: 100vh;
-    min-height: 700px;
+    min-height: 650px;
 
     overflow: hidden;
 
@@ -194,11 +210,12 @@ header {
     background-size: cover;
     background-position: center;
 
-    transition: transform 1.2s cubic-bezier(.2,.7,.2,1);
+    transition:
+        transform 1.2s cubic-bezier(.2,.7,.2,1);
 }
 
 .project:hover .project-image {
-    transform: scale(1.04);
+    transform: scale(1.045);
 }
 
 .project-overlay {
@@ -208,71 +225,123 @@ header {
     background:
         linear-gradient(
             to bottom,
-            rgba(0,0,0,0.02),
+            rgba(0,0,0,0.05),
             rgba(0,0,0,0.5)
         );
 }
 
 .project-content {
     position: relative;
+
     z-index: 2;
 
     width: 100%;
-    padding: 0 45px 55px;
+
+    padding: 0 45px 45px;
 
     display: flex;
+
     justify-content: space-between;
+
     align-items: flex-end;
 }
 
+.project-left {
+    display: flex;
+    align-items: flex-end;
+    gap: 25px;
+}
+
 .project-number {
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 2px;
-    margin-bottom: 15px;
+
+    margin-bottom: 9px;
 }
 
 .project-title {
     font-size: clamp(50px, 8vw, 125px);
-    line-height: 0.85;
+
+    line-height: 0.86;
+
     font-weight: 500;
+
     letter-spacing: -4px;
+
+    text-transform: uppercase;
 }
 
 .project-details {
     text-align: right;
-    font-size: 11px;
+
+    font-size: 10px;
+
     line-height: 1.8;
-    letter-spacing: 1px;
+
+    letter-spacing: 1.5px;
+
     text-transform: uppercase;
 }
 
 /* =========================
-   ABOUT
+   ABOUT / CONTACT
 ========================= */
 
 .about {
     min-height: 80vh;
-    padding: 140px 45px;
+
+    padding: 130px 45px;
 
     background: #111;
 
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     gap: 80px;
 }
 
 .about-title {
     font-size: clamp(50px, 7vw, 110px);
+
     line-height: .9;
+
     font-weight: 500;
+
     letter-spacing: -4px;
 }
 
-.about-text {
+.about-right {
     max-width: 600px;
+}
 
+.about-text {
     font-size: 18px;
+
     line-height: 1.5;
+
+    font-weight: 300;
+
+    margin-bottom: 70px;
+}
+
+/* CONTACT */
+
+.contact-title {
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 20px;
+}
+
+.contact-info {
+    font-size: 18px;
+
+    line-height: 1.7;
+
     font-weight: 300;
 }
 
@@ -281,15 +350,18 @@ header {
 ========================= */
 
 footer {
-    padding: 50px 45px;
+    padding: 45px;
 
     border-top: 1px solid #333;
 
     display: flex;
+
     justify-content: space-between;
 
-    font-size: 11px;
-    letter-spacing: 1px;
+    font-size: 10px;
+
+    letter-spacing: 1.5px;
+
     text-transform: uppercase;
 }
 
@@ -300,8 +372,13 @@ footer {
 @media (max-width: 700px) {
 
     header {
-        height: 75px;
+        height: 70px;
+
         padding: 0 20px;
+    }
+
+    .logo-image {
+        width: 50px;
     }
 
     .menu {
@@ -309,53 +386,88 @@ footer {
     }
 
     .menu a {
-        font-size: 10px;
+        font-size: 9px;
     }
 
-    .hero-content,
-    .project-content {
-        padding: 0 20px 45px;
-        display: block;
+    .language {
+        font-size: 9px;
     }
 
-    .hero-title,
-    .project-title {
-        font-size: 17vw;
-        letter-spacing: -2px;
-        margin-bottom: 25px;
+    .hero-bottom {
+        padding: 0 20px 40px;
     }
 
-    .hero-info,
-    .project-details {
-        text-align: left;
+    .hero-name {
+        font-size: 13px;
     }
 
     .project {
         min-height: 600px;
     }
 
+    .project-content {
+        padding: 0 20px 40px;
+
+        display: block;
+    }
+
+    .project-left {
+        display: block;
+    }
+
+    .project-number {
+        margin-bottom: 15px;
+    }
+
+    .project-title {
+        font-size: 15vw;
+
+        letter-spacing: -2px;
+
+        margin-bottom: 25px;
+    }
+
+    .project-details {
+        text-align: left;
+    }
+
     .about {
         padding: 90px 20px;
+
         display: block;
     }
 
     .about-title {
-        margin-bottom: 50px;
+        margin-bottom: 60px;
+    }
+
+    .about-text {
+        font-size: 16px;
+
+        margin-bottom: 60px;
+    }
+
+    .contact-info {
+        font-size: 16px;
     }
 
     footer {
-        padding: 35px 20px;
+        padding: 30px 20px;
+
         display: block;
     }
 
     footer div {
         margin-bottom: 10px;
     }
+
 }
 </style>
 </head>
 
+
 <body>
+
 
 <!-- =========================
      HEADER
@@ -363,25 +475,38 @@ footer {
 
 <header>
 
-    <div class="logo">
-        DOGAN ARCHITECTURE
-    </div>
+    <a href="#" aria-label="DOGAN ARCHITECTURE">
+
+        <img
+            src="images/logo.jpg"
+            class="logo-image"
+            alt="DOGAN ARCHITECTURE"
+        >
+
+    </a>
+
 
     <nav class="menu">
-        <a href="#projects" data-fr="PROJETS" data-en="PROJECTS">
+
+        <a href="#projects">
             PROJETS
         </a>
 
-        <a href="#about" data-fr="À PROPOS" data-en="ABOUT">
-            À PROPOS
+        <a href="#about">
+            CONTACT
         </a>
 
-        <div class="language" onclick="changeLanguage()">
+        <div
+            class="language"
+            onclick="changeLanguage()"
+        >
             FR / EN
         </div>
+
     </nav>
 
 </header>
+
 
 
 <!-- =========================
@@ -392,330 +517,391 @@ footer {
 
     <div class="hero-image"></div>
 
-    <div class="hero-content">
 
-        <div>
+    <div class="hero-bottom">
 
-            <div class="project-number">
-                01 / 07
-            </div>
-
-            <h1 class="hero-title">
-                VILLA<br>OZDEMIR
-            </h1>
-
+        <div class="hero-name">
+            DOGAN ARCHITECTURE
         </div>
 
-        <div class="hero-info">
-
-            <div>ESBLY — FRANCE</div>
-            <div>2023</div>
-            <div>RESIDENTIAL</div>
-
+        <div class="hero-counter">
+            SCROLL
         </div>
 
     </div>
 
+
     <div class="scroll">
-        SCROLL ↓
+        ↓
     </div>
 
 </section>
+
 
 
 <!-- =========================
      PROJECTS
 ========================= -->
 
-<section class="projects" id="projects">
+<section
+    class="projects"
+    id="projects"
+>
 
 
-    <!-- PROJECT 01 -->
+<!-- 01 BUREAU ZAFER -->
 
-    <article class="project">
+<article class="project">
 
-        <div
-            class="project-image"
-            style="background-image: url('images/villa-ozdemir/cover.jpg');">
-        </div>
+    <div
+        class="project-image"
+        style="
+        background-image:
+        url('images/bureau-zafer/cover.jpg');
+        "
+    ></div>
 
-        <div class="project-overlay"></div>
+    <div class="project-overlay"></div>
 
-        <div class="project-content">
 
-            <div>
+    <div class="project-content">
 
-                <div class="project-number">
-                    01 / 07
-                </div>
+        <div class="project-left">
 
-                <h2 class="project-title">
-                    VILLA<br>OZDEMIR
-                </h2>
-
+            <div class="project-number">
+                01
             </div>
 
-            <div class="project-details">
-                ESBLY — FRANCE<br>
-                2023<br>
-                RESIDENTIAL
-            </div>
-
-        </div>
-
-    </article>
-
-
-    <!-- PROJECT 02 -->
-
-    <article class="project">
-
-        <div
-            class="project-image"
-            style="background-image: url('images/villa-gok/cover.jpg');">
-        </div>
-
-        <div class="project-overlay"></div>
-
-        <div class="project-content">
-
-            <div>
-
-                <div class="project-number">
-                    02 / 07
-                </div>
-
-                <h2 class="project-title">
-                    VILLA<br>GOK
-                </h2>
-
-            </div>
-
-            <div class="project-details">
-                FRANCE<br>
-                RESIDENTIAL
-            </div>
+            <h2 class="project-title">
+                BUREAU<br>ZAFER
+            </h2>
 
         </div>
 
-    </article>
 
-
-    <!-- PROJECT 03 -->
-
-    <article class="project">
-
-        <div
-            class="project-image"
-            style="background-image: url('images/mgc-construction/cover.jpg');">
+        <div class="project-details">
+            FRANCE<br>
+            OFFICE
         </div>
 
-        <div class="project-overlay"></div>
+    </div>
 
-        <div class="project-content">
+</article>
 
-            <div>
 
-                <div class="project-number">
-                    03 / 07
-                </div>
 
-                <h2 class="project-title">
-                    MGC<br>CONSTRUCTION
-                </h2>
+<!-- 02 UKS TRANSPORT -->
 
+<article class="project">
+
+    <div
+        class="project-image"
+        style="
+        background-image:
+        url('images/uks-transport/cover.jpg');
+        "
+    ></div>
+
+    <div class="project-overlay"></div>
+
+
+    <div class="project-content">
+
+        <div class="project-left">
+
+            <div class="project-number">
+                02
             </div>
 
-            <div class="project-details">
-                FRANCE<br>
-                CONSTRUCTION
-            </div>
-
-        </div>
-
-    </article>
-
-
-    <!-- PROJECT 04 -->
-
-    <article class="project">
-
-        <div
-            class="project-image"
-            style="background-image: url('images/uks-transport/cover.jpg');">
-        </div>
-
-        <div class="project-overlay"></div>
-
-        <div class="project-content">
-
-            <div>
-
-                <div class="project-number">
-                    04 / 07
-                </div>
-
-                <h2 class="project-title">
-                    UKS<br>TRANSPORT
-                </h2>
-
-            </div>
-
-            <div class="project-details">
-                FRANCE<br>
-                INDUSTRIAL
-            </div>
+            <h2 class="project-title">
+                UKS<br>TRANSPORT
+            </h2>
 
         </div>
 
-    </article>
 
-
-    <!-- PROJECT 05 -->
-
-    <article class="project">
-
-        <div
-            class="project-image"
-            style="background-image: url('images/mk-construction/cover.jpg');">
+        <div class="project-details">
+            FRANCE<br>
+            INDUSTRIAL
         </div>
 
-        <div class="project-overlay"></div>
+    </div>
 
-        <div class="project-content">
+</article>
 
-            <div>
 
-                <div class="project-number">
-                    05 / 07
-                </div>
 
-                <h2 class="project-title">
-                    MK<br>CONSTRUCTION
-                </h2>
+<!-- 03 MGC CONSTRUCTION -->
 
+<article class="project">
+
+    <div
+        class="project-image"
+        style="
+        background-image:
+        url('images/mgc-construction/cover.jpg');
+        "
+    ></div>
+
+    <div class="project-overlay"></div>
+
+
+    <div class="project-content">
+
+        <div class="project-left">
+
+            <div class="project-number">
+                03
             </div>
 
-            <div class="project-details">
-                FRANCE<br>
-                CONSTRUCTION
-            </div>
-
-        </div>
-
-    </article>
-
-
-    <!-- PROJECT 06 -->
-
-    <article class="project">
-
-        <div
-            class="project-image"
-            style="background-image: url('images/bureau-zafer/cover.jpg');">
-        </div>
-
-        <div class="project-overlay"></div>
-
-        <div class="project-content">
-
-            <div>
-
-                <div class="project-number">
-                    06 / 07
-                </div>
-
-                <h2 class="project-title">
-                    BUREAU<br>ZAFER
-                </h2>
-
-            </div>
-
-            <div class="project-details">
-                FRANCE<br>
-                OFFICE
-            </div>
+            <h2 class="project-title">
+                MGC<br>CONSTRUCTION
+            </h2>
 
         </div>
 
-    </article>
 
-
-    <!-- PROJECT 07 -->
-
-    <article class="project">
-
-        <div
-            class="project-image"
-            style="background-image: url('images/villa-dogan/cover.jpg');">
+        <div class="project-details">
+            FRANCE<br>
+            CONSTRUCTION
         </div>
 
-        <div class="project-overlay"></div>
+    </div>
 
-        <div class="project-content">
+</article>
 
-            <div>
 
-                <div class="project-number">
-                    07 / 07
-                </div>
 
-                <h2 class="project-title">
-                    VILLA<br>DOGAN
-                </h2>
+<!-- 04 MK CONSTRUCTION -->
 
+<article class="project">
+
+    <div
+        class="project-image"
+        style="
+        background-image:
+        url('images/mk-construction/cover.jpg');
+        "
+    ></div>
+
+    <div class="project-overlay"></div>
+
+
+    <div class="project-content">
+
+        <div class="project-left">
+
+            <div class="project-number">
+                04
             </div>
 
-            <div class="project-details">
-                FRANCE<br>
-                RESIDENTIAL
-            </div>
+            <h2 class="project-title">
+                MK<br>CONSTRUCTION
+            </h2>
 
         </div>
 
-    </article>
+
+        <div class="project-details">
+            FRANCE<br>
+            CONSTRUCTION
+        </div>
+
+    </div>
+
+</article>
+
+
+
+<!-- 05 VILLA GOK -->
+
+<article class="project">
+
+    <div
+        class="project-image"
+        style="
+        background-image:
+        url('images/villa-gok/cover.jpg');
+        "
+    ></div>
+
+    <div class="project-overlay"></div>
+
+
+    <div class="project-content">
+
+        <div class="project-left">
+
+            <div class="project-number">
+                05
+            </div>
+
+            <h2 class="project-title">
+                VILLA<br>GOK
+            </h2>
+
+        </div>
+
+
+        <div class="project-details">
+            FRANCE<br>
+            RESIDENTIAL
+        </div>
+
+    </div>
+
+</article>
+
+
+
+<!-- 06 VILLA OZDEMIR -->
+
+<article class="project">
+
+    <div
+        class="project-image"
+        style="
+        background-image:
+        url('images/villa-ozdemir/cover.jpg');
+        "
+    ></div>
+
+    <div class="project-overlay"></div>
+
+
+    <div class="project-content">
+
+        <div class="project-left">
+
+            <div class="project-number">
+                06
+            </div>
+
+            <h2 class="project-title">
+                VILLA<br>OZDEMIR
+            </h2>
+
+        </div>
+
+
+        <div class="project-details">
+            ESBLY — FRANCE<br>
+            RESIDENTIAL
+        </div>
+
+    </div>
+
+</article>
+
+
+
+<!-- 07 VILLA DOGAN -->
+
+<article class="project">
+
+    <div
+        class="project-image"
+        style="
+        background-image:
+        url('images/villa-dogan/cover.jpg');
+        "
+    ></div>
+
+    <div class="project-overlay"></div>
+
+
+    <div class="project-content">
+
+        <div class="project-left">
+
+            <div class="project-number">
+                07
+            </div>
+
+            <h2 class="project-title">
+                VILLA<br>DOGAN
+            </h2>
+
+        </div>
+
+
+        <div class="project-details">
+            FRANCE<br>
+            RESIDENTIAL
+        </div>
+
+    </div>
+
+</article>
+
 
 </section>
+
 
 
 <!-- =========================
-     ABOUT
+     CONTACT
 ========================= -->
 
-<section class="about" id="about">
+<section
+    class="about"
+    id="about"
+>
+
 
     <div class="about-title">
+
         DOGAN<br>
         ARCHITECTURE
+
     </div>
 
-    <div class="about-text">
 
-        <p data-fr="
-        DOGAN ARCHITECTURE est un studio d'architecture
-        travaillant sur des projets résidentiels,
-        commerciaux et industriels.
-        ">
-            DOGAN ARCHITECTURE est un studio d'architecture
-            travaillant sur des projets résidentiels,
-            commerciaux et industriels.
-        </p>
+    <div class="about-right">
 
-        <br>
 
-        <p data-fr="
-        Notre approche recherche une architecture
-        contemporaine, fonctionnelle et profondément
-        liée à son contexte.
-        ">
-            Notre approche recherche une architecture
-            contemporaine, fonctionnelle et profondément
-            liée à son contexte.
-        </p>
+        <div class="about-text">
+
+            <p>
+                DOGAN ARCHITECTURE est un studio
+                d'architecture travaillant sur des
+                projets résidentiels, commerciaux
+                et industriels.
+            </p>
+
+            <br>
+
+            <p>
+                Notre approche recherche une
+                architecture contemporaine,
+                fonctionnelle et liée à son contexte.
+            </p>
+
+        </div>
+
+
+        <div class="contact-title">
+            CONTACT
+        </div>
+
+
+        <div class="contact-info">
+
+            <div>
+                Tél. : 06 58 03 60 77
+            </div>
+
+            <div>
+                60180 NOGENT-SUR-OISE
+            </div>
+
+        </div>
+
 
     </div>
 
 </section>
+
 
 
 <!-- =========================
@@ -739,31 +925,37 @@ footer {
 </footer>
 
 
+
 <script>
 
 let currentLanguage = "fr";
 
 function changeLanguage() {
 
-    currentLanguage = currentLanguage === "fr" ? "en" : "fr";
+    currentLanguage =
+        currentLanguage === "fr"
+        ? "en"
+        : "fr";
 
-    document.querySelectorAll("[data-fr]").forEach(element => {
 
-        if (currentLanguage === "fr") {
+    const language =
+        document.querySelector(".language");
 
-            element.innerHTML = element.dataset.fr;
 
-        } else {
+    if (currentLanguage === "en") {
 
-            element.innerHTML = element.dataset.en || element.innerHTML;
+        language.innerHTML = "EN / FR";
 
-        }
+    } else {
 
-    });
+        language.innerHTML = "FR / EN";
+
+    }
 
 }
 
 </script>
+
 
 </body>
 </html>
