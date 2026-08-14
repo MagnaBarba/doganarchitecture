@@ -44,7 +44,6 @@ a{
 .opening{
 
     position:fixed;
-
     inset:0;
 
     background:#111111;
@@ -52,9 +51,7 @@ a{
     z-index:99999;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
 
     pointer-events:none;
@@ -68,7 +65,6 @@ a{
     position:absolute;
 
     width:0;
-
     height:1px;
 
     background:#fff;
@@ -84,7 +80,6 @@ a{
     z-index:2;
 
     width:120px;
-
     height:120px;
 
     object-fit:contain;
@@ -180,7 +175,6 @@ a{
 .logo-link{
 
     width:45px;
-
     height:45px;
 
     display:block;
@@ -208,7 +202,9 @@ a{
 
     display:block;
 
-    filter:none;
+    filter:invert(1);
+
+    mix-blend-mode:normal;
 }
 
 
@@ -225,7 +221,6 @@ a{
     gap:30px;
 
     pointer-events:auto;
-
 }
 
 .header-link{
@@ -250,8 +245,6 @@ a{
 }
 
 .header-link:hover{
-
-    background:transparent;
 
     transform:translateY(-2px);
 
@@ -297,19 +290,16 @@ a{
     font:inherit;
 
     opacity:.4;
-
 }
 
 .language button.active{
 
     opacity:1;
-
 }
 
 .language span{
 
     opacity:.35;
-
 }
 
 
@@ -387,7 +377,6 @@ a{
     z-index:10;
 
     left:40px;
-
     right:40px;
 
     bottom:42px;
@@ -505,7 +494,7 @@ a{
 
 
 /* =========================================================
-   PROJECT INTRO
+   PROJECTS INTRO
 ========================================================= */
 
 .projects-intro{
@@ -544,7 +533,6 @@ a{
     letter-spacing:-1.5px;
 
     font-weight:300;
-
 }
 
 
@@ -577,7 +565,7 @@ a{
 
 
 /* =========================================================
-   ALTERNATING PROJECT DIRECTIONS
+   ALTERNATING DIRECTIONS
 ========================================================= */
 
 .project:nth-of-type(even){
@@ -585,7 +573,6 @@ a{
     transform:
     translateX(-100px)
     scale(.97);
-
 }
 
 .project.visible{
@@ -691,7 +678,6 @@ a{
     z-index:5;
 
     left:40px;
-
     right:40px;
 
     bottom:35px;
@@ -814,7 +800,6 @@ a{
     grid-template-columns:1fr 1fr;
 
     gap:80px;
-
 }
 
 .contact-label{
@@ -822,7 +807,6 @@ a{
     font-size:10px;
 
     letter-spacing:2px;
-
 }
 
 .contact-title{
@@ -911,7 +895,6 @@ a{
     .logo-link{
 
         width:36px;
-
         height:36px;
     }
 
@@ -938,7 +921,6 @@ a{
     .hero-content{
 
         left:18px;
-
         right:18px;
 
         bottom:30px;
@@ -1011,7 +993,6 @@ a{
         transform:
         translateX(-70px)
         scale(.98);
-
     }
 
     .project.visible{
@@ -1031,7 +1012,6 @@ a{
     .project-info{
 
         left:18px;
-
         right:18px;
 
         bottom:22px;
@@ -1103,7 +1083,6 @@ a{
     .opening-logo{
 
         width:90px;
-
         height:90px;
     }
 
@@ -1116,7 +1095,7 @@ a{
 
 @media(prefers-reduced-motion:reduce){
 
-    * ,
+    *,
     *::before,
     *::after{
 
@@ -1148,7 +1127,7 @@ a{
     <div class="opening-line"></div>
 
     <img
-        src="images/logo.jpg"
+        src="images/logo.png"
         class="opening-logo"
         alt="DOGAN ARCHITECTURE">
 
@@ -1167,7 +1146,7 @@ a{
         aria-label="DOGAN ARCHITECTURE">
 
         <img
-            src="images/logo.jpg"
+            src="images/logo.png"
             class="logo-image"
             alt="DOGAN ARCHITECTURE">
 
@@ -1865,7 +1844,7 @@ projects.forEach(project => {
 
 
 /* =====================================================
-   PARALLAX
+   PROJECT PARALLAX
 ===================================================== */
 
 window.addEventListener(
@@ -1953,7 +1932,7 @@ window.addEventListener(
 
 
 /* =====================================================
-   OPENING — PREVENT SCROLL DURING INTRO
+   OPENING
 ===================================================== */
 
 document.body.style.overflow =
