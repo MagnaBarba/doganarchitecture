@@ -65,61 +65,56 @@ a{
 
     position:absolute;
 
-    left:0;
-    top:50%;
-
     width:0;
     height:1px;
 
     background:#fff;
 
-    transform:translateY(-50%);
-
     z-index:1;
 
     animation:
-    lineIn .45s .05s cubic-bezier(.16,1,.3,1) forwards;
-}
-
-
-.opening-logo-mask{
-
-    position:relative;
-
-    z-index:2;
-
-    width:130px;
-    height:130px;
-
-    border-radius:50%;
-
-    background:#111;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    opacity:0;
-
-    transform:scale(.9);
-
-    animation:
-    openingMaskIn .35s .25s forwards,
-    openingMaskOut .55s .65s cubic-bezier(.16,1,.3,1) forwards;
+    lineIn .45s .05s
+    cubic-bezier(.16,1,.3,1)
+    forwards;
 }
 
 
 .opening-logo{
 
-    width:100%;
-    height:100%;
+    position:relative;
+
+    z-index:2;
+
+    width:120px;
+    height:120px;
 
     object-fit:contain;
 
     display:block;
 
-    filter:invert(1);
+    /*
+       Yeni siyah PNG'yi beyaza çeviriyoruz.
+    */
+
+    filter:
+    brightness(0)
+    invert(1);
+
+    opacity:0;
+
+    /*
+       Çizgi logonun arkasında kalır.
+       Logo çevresinde açılış ekranının siyahı bulunur.
+    */
+
+    box-shadow:
+    0 0 0 8px #111;
+
+    animation:
+    openingLogoIn .35s .25s forwards,
+    openingLogoOut .55s .65s
+    cubic-bezier(.16,1,.3,1)
+    forwards;
 }
 
 
@@ -132,7 +127,12 @@ a{
 }
 
 
-@keyframes openingMaskIn{
+@keyframes openingLogoIn{
+
+    from{
+        opacity:0;
+        transform:scale(.75);
+    }
 
     to{
         opacity:1;
@@ -142,7 +142,7 @@ a{
 }
 
 
-@keyframes openingMaskOut{
+@keyframes openingLogoOut{
 
     to{
 
@@ -163,8 +163,10 @@ a{
 @keyframes openingOut{
 
     to{
+
         opacity:0;
         visibility:hidden;
+
     }
 
 }
@@ -182,7 +184,6 @@ a{
     left:0;
 
     width:100%;
-
     height:90px;
 
     padding:0 40px;
@@ -190,12 +191,28 @@ a{
     display:flex;
 
     align-items:center;
-
     justify-content:space-between;
 
     z-index:5000;
 
     pointer-events:none;
+
+    /*
+       KRİTİK:
+
+       Blend artık tek tek elemanlarda değil,
+       HEADER'IN TAMAMINDA.
+
+       Böylece header'ın tamamı arkasındaki
+       fotoğrafla karşılaştırılıyor.
+
+       Siyah/koyu arka plan -> beyaz
+       Beyaz/açık arka plan -> siyah
+    */
+
+    mix-blend-mode:difference;
+
+    color:#fff;
 }
 
 
@@ -212,14 +229,18 @@ a{
 
     pointer-events:auto;
 
+    position:relative;
+
     transition:
-    transform .5s cubic-bezier(.16,1,.3,1);
+    transform .5s
+    cubic-bezier(.16,1,.3,1);
 }
 
 
 .logo-link:hover{
 
     transform:scale(1.08);
+
 }
 
 
@@ -232,8 +253,17 @@ a{
 
     display:block;
 
-    transition:
-    filter .15s linear;
+    /*
+       PNG siyah olduğu için beyaza çeviriyoruz.
+
+       HEADER difference olduğu için:
+       koyu fotoğraf = beyaz
+       açık fotoğraf = siyah
+    */
+
+    filter:
+    brightness(0)
+    invert(1);
 }
 
 
@@ -255,11 +285,9 @@ a{
 
 .header-link{
 
-    color:#fff;
-
     background:transparent;
 
-    padding:8px 0;
+    padding:4px 0;
 
     font-size:10px;
 
@@ -267,17 +295,29 @@ a{
 
     text-transform:uppercase;
 
+    color:#fff;
+
+    /*
+       HEADER'ın difference sistemi
+       bunu otomatik olarak değiştirecek.
+    */
+
     transition:
-    color .15s linear,
     transform .3s ease;
 }
 
 
 .header-link:hover{
 
-    transform:translateY(-2px);
+    transform:
+    translateY(-2px);
+
 }
 
+
+/* =========================================================
+   LANGUAGE
+========================================================= */
 
 .language{
 
@@ -287,18 +327,15 @@ a{
 
     gap:5px;
 
-    color:#fff;
+    padding:4px 0;
 
     background:transparent;
 
-    padding:8px 0;
+    color:#fff;
 
     font-size:10px;
 
     letter-spacing:1px;
-
-    transition:
-    color .15s linear;
 }
 
 
@@ -308,7 +345,7 @@ a{
 
     background:none;
 
-    color:inherit;
+    color:#fff;
 
     cursor:pointer;
 
@@ -317,7 +354,6 @@ a{
     padding:0;
 
     opacity:.4;
-
 }
 
 
@@ -330,6 +366,7 @@ a{
 .language span{
 
     opacity:.35;
+
 }
 
 
@@ -411,7 +448,6 @@ a{
 
     left:40px;
     right:40px;
-
     bottom:42px;
 
     color:#fff;
@@ -462,13 +498,21 @@ a{
 @keyframes heroTextIn{
 
     from{
+
         opacity:0;
-        transform:translateY(70px);
+
+        transform:
+        translateY(70px);
+
     }
 
     to{
+
         opacity:1;
-        transform:translateY(0);
+
+        transform:
+        translateY(0);
+
     }
 
 }
@@ -477,13 +521,21 @@ a{
 @keyframes heroMetaIn{
 
     from{
+
         opacity:0;
-        transform:translateY(20px);
+
+        transform:
+        translateY(20px);
+
     }
 
     to{
+
         opacity:1;
-        transform:translateY(0);
+
+        transform:
+        translateY(0);
+
     }
 
 }
@@ -500,7 +552,6 @@ a{
     z-index:10;
 
     right:40px;
-
     bottom:42px;
 
     color:#fff;
@@ -532,7 +583,7 @@ a{
 
 
 /* =========================================================
-   PROJECTS INTRO
+   PROJECT INTRO
 ========================================================= */
 
 .projects-intro{
@@ -595,20 +646,23 @@ a{
     opacity:0;
 
     transform:
-    translateX(110px)
-    scale(.97);
+    translateX(100px)
+    scale(.985);
 
     transition:
-    opacity .65s cubic-bezier(.16,1,.3,1),
-    transform .8s cubic-bezier(.16,1,.3,1);
+    opacity .65s
+    cubic-bezier(.16,1,.3,1),
+
+    transform .8s
+    cubic-bezier(.16,1,.3,1);
 }
 
 
-.project:nth-of-type(even){
+.project.from-left{
 
     transform:
-    translateX(-110px)
-    scale(.97);
+    translateX(-100px)
+    scale(.985);
 }
 
 
@@ -621,10 +675,6 @@ a{
     scale(1);
 }
 
-
-/* =========================================================
-   PROJECT LINK
-========================================================= */
 
 .project-link{
 
@@ -649,12 +699,14 @@ a{
     display:block;
 
     transform:
-    scale(1.08)
-    translateY(25px);
+    scale(1.05)
+    translateY(20px);
 
     transition:
-    transform 1.5s cubic-bezier(.16,1,.3,1),
-    filter 1s ease;
+    transform 1s
+    cubic-bezier(.16,1,.3,1),
+
+    filter .7s ease;
 }
 
 
@@ -688,7 +740,7 @@ a{
     opacity:.65;
 
     transition:
-    opacity .8s ease;
+    opacity .6s ease;
 }
 
 
@@ -701,7 +753,7 @@ a{
 .project-link:hover .project-image{
 
     transform:
-    scale(1.055);
+    scale(1.035);
 
     filter:
     brightness(.82);
@@ -720,7 +772,6 @@ a{
 
     left:40px;
     right:40px;
-
     bottom:35px;
 
     color:#fff;
@@ -745,17 +796,19 @@ a{
 
     opacity:0;
 
-    transform:translateY(15px);
+    transform:
+    translateY(15px);
 
     transition:
-    transform .55s .08s cubic-bezier(.16,1,.3,1),
-    opacity .55s .08s;
+    transform .7s .15s,
+    opacity .7s .15s;
 }
 
 
 .project.visible .project-number{
 
-    transform:translateY(0);
+    transform:
+    translateY(0);
 
     opacity:.7;
 }
@@ -774,19 +827,23 @@ a{
 
     text-transform:uppercase;
 
-    transform:translateY(35px);
+    transform:
+    translateY(40px);
 
     opacity:0;
 
     transition:
-    transform .65s .12s cubic-bezier(.16,1,.3,1),
-    opacity .65s .12s;
+    transform .8s .2s
+    cubic-bezier(.16,1,.3,1),
+
+    opacity .8s .2s;
 }
 
 
 .project.visible .project-title{
 
-    transform:translateY(0);
+    transform:
+    translateY(0);
 
     opacity:1;
 }
@@ -804,19 +861,21 @@ a{
 
     text-transform:uppercase;
 
-    transform:translateY(20px);
+    transform:
+    translateY(20px);
 
     opacity:0;
 
     transition:
-    transform .6s .18s cubic-bezier(.16,1,.3,1),
-    opacity .6s .18s;
+    transform .7s .3s,
+    opacity .7s .3s;
 }
 
 
 .project.visible .project-details{
 
-    transform:translateY(0);
+    transform:
+    translateY(0);
 
     opacity:1;
 }
@@ -955,14 +1014,14 @@ a{
 
     .header-right{
 
-        gap:16px;
+        gap:14px;
     }
 
 
     .header-link,
     .language{
 
-        padding:7px 0;
+        padding:4px 0;
 
         font-size:8px;
 
@@ -980,7 +1039,6 @@ a{
 
         left:18px;
         right:18px;
-
         bottom:30px;
     }
 
@@ -1044,20 +1102,16 @@ a{
         margin-bottom:5px;
 
         transform:
-        translateX(75px)
-        scale(.98);
-
-        transition:
-        opacity .55s cubic-bezier(.16,1,.3,1),
-        transform .65s cubic-bezier(.16,1,.3,1);
+        translateX(60px)
+        scale(.985);
     }
 
 
-    .project:nth-of-type(even){
+    .project.from-left{
 
         transform:
-        translateX(-75px)
-        scale(.98);
+        translateX(-60px)
+        scale(.985);
     }
 
 
@@ -1081,7 +1135,6 @@ a{
 
         left:18px;
         right:18px;
-
         bottom:22px;
 
         display:block;
@@ -1156,10 +1209,13 @@ a{
     }
 
 
-    .opening-logo-mask{
+    .opening-logo{
 
-        width:100px;
-        height:100px;
+        width:90px;
+        height:90px;
+
+        box-shadow:
+        0 0 0 6px #111;
     }
 
 }
@@ -1202,14 +1258,10 @@ a{
 
     <div class="opening-line"></div>
 
-    <div class="opening-logo-mask">
-
-        <img
-            src="images/logo.png"
-            class="opening-logo"
-            alt="DOGAN ARCHITECTURE">
-
-    </div>
+    <img
+        src="images/logo.png"
+        class="opening-logo"
+        alt="DOGAN ARCHITECTURE">
 
 </div>
 
@@ -1285,7 +1337,7 @@ a{
 
 <!-- =====================================================
      HERO
-========================================================= -->
+===================================================== -->
 
 <section class="hero">
 
@@ -1331,7 +1383,7 @@ a{
 
 <!-- =====================================================
      PROJECTS INTRO
-========================================================= -->
+===================================================== -->
 
 <section
     class="projects-intro"
@@ -1363,9 +1415,9 @@ a{
 
 <!-- =====================================================
      01 — BUREAU ZAFER
-========================================================= -->
+===================================================== -->
 
-<section class="project">
+<section class="project from-left">
 
 <a
     href="projects/bureau-zafer.html"
@@ -1414,7 +1466,7 @@ a{
 
 <!-- =====================================================
      02 — VILLA DOGAN
-========================================================= -->
+===================================================== -->
 
 <section class="project">
 
@@ -1465,9 +1517,9 @@ a{
 
 <!-- =====================================================
      03 — VILLA GOK
-========================================================= -->
+===================================================== -->
 
-<section class="project">
+<section class="project from-left">
 
 <a
     href="projects/villa-gok.html"
@@ -1516,7 +1568,7 @@ a{
 
 <!-- =====================================================
      04 — MGC CONSTRUCTION
-========================================================= -->
+===================================================== -->
 
 <section class="project">
 
@@ -1567,9 +1619,9 @@ a{
 
 <!-- =====================================================
      05 — UKS TRANSPORT
-========================================================= -->
+===================================================== -->
 
-<section class="project">
+<section class="project from-left">
 
 <a
     href="projects/uks-transport.html"
@@ -1618,7 +1670,7 @@ a{
 
 <!-- =====================================================
      06 — MK CONSTRUCTION
-========================================================= -->
+===================================================== -->
 
 <section class="project">
 
@@ -1669,9 +1721,9 @@ a{
 
 <!-- =====================================================
      07 — VILLA OZDEMIR
-========================================================= -->
+===================================================== -->
 
-<section class="project">
+<section class="project from-left">
 
 <a
     href="projects/villa-ozdemir.html"
@@ -1720,7 +1772,7 @@ a{
 
 <!-- =====================================================
      CONTACT
-========================================================= -->
+===================================================== -->
 
 <section
     class="contact"
@@ -1782,7 +1834,7 @@ a{
 
 <!-- =====================================================
      FOOTER
-========================================================= -->
+===================================================== -->
 
 <footer class="footer">
 
@@ -1796,6 +1848,10 @@ a{
 
 </footer>
 
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
 
 <script>
 
@@ -1813,7 +1869,7 @@ document.getElementById("enBtn");
 function changeLanguage(language){
 
     document.documentElement
-        .setAttribute("lang",language);
+        .setAttribute("lang", language);
 
 
     document
@@ -1831,11 +1887,15 @@ function changeLanguage(language){
     if(language === "fr"){
 
         frBtn.classList.add("active");
+
         enBtn.classList.remove("active");
 
-    }else{
+    }
+
+    else{
 
         enBtn.classList.add("active");
+
         frBtn.classList.remove("active");
 
     }
@@ -1877,7 +1937,29 @@ changeLanguage(
 ========================================================= */
 
 const projects =
-document.querySelectorAll(".project");
+document.querySelectorAll(
+    ".project"
+);
+
+
+/*
+   Çift / tek projeler sırayla
+   soldan ve sağdan geliyor.
+*/
+
+projects.forEach(
+    (project,index) => {
+
+        if(index % 2 === 0){
+
+            project.classList.add(
+                "from-left"
+            );
+
+        }
+
+    }
+);
 
 
 const projectObserver =
@@ -1889,9 +1971,9 @@ new IntersectionObserver(
 
             if(entry.isIntersecting){
 
-                entry.target
-                    .classList
-                    .add("visible");
+                entry.target.classList.add(
+                    "visible"
+                );
 
             }
 
@@ -1900,87 +1982,22 @@ new IntersectionObserver(
     },
 
     {
-        threshold:.08,
-        rootMargin:"0px 0px -5% 0px"
+        threshold:.12,
+
+        rootMargin:
+        "0px 0px -5% 0px"
     }
 
 );
 
 
-projects.forEach(project => {
+projects.forEach(
+    project => {
 
-    projectObserver.observe(project);
+        projectObserver.observe(
+            project
+        );
 
-});
-
-
-/* =========================================================
-   PROJECT PARALLAX
-========================================================= */
-
-let ticking = false;
-
-
-function updateProjectParallax(){
-
-    const images =
-    document.querySelectorAll(
-        ".project-image"
-    );
-
-
-    images.forEach(image => {
-
-        const project =
-        image.closest(".project");
-
-
-        if(!project) return;
-
-
-        const rect =
-        project.getBoundingClientRect();
-
-
-        const center =
-        window.innerHeight / 2;
-
-
-        const distance =
-        rect.top - center;
-
-
-        const movement =
-        distance * -0.035;
-
-
-        image.style.transform =
-            `scale(1.015)
-             translateY(${movement}px)`;
-
-    });
-
-
-    ticking = false;
-}
-
-
-window.addEventListener(
-    "scroll",
-    () => {
-
-        if(!ticking){
-
-            window.requestAnimationFrame(
-                updateProjectParallax
-            );
-
-            ticking = true;
-        }
-
-    },
-    {
-        passive:true
     }
 );
 
@@ -1990,7 +2007,9 @@ window.addEventListener(
 ========================================================= */
 
 window.addEventListener(
+
     "scroll",
+
     () => {
 
         const hero =
@@ -2006,7 +2025,10 @@ window.addEventListener(
         window.scrollY;
 
 
-        if(scroll < window.innerHeight){
+        if(
+            scroll <
+            window.innerHeight
+        ){
 
             hero.style.transform =
                 `scale(1.03)
@@ -2015,700 +2037,34 @@ window.addEventListener(
         }
 
     },
+
     {
         passive:true
     }
+
 );
 
 
 /* =========================================================
-   HEADER CONTRAST SYSTEM
-=========================================================
-
-   This is the important part.
-
-   Instead of relying on mix-blend-mode,
-   we calculate the actual image/background
-   behind the fixed header.
-
-   DARK background  -> WHITE
-   LIGHT background -> BLACK
-
-========================================================= */
-
-const header =
-document.querySelector(".header");
-
-const logo =
-document.querySelector(".logo-image");
-
-const headerLinks =
-document.querySelectorAll(".header-link");
-
-const language =
-document.querySelector(".language");
-
-const languageButtons =
-document.querySelectorAll(".language button");
-
-const languageSeparator =
-document.querySelector(".language span");
-
-
-function clamp(value,min,max){
-
-    return Math.max(
-        min,
-        Math.min(max,value)
-    );
-
-}
-
-
-/*
-   Get the pixel color from an image
-   at a given screen coordinate.
-*/
-
-function getImagePixel(
-    image,
-    screenX,
-    screenY
-){
-
-    if(
-        !image ||
-        !image.complete ||
-        !image.naturalWidth
-    ){
-
-        return null;
-    }
-
-
-    const rect =
-    image.getBoundingClientRect();
-
-
-    if(
-        screenX < rect.left ||
-        screenX > rect.right ||
-        screenY < rect.top ||
-        screenY > rect.bottom
-    ){
-
-        return null;
-    }
-
-
-    /*
-       Image uses object-fit:cover.
-       Calculate the actual visible image
-       coordinate.
-    */
-
-    const imageRatio =
-        image.naturalWidth /
-        image.naturalHeight;
-
-
-    const boxRatio =
-        rect.width /
-        rect.height;
-
-
-    let renderedWidth;
-    let renderedHeight;
-    let offsetX;
-    let offsetY;
-
-
-    if(imageRatio > boxRatio){
-
-        renderedHeight =
-            rect.height;
-
-        renderedWidth =
-            renderedHeight *
-            imageRatio;
-
-        offsetX =
-            (renderedWidth - rect.width) / 2;
-
-        offsetY = 0;
-
-    }else{
-
-        renderedWidth =
-            rect.width;
-
-        renderedHeight =
-            renderedWidth /
-            imageRatio;
-
-        offsetX = 0;
-
-        offsetY =
-            (renderedHeight - rect.height) / 2;
-
-    }
-
-
-    const localX =
-        screenX -
-        rect.left +
-        offsetX;
-
-
-    const localY =
-        screenY -
-        rect.top +
-        offsetY;
-
-
-    const pixelX =
-        clamp(
-            Math.floor(
-                localX *
-                image.naturalWidth /
-                renderedWidth
-            ),
-            0,
-            image.naturalWidth - 1
-        );
-
-
-    const pixelY =
-        clamp(
-            Math.floor(
-                localY *
-                image.naturalHeight /
-                renderedHeight
-            ),
-            0,
-            image.naturalHeight - 1
-        );
-
-
-    /*
-       Canvas is required to read the image pixel.
-       If the browser blocks canvas access,
-       we simply return null.
-    */
-
-    try{
-
-        const canvas =
-        getImageCanvas(image);
-
-
-        const ctx =
-        canvas.getContext(
-            "2d",
-            {
-                willReadFrequently:true
-            }
-        );
-
-
-        const pixel =
-        ctx.getImageData(
-            pixelX,
-            pixelY,
-            1,
-            1
-        ).data;
-
-
-        return {
-            r:pixel[0],
-            g:pixel[1],
-            b:pixel[2]
-        };
-
-    }catch(error){
-
-        return null;
-    }
-
-}
-
-
-const imageCanvasCache =
-new WeakMap();
-
-
-function getImageCanvas(image){
-
-    if(
-        imageCanvasCache.has(image)
-    ){
-
-        return imageCanvasCache.get(image);
-    }
-
-
-    const canvas =
-    document.createElement("canvas");
-
-
-    /*
-       We do not need the full resolution.
-       A small canvas is enough to read colors.
-    */
-
-    const width =
-    Math.min(
-        image.naturalWidth,
-        800
-    );
-
-
-    const height =
-    Math.max(
-        1,
-        Math.round(
-            width *
-            image.naturalHeight /
-            image.naturalWidth
-        )
-    );
-
-
-    canvas.width = width;
-    canvas.height = height;
-
-
-    const ctx =
-    canvas.getContext(
-        "2d",
-        {
-            willReadFrequently:true
-        }
-    );
-
-
-    try{
-
-        ctx.drawImage(
-            image,
-            0,
-            0,
-            width,
-            height
-        );
-
-    }catch(error){
-
-        return canvas;
-    }
-
-
-    imageCanvasCache.set(
-        image,
-        canvas
-    );
-
-
-    return canvas;
-}
-
-
-/*
-   Calculate perceived brightness.
-
-   Human eye is more sensitive to green,
-   so use a weighted luminance formula.
-*/
-
-function getBrightness(pixel){
-
-    if(!pixel) return null;
-
-
-    return (
-        pixel.r * .299 +
-        pixel.g * .587 +
-        pixel.b * .114
-    );
-}
-
-
-/*
-   Sample several pixels around the logo/menu.
-   This prevents one tiny bright/dark detail
-   from making the whole header change color.
-*/
-
-function getAverageBrightness(
-    x,
-    y,
-    radius
-){
-
-    const images =
-    document.querySelectorAll(
-        ".hero-image, .project-image"
-    );
-
-
-    let values = [];
-
-
-    images.forEach(image => {
-
-        const rect =
-        image.getBoundingClientRect();
-
-
-        if(
-            x >= rect.left &&
-            x <= rect.right &&
-            y >= rect.top &&
-            y <= rect.bottom
-        ){
-
-            const points = [
-
-                [x,y],
-
-                [x-radius,y],
-
-                [x+radius,y],
-
-                [x,y-radius],
-
-                [x,y+radius],
-
-                [x-radius,y-radius],
-
-                [x+radius,y-radius],
-
-                [x-radius,y+radius],
-
-                [x+radius,y+radius]
-
-            ];
-
-
-            points.forEach(point => {
-
-                const pixel =
-                getImagePixel(
-                    image,
-                    point[0],
-                    point[1]
-                );
-
-
-                const brightness =
-                getBrightness(pixel);
-
-
-                if(brightness !== null){
-
-                    values.push(
-                        brightness
-                    );
-
-                }
-
-            });
-
-        }
-
-    });
-
-
-    /*
-       If no image exists behind this point,
-       inspect the actual page background.
-    */
-
-    if(values.length === 0){
-
-        return 17;
-    }
-
-
-    return values.reduce(
-        (a,b) => a+b,
-        0
-    ) / values.length;
-}
-
-
-/*
-   Determine the color behind each header element.
-
-   Logo gets sampled from its center.
-
-   Menu items get sampled individually.
-*/
-
-function updateHeaderContrast(){
-
-    if(!header) return;
-
-
-    /*
-       LOGO
-    */
-
-    const logoRect =
-    logo.getBoundingClientRect();
-
-
-    const logoBrightness =
-    getAverageBrightness(
-        logoRect.left +
-        logoRect.width / 2,
-
-        logoRect.top +
-        logoRect.height / 2,
-
-        Math.max(
-            8,
-            logoRect.width * .22
-        )
-    );
-
-
-    /*
-       Lower threshold means the background
-       must be quite dark before switching white.
-    */
-
-    const logoDark =
-        logoBrightness < 125;
-
-
-    /*
-       IMPORTANT:
-       PNG is black.
-
-       For white:
-       invert(1)
-
-       For black:
-       invert(0)
-    */
-
-    logo.style.filter =
-        logoDark
-        ? "invert(1)"
-        : "invert(0)";
-
-
-    /*
-       MENU ITEMS
-    */
-
-    headerLinks.forEach(link => {
-
-        const rect =
-        link.getBoundingClientRect();
-
-
-        const brightness =
-        getAverageBrightness(
-            rect.left +
-            rect.width / 2,
-
-            rect.top +
-            rect.height / 2,
-
-            12
-        );
-
-
-        const dark =
-        brightness < 125;
-
-
-        link.style.color =
-            dark
-            ? "#fff"
-            : "#000";
-
-    });
-
-
-    /*
-       LANGUAGE
-    */
-
-    const langRect =
-    language.getBoundingClientRect();
-
-
-    const languageBrightness =
-    getAverageBrightness(
-        langRect.left +
-        langRect.width / 2,
-
-        langRect.top +
-        langRect.height / 2,
-
-        12
-    );
-
-
-    const languageDark =
-    languageBrightness < 125;
-
-
-    language.style.color =
-        languageDark
-        ? "#fff"
-        : "#000";
-
-
-    languageButtons.forEach(button => {
-
-        button.style.color =
-            languageDark
-            ? "#fff"
-            : "#000";
-
-    });
-
-
-    languageSeparator.style.color =
-        languageDark
-        ? "#fff"
-        : "#000";
-}
-
-
-/* =========================================================
-   HEADER CONTRAST LOOP
-========================================================= */
-
-let headerContrastTicking =
-false;
-
-
-function requestHeaderContrast(){
-
-    if(headerContrastTicking){
-
-        return;
-    }
-
-
-    headerContrastTicking =
-    true;
-
-
-    requestAnimationFrame(() => {
-
-        updateHeaderContrast();
-
-        headerContrastTicking =
-        false;
-
-    });
-
-}
-
-
-window.addEventListener(
-    "scroll",
-    requestHeaderContrast,
-    {
-        passive:true
-    }
-);
-
-
-window.addEventListener(
-    "resize",
-    requestHeaderContrast
-);
-
-
-window.addEventListener(
-    "load",
-    () => {
-
-        /*
-           Wait for images to be fully rendered.
-        */
-
-        setTimeout(
-            updateHeaderContrast,
-            100
-        );
-
-        setTimeout(
-            updateHeaderContrast,
-            500
-        );
-
-        setTimeout(
-            updateHeaderContrast,
-            1200
-        );
-
-    }
-);
-
-
-/*
-   Also update continuously while scrolling.
-   This is what makes the color follow the
-   photograph smoothly.
-*/
-
-let lastScroll =
-window.scrollY;
-
-
-function contrastAnimation(){
-
-    if(
-        Math.abs(
-            window.scrollY -
-            lastScroll
-        ) > .1
-    ){
-
-        lastScroll =
-            window.scrollY;
-
-        updateHeaderContrast();
-
-    }
-
-
-    requestAnimationFrame(
-        contrastAnimation
-    );
-}
-
-
-requestAnimationFrame(
-    contrastAnimation
-);
-
-
-/* =========================================================
-   PREVENT SCROLL DURING OPENING
+   OPENING SCROLL LOCK
 ========================================================= */
 
 document.body.style.overflow =
 "hidden";
 
 
-setTimeout(() => {
+setTimeout(
 
-    document.body.style.overflow =
-    "";
+    () => {
 
-    updateHeaderContrast();
+        document.body.style.overflow =
+        "";
 
-},1500);
+    },
+
+    1500
+
+);
 
 </script>
 
