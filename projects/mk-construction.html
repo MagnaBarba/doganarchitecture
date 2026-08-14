@@ -1,217 +1,244 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>MK CONSTRUCTION — DOGAN ARCHITECTURE</title>
 
 <style>
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-html {
-    scroll-behavior: smooth;
+html{
+    scroll-behavior:smooth;
 }
 
-body {
-    background: #111;
-    color: #fff;
-    font-family: Arial, Helvetica, sans-serif;
+body{
+    background:#111;
+    color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
+    overflow-x:hidden;
 }
 
-a {
-    color: inherit;
-    text-decoration: none;
+a{
+    color:inherit;
+    text-decoration:none;
 }
 
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 90px;
-    padding: 0 45px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 100;
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:90px;
+    padding:0 45px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:1000;
+    mix-blend-mode:difference;
 }
 
-.logo {
-    width: 85px;
+.logo{
+    width:48px;
+    height:48px;
 }
 
-.logo img {
-    width: 100%;
-    display: block;
+.logo img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    filter:brightness(0) invert(1);
 }
 
-.back {
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
+.back{
+    font-size:10px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
 }
 
-.hero {
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
+.hero{
+    height:100svh;
+    min-height:600px;
+    position:relative;
+    overflow:hidden;
 }
 
-.hero img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    animation: zoom 12s ease-out forwards;
+.hero>img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transform:scale(1.08);
+    animation:zoom 1.6s cubic-bezier(.16,1,.3,1) forwards;
 }
 
-@keyframes zoom {
-    from { transform: scale(1.08); }
-    to { transform: scale(1); }
+@keyframes zoom{
+    to{transform:scale(1);}
 }
 
-.hero-info {
-    position: absolute;
-    bottom: 45px;
-    left: 45px;
-    right: 45px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+.hero:after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top,rgba(0,0,0,.75),transparent 65%);
 }
 
-.title {
-    font-size: clamp(55px, 9vw, 140px);
-    line-height: .85;
-    letter-spacing: -5px;
-    font-weight: 500;
+.hero-info{
+    position:absolute;
+    z-index:2;
+    bottom:45px;
+    left:45px;
+    right:45px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
 }
 
-.number {
-    font-size: 11px;
-    letter-spacing: 2px;
-    margin-bottom: 15px;
+.title{
+    font-size:clamp(55px,9vw,140px);
+    line-height:.82;
+    letter-spacing:-5px;
+    font-weight:500;
 }
 
-.details {
-    text-align: right;
-    font-size: 11px;
-    line-height: 1.8;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
+.number{
+    font-size:10px;
+    letter-spacing:2px;
+    margin-bottom:15px;
 }
 
-.intro {
-    min-height: 70vh;
-    padding: 150px 45px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 100px;
+.details{
+    text-align:right;
+    font-size:10px;
+    line-height:1.8;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
 }
 
-.intro-title {
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+.intro{
+    min-height:65vh;
+    padding:150px 45px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:100px;
 }
 
-.description {
-    max-width: 650px;
-    font-size: 23px;
-    line-height: 1.4;
-    font-weight: 300;
+.intro-title{
+    font-size:10px;
+    letter-spacing:2px;
 }
 
-.gallery {
-    width: 100%;
+.description{
+    max-width:650px;
+    font-size:23px;
+    line-height:1.4;
+    font-weight:300;
 }
 
-.gallery img {
-    width: 100%;
-    height: auto;
-    display: block;
-    margin-bottom: 2px;
-    transition: transform .8s ease;
+.gallery{
+    width:100%;
+    overflow:hidden;
 }
 
-.gallery img:hover {
-    transform: scale(1.01);
+.gallery-item{
+    width:100%;
+    margin-bottom:3px;
+    opacity:0;
+    transform:translateX(-120px) scale(.985);
+    transition:
+        opacity .65s cubic-bezier(.16,1,.3,1),
+        transform .85s cubic-bezier(.16,1,.3,1);
 }
 
-.next {
-    min-height: 50vh;
-    padding: 100px 45px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid #333;
+.gallery-item:nth-child(even){
+    transform:translateX(120px) scale(.985);
 }
 
-.next-label {
-    font-size: 11px;
-    letter-spacing: 2px;
+.gallery-item.visible{
+    opacity:1;
+    transform:translateX(0) scale(1);
 }
 
-.next-title {
-    font-size: clamp(45px, 7vw, 110px);
-    letter-spacing: -4px;
+.gallery-item img{
+    width:100%;
+    height:auto;
+    display:block;
 }
 
-@media(max-width:700px) {
+.next{
+    min-height:50vh;
+    padding:100px 45px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-top:1px solid #333;
+}
 
-    header {
-        height: 70px;
-        padding: 0 20px;
+.next-label{
+    font-size:10px;
+    letter-spacing:2px;
+}
+
+.next-title{
+    font-size:clamp(45px,7vw,110px);
+    letter-spacing:-4px;
+}
+
+@media(max-width:700px){
+
+    header{
+        height:70px;
+        padding:0 20px;
     }
 
-    .logo {
-        width: 55px;
+    .logo{
+        width:38px;
+        height:38px;
     }
 
-    .hero-info {
-        left: 20px;
-        right: 20px;
-        bottom: 35px;
-        display: block;
+    .hero-info{
+        left:20px;
+        right:20px;
+        bottom:35px;
+        display:block;
     }
 
-    .title {
-        font-size: 15vw;
-        margin-bottom: 25px;
+    .title{
+        font-size:15vw;
+        margin-bottom:25px;
     }
 
-    .details {
-        text-align: left;
+    .details{
+        text-align:left;
     }
 
-    .intro {
-        display: block;
-        padding: 90px 20px;
+    .intro{
+        display:block;
+        padding:90px 20px;
     }
 
-    .intro-title {
-        margin-bottom: 50px;
+    .intro-title{
+        margin-bottom:50px;
     }
 
-    .description {
-        font-size: 18px;
+    .description{
+        font-size:18px;
     }
 
-    .next {
-        padding: 70px 20px;
-        display: block;
+    .next{
+        padding:70px 20px;
+        display:block;
     }
 
-    .next-title {
-        margin-top: 30px;
+    .next-title{
+        margin-top:30px;
     }
-
 }
 
 </style>
@@ -222,7 +249,7 @@ header {
 <header>
 
 <a href="../index.html" class="logo">
-<img src="../images/logo.jpg" alt="DOGAN ARCHITECTURE">
+<img src="../images/logo.png" alt="DOGAN ARCHITECTURE">
 </a>
 
 <a href="../index.html" class="back">
@@ -230,6 +257,7 @@ header {
 </a>
 
 </header>
+
 
 <section class="hero">
 
@@ -239,9 +267,7 @@ header {
 
 <div>
 
-<div class="number">
-04 / 07
-</div>
+<div class="number">06 / 07</div>
 
 <h1 class="title">
 MK<br>CONSTRUCTION
@@ -260,6 +286,7 @@ BUREAU ET ENTREPÔT<br>
 
 </section>
 
+
 <section class="intro">
 
 <div class="intro-title">
@@ -271,6 +298,8 @@ PROJECT
 MK Construction est un projet combinant
 des bureaux et un entrepôt à Sacy-le-Grand.
 
+<br><br>
+
 Le projet associe espaces administratifs
 et espaces logistiques dans une architecture
 contemporaine et fonctionnelle.
@@ -279,26 +308,72 @@ contemporaine et fonctionnelle.
 
 </section>
 
-<section class="gallery">
 
-<img src="../images/mk-construction/01.jpg" alt="MK Construction 01">
-<img src="../images/mk-construction/02.jpg" alt="MK Construction 02">
-<img src="../images/mk-construction/03.jpg" alt="MK Construction 03">
-<img src="../images/mk-construction/04.jpg" alt="MK Construction 04">
-
+<section
+    class="gallery"
+    data-folder="../images/mk-construction/">
 </section>
 
-<a href="villa-gok.html" class="next">
+
+<a href="villa-ozdemir.html" class="next">
 
 <div class="next-label">
 NEXT PROJECT
 </div>
 
 <div class="next-title">
-VILLA GOK →
+VILLA OZDEMIR →
 </div>
 
 </a>
+
+
+<script>
+
+const gallery=document.querySelector(".gallery");
+const folder=gallery.dataset.folder;
+
+const observer=new IntersectionObserver(
+    entries=>{
+        entries.forEach(entry=>{
+            if(entry.isIntersecting){
+                entry.target.classList.add("visible");
+            }
+        });
+    },
+    {
+        threshold:.08,
+        rootMargin:"0px 0px -8% 0px"
+    }
+);
+
+for(let i=1;i<=30;i++){
+
+    const number=String(i).padStart(2,"0");
+
+    const item=document.createElement("div");
+    item.className="gallery-item";
+
+    const img=document.createElement("img");
+
+    img.src=folder+number+".jpg";
+    img.alt="MK Construction "+number;
+
+    img.onload=()=>{
+
+        gallery.appendChild(item);
+        item.appendChild(img);
+
+        observer.observe(item);
+
+    };
+
+    img.onerror=()=>{
+        item.remove();
+    };
+}
+
+</script>
 
 </body>
 </html>
