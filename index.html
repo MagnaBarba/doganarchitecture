@@ -64,10 +64,6 @@ a{
 }
 
 
-/* =========================================================
-   OPENING LINE
-========================================================= */
-
 .opening-line{
 
     position:absolute;
@@ -95,9 +91,6 @@ a{
 
 /* =========================================================
    OPENING LOGO HOLDER
-
-   BU DAİRE ÇİZGİNİN LOGONUN İÇİNDEN
-   GÖRÜNMESİNİ ENGELLİYOR.
 ========================================================= */
 
 .opening-logo-holder{
@@ -133,13 +126,6 @@ a{
 }
 
 
-/* =========================================================
-   OPENING LOGO
-
-   İLK OLARAK BEYAZ
-   SONRA SOLA GİDERKEN SİYAH
-========================================================= */
-
 .opening-logo{
 
     width:100%;
@@ -162,10 +148,6 @@ a{
     forwards;
 }
 
-
-/* =========================================================
-   OPENING ANIMATIONS
-========================================================= */
 
 @keyframes lineIn{
 
@@ -207,11 +189,6 @@ a{
 }
 
 
-/*
-   LOGO BEYAZDAN SİYAH'A GEÇİYOR.
-   BU GEÇİŞ SADECE OPENING LOGOSUNDA.
-*/
-
 @keyframes openingLogoColor{
 
     0%{
@@ -248,7 +225,7 @@ a{
 
 /* =========================================================
    HEADER
-   NORMAL HEADER — OPENING'DEN TAMAMEN AYRI
+   RENK JS TARAFINDAN BELİRLENİYOR
 ========================================================= */
 
 .header{
@@ -274,33 +251,23 @@ a{
 
     pointer-events:none;
 
-    /*
-       SADECE NORMAL HEADER'DA
-       RENK DEĞİŞİMİ.
-    */
-
-    mix-blend-mode:difference;
-
-    color:#fff;
-
     opacity:0;
 
-    animation:
-    headerIn .01s 1.16s forwards;
+    transition:
+    opacity .2s ease;
+
 }
 
 
-@keyframes headerIn{
+.header.ready{
 
-    to{
-        opacity:1;
-    }
+    opacity:1;
 
 }
 
 
 /* =========================================================
-   NORMAL HEADER LOGO
+   LOGO
 ========================================================= */
 
 .logo-link{
@@ -338,9 +305,17 @@ a{
 
     display:block;
 
+    /*
+       JS BURAYI DEĞİŞTİRECEK:
+       siyah veya beyaz
+    */
+
     filter:
     brightness(0)
     invert(1);
+
+    transition:
+    filter .18s ease;
 }
 
 
@@ -375,6 +350,7 @@ a{
     color:#fff;
 
     transition:
+    color .18s ease,
     transform .3s ease;
 }
 
@@ -386,10 +362,6 @@ a{
 
 }
 
-
-/* =========================================================
-   LANGUAGE
-========================================================= */
 
 .language{
 
@@ -408,6 +380,9 @@ a{
     font-size:10px;
 
     letter-spacing:1px;
+
+    transition:
+    color .18s ease;
 }
 
 
@@ -417,7 +392,7 @@ a{
 
     background:none;
 
-    color:#fff;
+    color:inherit;
 
     cursor:pointer;
 
@@ -426,6 +401,7 @@ a{
     padding:0;
 
     opacity:.4;
+
 }
 
 
@@ -1913,10 +1889,6 @@ a{
 </footer>
 
 
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
-
 <script>
 
 /* =========================================================
@@ -1954,9 +1926,7 @@ function changeLanguage(language){
 
         enBtn.classList.remove("active");
 
-    }
-
-    else{
+    }else{
 
         enBtn.classList.add("active");
 
@@ -1997,7 +1967,7 @@ changeLanguage(
 
 
 /* =========================================================
-   PROJECT SIDE REVEAL
+   PROJECT REVEAL
 ========================================================= */
 
 const projects =
@@ -2085,6 +2055,689 @@ window.addEventListener(
     {
         passive:true
     }
+
+);
+
+
+/* =========================================================
+   SMART HEADER COLOR
+=========================================================
+
+   BURADA ARTIK difference YOK.
+
+   Sistem ekranda header'ın altında hangi
+   görüntünün olduğunu buluyor ve o görüntünün
+   parlaklığını hesaplıyor.
+
+   KURAL:
+
+   luminance < 0.38
+        = BEYAZ
+
+   luminance >= 0.38
+        = SİYAH
+
+   Böylece:
+   - siyah       -> beyaz
+   - koyu gri    -> beyaz
+   - açık gri    -> siyah
+   - mavi        -> siyah
+   - kahverengi  -> siyah
+   - beyaz      -> siyah
+========================================================= */
+
+
+/* Canvas oluştur */
+
+const colorCanvas =
+document.createElement("canvas");
+
+const colorContext =
+colorCanvas.getContext(
+    "2d",
+    {
+        willReadFrequently:true
+    }
+);
+
+
+/* Görseller */
+
+const backgroundImages =
+Array.from(
+    document.querySelectorAll(
+        ".hero-image, .project-image"
+    )
+);
+
+
+/* =========================================================
+   IMAGE LUMINANCE
+========================================================= */
+
+function getImageLuminance(
+    image,
+    x,
+    y
+){
+
+    if(
+        !image.complete ||
+        !image.naturalWidth
+    ){
+
+        return 0.5;
+
+    }
+
+
+    const rect =
+    image.getBoundingClientRect();
+
+
+    if(
+        x < rect.left ||
+        x > rect.right ||
+        y < rect.top ||
+        y > rect.bottom
+    ){
+
+        return null;
+
+    }
+
+
+    const width =
+    image.naturalWidth;
+
+
+    const height =
+    image.naturalHeight;
+
+
+    /*
+       object-fit:cover hesabı
+    */
+
+    const boxWidth =
+    rect.width;
+
+    const boxHeight =
+    rect.height;
+
+
+    const imageRatio =
+    width / height;
+
+    const boxRatio =
+    boxWidth / boxHeight;
+
+
+    let renderedWidth;
+    let renderedHeight;
+
+    let offsetX = 0;
+    let offsetY = 0;
+
+
+    if(
+        imageRatio > boxRatio
+    ){
+
+        renderedHeight =
+        boxHeight;
+
+        renderedWidth =
+        boxHeight * imageRatio;
+
+        offsetX =
+        (renderedWidth - boxWidth) / 2;
+
+    }else{
+
+        renderedWidth =
+        boxWidth;
+
+        renderedHeight =
+        boxWidth / imageRatio;
+
+        offsetY =
+        (renderedHeight - boxHeight) / 2;
+
+    }
+
+
+    const localX =
+    x - rect.left;
+
+    const localY =
+    y - rect.top;
+
+
+    const imageX =
+    (
+        localX +
+        offsetX
+    )
+    /
+    renderedWidth
+    *
+    width;
+
+
+    const imageY =
+    (
+        localY +
+        offsetY
+    )
+    /
+    renderedHeight
+    *
+    height;
+
+
+    /*
+       Küçük bir alan oku.
+       Tek piksel yerine 7x7 örnek.
+    */
+
+    const sampleSize = 7;
+
+
+    colorCanvas.width =
+    sampleSize;
+
+    colorCanvas.height =
+    sampleSize;
+
+
+    try{
+
+        colorContext.drawImage(
+
+            image,
+
+            imageX - 3,
+            imageY - 3,
+            7,
+            7,
+
+            0,
+            0,
+            7,
+            7
+
+        );
+
+    }catch(error){
+
+        return 0.5;
+
+    }
+
+
+    const pixels =
+    colorContext.getImageData(
+        0,
+        0,
+        7,
+        7
+    ).data;
+
+
+    let total = 0;
+
+    let count = 0;
+
+
+    for(
+        let i = 0;
+        i < pixels.length;
+        i += 4
+    ){
+
+        const r =
+        pixels[i];
+
+        const g =
+        pixels[i + 1];
+
+        const b =
+        pixels[i + 2];
+
+
+        /*
+           İnsan gözünün algısına daha yakın
+           parlaklık hesabı.
+        */
+
+        const luminance =
+            (
+                0.2126 * r +
+                0.7152 * g +
+                0.0722 * b
+            )
+            / 255;
+
+
+        total += luminance;
+
+        count++;
+
+    }
+
+
+    return count
+        ? total / count
+        : 0.5;
+
+}
+
+
+/* =========================================================
+   FIND BACKGROUND UNDER POINT
+========================================================= */
+
+function getBackgroundLuminance(
+    x,
+    y
+){
+
+    for(
+        const image of backgroundImages
+    ){
+
+        const rect =
+        image.getBoundingClientRect();
+
+
+        if(
+            x >= rect.left &&
+            x <= rect.right &&
+            y >= rect.top &&
+            y <= rect.bottom
+        ){
+
+            const result =
+            getImageLuminance(
+                image,
+                x,
+                y
+            );
+
+
+            if(result !== null){
+
+                return result;
+
+            }
+
+        }
+
+    }
+
+
+    /*
+       Fotoğraf değilse sayfanın arka planı.
+       #111 = koyu.
+    */
+
+    return 0.067;
+
+}
+
+
+/* =========================================================
+   SMART COLOR
+========================================================= */
+
+function updateHeaderColor(){
+
+    /*
+       Açılış devam ediyorsa hiçbir şey yapma.
+    */
+
+    if(
+        !document
+        .querySelector(".header")
+        .classList
+        .contains("ready")
+    ){
+
+        return;
+
+    }
+
+
+    const logo =
+    document.querySelector(
+        ".logo-link"
+    );
+
+
+    const links =
+    document.querySelectorAll(
+        ".header-link"
+    );
+
+
+    const language =
+    document.querySelector(
+        ".language"
+    );
+
+
+    /*
+       Logo için 5 farklı nokta.
+       Böylece sadece tek bir piksele
+       bakıp yanlış karar vermiyor.
+    */
+
+    const logoRect =
+    logo.getBoundingClientRect();
+
+
+    const logoPoints = [
+
+        [
+            logoRect.left +
+            logoRect.width * .5,
+
+            logoRect.top +
+            logoRect.height * .5
+        ],
+
+        [
+            logoRect.left +
+            logoRect.width * .25,
+
+            logoRect.top +
+            logoRect.height * .25
+        ],
+
+        [
+            logoRect.left +
+            logoRect.width * .75,
+
+            logoRect.top +
+            logoRect.height * .25
+        ],
+
+        [
+            logoRect.left +
+            logoRect.width * .25,
+
+            logoRect.top +
+            logoRect.height * .75
+        ],
+
+        [
+            logoRect.left +
+            logoRect.width * .75,
+
+            logoRect.top +
+            logoRect.height * .75
+        ]
+
+    ];
+
+
+    let logoBrightness = 0;
+
+    let logoCount = 0;
+
+
+    logoPoints.forEach(
+        point => {
+
+            const value =
+            getBackgroundLuminance(
+                point[0],
+                point[1]
+            );
+
+
+            if(value !== null){
+
+                logoBrightness += value;
+
+                logoCount++;
+
+            }
+
+        }
+    );
+
+
+    logoBrightness =
+    logoCount
+    ?
+    logoBrightness / logoCount
+    :
+    .067;
+
+
+    /*
+       0.38 altında BEYAZ.
+       0.38 üstünde SİYAH.
+
+       Özellikle mavi/gri gibi renklerde
+       siyaha düşmesini sağlıyor.
+    */
+
+    const logoShouldBeWhite =
+    logoBrightness < .38;
+
+
+    const logoImage =
+    document.querySelector(
+        ".logo-image"
+    );
+
+
+    if(logoShouldBeWhite){
+
+        logoImage.style.filter =
+            "brightness(0) invert(1)";
+
+    }else{
+
+        logoImage.style.filter =
+            "brightness(0) invert(0)";
+
+    }
+
+
+    /*
+       Sağ üstteki her yazıyı
+       bulunduğu konuma göre ayrı ayrı hesapla.
+    */
+
+    links.forEach(
+        link => {
+
+            const rect =
+            link.getBoundingClientRect();
+
+
+            const x =
+            rect.left +
+            rect.width / 2;
+
+
+            const y =
+            rect.top +
+            rect.height / 2;
+
+
+            const brightness =
+            getBackgroundLuminance(
+                x,
+                y
+            );
+
+
+            if(
+                brightness < .38
+            ){
+
+                link.style.color =
+                    "#fff";
+
+            }else{
+
+                link.style.color =
+                    "#000";
+
+            }
+
+        }
+    );
+
+
+    /*
+       FR / EN
+    */
+
+    const languageRect =
+    language.getBoundingClientRect();
+
+
+    const languageBrightness =
+    getBackgroundLuminance(
+
+        languageRect.left +
+        languageRect.width / 2,
+
+        languageRect.top +
+        languageRect.height / 2
+
+    );
+
+
+    if(
+        languageBrightness < .38
+    ){
+
+        language.style.color =
+            "#fff";
+
+    }else{
+
+        language.style.color =
+            "#000";
+
+    }
+
+}
+
+
+/* =========================================================
+   HEADER COLOR UPDATE
+========================================================= */
+
+let colorUpdateRunning = false;
+
+
+function requestColorUpdate(){
+
+    if(colorUpdateRunning){
+
+        return;
+
+    }
+
+
+    colorUpdateRunning = true;
+
+
+    requestAnimationFrame(
+
+        () => {
+
+            updateHeaderColor();
+
+            colorUpdateRunning = false;
+
+        }
+
+    );
+
+}
+
+
+window.addEventListener(
+    "scroll",
+    requestColorUpdate,
+    {
+        passive:true
+    }
+);
+
+
+window.addEventListener(
+    "resize",
+    requestColorUpdate
+);
+
+
+window.addEventListener(
+    "load",
+    requestColorUpdate
+);
+
+
+/* =========================================================
+   START HEADER COLOR SYSTEM
+   AÇILIŞTAN SONRA
+========================================================= */
+
+setTimeout(
+
+    () => {
+
+        const header =
+        document.querySelector(
+            ".header"
+        );
+
+
+        header.classList.add(
+            "ready"
+        );
+
+
+        /*
+           İlk renk kontrolü.
+        */
+
+        requestColorUpdate();
+
+
+        /*
+           Görsellerin yüklenmesi /
+           hero animasyonu sonrası
+           tekrar kontrol.
+        */
+
+        setTimeout(
+            requestColorUpdate,
+            300
+        );
+
+        setTimeout(
+            requestColorUpdate,
+            800
+        );
+
+        setTimeout(
+            requestColorUpdate,
+            1600
+        );
+
+    },
+
+    1200
 
 );
 
