@@ -39,11 +39,13 @@ a{
 
 /* =========================================================
    OPENING
+   TAMAMEN BAĞIMSIZ
 ========================================================= */
 
 .opening{
 
     position:fixed;
+
     inset:0;
 
     background:#111;
@@ -51,7 +53,9 @@ a{
     z-index:99999;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
     pointer-events:none;
@@ -61,11 +65,16 @@ a{
 }
 
 
+/* ---------------------------------------------------------
+   OPENING LINE
+--------------------------------------------------------- */
+
 .opening-line{
 
     position:absolute;
 
     width:0;
+
     height:1px;
 
     background:#fff;
@@ -79,6 +88,13 @@ a{
 }
 
 
+/* ---------------------------------------------------------
+   OPENING LOGO
+
+   BURADA MIX-BLEND YOK
+   BURADA FILTER SADECE SIYAH PNG'YI BEYAZA ÇEVIRIYOR
+   --------------------------------------------------------- */
+
 .opening-logo{
 
     position:relative;
@@ -86,29 +102,20 @@ a{
     z-index:2;
 
     width:120px;
+
     height:120px;
 
     object-fit:contain;
 
     display:block;
 
-    /*
-       Yeni siyah PNG'yi beyaza çeviriyoruz.
-    */
+    background:transparent;
 
     filter:
     brightness(0)
     invert(1);
 
     opacity:0;
-
-    /*
-       Çizgi logonun arkasında kalır.
-       Logo çevresinde açılış ekranının siyahı bulunur.
-    */
-
-    box-shadow:
-    0 0 0 8px #111;
 
     animation:
     openingLogoIn .35s .25s forwards,
@@ -165,6 +172,7 @@ a{
     to{
 
         opacity:0;
+
         visibility:hidden;
 
     }
@@ -174,6 +182,7 @@ a{
 
 /* =========================================================
    HEADER
+   NORMAL SITE LOGOSU
 ========================================================= */
 
 .header{
@@ -184,6 +193,7 @@ a{
     left:0;
 
     width:100%;
+
     height:90px;
 
     padding:0 40px;
@@ -191,6 +201,7 @@ a{
     display:flex;
 
     align-items:center;
+
     justify-content:space-between;
 
     z-index:5000;
@@ -198,16 +209,8 @@ a{
     pointer-events:none;
 
     /*
-       KRİTİK:
-
-       Blend artık tek tek elemanlarda değil,
-       HEADER'IN TAMAMINDA.
-
-       Böylece header'ın tamamı arkasındaki
-       fotoğrafla karşılaştırılıyor.
-
-       Siyah/koyu arka plan -> beyaz
-       Beyaz/açık arka plan -> siyah
+       SADECE NORMAL HEADER'DA BLEND
+       OPENING BUNUN DIŞINDA
     */
 
     mix-blend-mode:difference;
@@ -217,12 +220,13 @@ a{
 
 
 /* =========================================================
-   HEADER LOGO
+   NORMAL HEADER LOGO
 ========================================================= */
 
 .logo-link{
 
     width:45px;
+
     height:45px;
 
     display:block;
@@ -247,6 +251,7 @@ a{
 .logo-image{
 
     width:100%;
+
     height:100%;
 
     object-fit:contain;
@@ -254,11 +259,11 @@ a{
     display:block;
 
     /*
-       PNG siyah olduğu için beyaza çeviriyoruz.
+       images/logo.png siyah olduğu için
+       beyaza çeviriyoruz.
 
-       HEADER difference olduğu için:
-       koyu fotoğraf = beyaz
-       açık fotoğraf = siyah
+       HEADER'ın difference katmanı
+       bunu fotoğrafa göre tersine çeviriyor.
     */
 
     filter:
@@ -296,11 +301,6 @@ a{
     text-transform:uppercase;
 
     color:#fff;
-
-    /*
-       HEADER'ın difference sistemi
-       bunu otomatik olarak değiştirecek.
-    */
 
     transition:
     transform .3s ease;
@@ -360,6 +360,7 @@ a{
 .language button.active{
 
     opacity:1;
+
 }
 
 
@@ -397,6 +398,7 @@ a{
     inset:0;
 
     width:100%;
+
     height:100%;
 
     object-fit:cover;
@@ -447,7 +449,9 @@ a{
     z-index:10;
 
     left:40px;
+
     right:40px;
+
     bottom:42px;
 
     color:#fff;
@@ -498,21 +502,13 @@ a{
 @keyframes heroTextIn{
 
     from{
-
         opacity:0;
-
-        transform:
-        translateY(70px);
-
+        transform:translateY(70px);
     }
 
     to{
-
         opacity:1;
-
-        transform:
-        translateY(0);
-
+        transform:translateY(0);
     }
 
 }
@@ -521,21 +517,13 @@ a{
 @keyframes heroMetaIn{
 
     from{
-
         opacity:0;
-
-        transform:
-        translateY(20px);
-
+        transform:translateY(20px);
     }
 
     to{
-
         opacity:1;
-
-        transform:
-        translateY(0);
-
+        transform:translateY(0);
     }
 
 }
@@ -552,6 +540,7 @@ a{
     z-index:10;
 
     right:40px;
+
     bottom:42px;
 
     color:#fff;
@@ -628,7 +617,7 @@ a{
 
 
 /* =========================================================
-   PROJECT
+   PROJECTS
 ========================================================= */
 
 .project{
@@ -771,7 +760,9 @@ a{
     z-index:5;
 
     left:40px;
+
     right:40px;
+
     bottom:35px;
 
     color:#fff;
@@ -796,8 +787,7 @@ a{
 
     opacity:0;
 
-    transform:
-    translateY(15px);
+    transform:translateY(15px);
 
     transition:
     transform .7s .15s,
@@ -807,8 +797,7 @@ a{
 
 .project.visible .project-number{
 
-    transform:
-    translateY(0);
+    transform:translateY(0);
 
     opacity:.7;
 }
@@ -827,8 +816,7 @@ a{
 
     text-transform:uppercase;
 
-    transform:
-    translateY(40px);
+    transform:translateY(40px);
 
     opacity:0;
 
@@ -842,8 +830,7 @@ a{
 
 .project.visible .project-title{
 
-    transform:
-    translateY(0);
+    transform:translateY(0);
 
     opacity:1;
 }
@@ -861,8 +848,7 @@ a{
 
     text-transform:uppercase;
 
-    transform:
-    translateY(20px);
+    transform:translateY(20px);
 
     opacity:0;
 
@@ -874,8 +860,7 @@ a{
 
 .project.visible .project-details{
 
-    transform:
-    translateY(0);
+    transform:translateY(0);
 
     opacity:1;
 }
@@ -1008,6 +993,7 @@ a{
     .logo-link{
 
         width:36px;
+
         height:36px;
     }
 
@@ -1038,7 +1024,9 @@ a{
     .hero-content{
 
         left:18px;
+
         right:18px;
+
         bottom:30px;
     }
 
@@ -1134,7 +1122,9 @@ a{
     .project-info{
 
         left:18px;
+
         right:18px;
+
         bottom:22px;
 
         display:block;
@@ -1212,10 +1202,8 @@ a{
     .opening-logo{
 
         width:90px;
-        height:90px;
 
-        box-shadow:
-        0 0 0 6px #111;
+        height:90px;
     }
 
 }
@@ -1869,7 +1857,7 @@ document.getElementById("enBtn");
 function changeLanguage(language){
 
     document.documentElement
-        .setAttribute("lang", language);
+        .setAttribute("lang",language);
 
 
     document
@@ -1933,7 +1921,7 @@ changeLanguage(
 
 
 /* =========================================================
-   PROJECT REVEAL
+   PROJECT SIDE REVEAL
 ========================================================= */
 
 const projects =
@@ -1941,11 +1929,6 @@ document.querySelectorAll(
     ".project"
 );
 
-
-/*
-   Çift / tek projeler sırayla
-   soldan ve sağdan geliyor.
-*/
 
 projects.forEach(
     (project,index) => {
