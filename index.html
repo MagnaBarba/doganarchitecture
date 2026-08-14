@@ -39,7 +39,6 @@ a{
 
 /* =========================================================
    OPENING
-   TAMAMEN BAĞIMSIZ
 ========================================================= */
 
 .opening{
@@ -65,13 +64,17 @@ a{
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    OPENING LINE
---------------------------------------------------------- */
+========================================================= */
 
 .opening-line{
 
     position:absolute;
+
+    left:0;
+
+    top:50%;
 
     width:0;
 
@@ -81,6 +84,8 @@ a{
 
     z-index:1;
 
+    transform:translateY(-50%);
+
     animation:
     lineIn .45s .05s
     cubic-bezier(.16,1,.3,1)
@@ -88,14 +93,14 @@ a{
 }
 
 
-/* ---------------------------------------------------------
-   OPENING LOGO
+/* =========================================================
+   OPENING LOGO HOLDER
 
-   BURADA MIX-BLEND YOK
-   BURADA FILTER SADECE SIYAH PNG'YI BEYAZA ÇEVIRIYOR
-   --------------------------------------------------------- */
+   BU DAİRE ÇİZGİNİN LOGONUN İÇİNDEN
+   GÖRÜNMESİNİ ENGELLİYOR.
+========================================================= */
 
-.opening-logo{
+.opening-logo-holder{
 
     position:relative;
 
@@ -104,6 +109,42 @@ a{
     width:120px;
 
     height:120px;
+
+    border-radius:50%;
+
+    background:#111;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    overflow:hidden;
+
+    opacity:0;
+
+    transform:scale(.75);
+
+    animation:
+    openingLogoHolderIn .35s .25s forwards,
+    openingLogoHolderOut .55s .65s
+    cubic-bezier(.16,1,.3,1) forwards;
+}
+
+
+/* =========================================================
+   OPENING LOGO
+
+   İLK OLARAK BEYAZ
+   SONRA SOLA GİDERKEN SİYAH
+========================================================= */
+
+.opening-logo{
+
+    width:100%;
+
+    height:100%;
 
     object-fit:contain;
 
@@ -115,15 +156,16 @@ a{
     brightness(0)
     invert(1);
 
-    opacity:0;
-
     animation:
-    openingLogoIn .35s .25s forwards,
-    openingLogoOut .55s .65s
+    openingLogoColor .5s .65s
     cubic-bezier(.16,1,.3,1)
     forwards;
 }
 
+
+/* =========================================================
+   OPENING ANIMATIONS
+========================================================= */
 
 @keyframes lineIn{
 
@@ -134,22 +176,20 @@ a{
 }
 
 
-@keyframes openingLogoIn{
-
-    from{
-        opacity:0;
-        transform:scale(.75);
-    }
+@keyframes openingLogoHolderIn{
 
     to{
+
         opacity:1;
+
         transform:scale(1);
+
     }
 
 }
 
 
-@keyframes openingLogoOut{
+@keyframes openingLogoHolderOut{
 
     to{
 
@@ -161,6 +201,32 @@ a{
             calc(-50vw + 75px),
             calc(-50vh + 50px)
         );
+
+    }
+
+}
+
+
+/*
+   LOGO BEYAZDAN SİYAH'A GEÇİYOR.
+   BU GEÇİŞ SADECE OPENING LOGOSUNDA.
+*/
+
+@keyframes openingLogoColor{
+
+    0%{
+
+        filter:
+        brightness(0)
+        invert(1);
+
+    }
+
+    100%{
+
+        filter:
+        brightness(0)
+        invert(0);
 
     }
 
@@ -182,7 +248,7 @@ a{
 
 /* =========================================================
    HEADER
-   NORMAL SITE LOGOSU
+   NORMAL HEADER — OPENING'DEN TAMAMEN AYRI
 ========================================================= */
 
 .header{
@@ -209,13 +275,27 @@ a{
     pointer-events:none;
 
     /*
-       SADECE NORMAL HEADER'DA BLEND
-       OPENING BUNUN DIŞINDA
+       SADECE NORMAL HEADER'DA
+       RENK DEĞİŞİMİ.
     */
 
     mix-blend-mode:difference;
 
     color:#fff;
+
+    opacity:0;
+
+    animation:
+    headerIn .01s 1.16s forwards;
+}
+
+
+@keyframes headerIn{
+
+    to{
+        opacity:1;
+    }
+
 }
 
 
@@ -257,14 +337,6 @@ a{
     object-fit:contain;
 
     display:block;
-
-    /*
-       images/logo.png siyah olduğu için
-       beyaza çeviriyoruz.
-
-       HEADER'ın difference katmanı
-       bunu fotoğrafa göre tersine çeviriyor.
-    */
 
     filter:
     brightness(0)
@@ -617,7 +689,7 @@ a{
 
 
 /* =========================================================
-   PROJECTS
+   PROJECT
 ========================================================= */
 
 .project{
@@ -1199,7 +1271,7 @@ a{
     }
 
 
-    .opening-logo{
+    .opening-logo-holder{
 
         width:90px;
 
@@ -1246,10 +1318,14 @@ a{
 
     <div class="opening-line"></div>
 
-    <img
-        src="images/logo.png"
-        class="opening-logo"
-        alt="DOGAN ARCHITECTURE">
+    <div class="opening-logo-holder">
+
+        <img
+            src="images/logo.png"
+            class="opening-logo"
+            alt="DOGAN ARCHITECTURE">
+
+    </div>
 
 </div>
 
@@ -1927,21 +2003,6 @@ changeLanguage(
 const projects =
 document.querySelectorAll(
     ".project"
-);
-
-
-projects.forEach(
-    (project,index) => {
-
-        if(index % 2 === 0){
-
-            project.classList.add(
-                "from-left"
-            );
-
-        }
-
-    }
 );
 
 
