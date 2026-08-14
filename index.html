@@ -25,7 +25,7 @@ html{
 }
 
 body{
-    background:#111111;
+    background:#111;
     color:#fff;
     font-family:Arial, Helvetica, sans-serif;
     overflow-x:hidden;
@@ -46,7 +46,7 @@ a{
     position:fixed;
     inset:0;
 
-    background:#111111;
+    background:#111;
 
     z-index:99999;
 
@@ -60,40 +60,81 @@ a{
     openingOut .35s 1.15s forwards;
 }
 
+
+/* LINE */
+
 .opening-line{
 
     position:absolute;
+
+    left:0;
+    top:50%;
 
     width:0;
     height:1px;
 
     background:#fff;
 
+    transform:translateY(-50%);
+
+    z-index:1;
+
     animation:
     lineIn .45s .05s cubic-bezier(.16,1,.3,1) forwards;
 }
 
-.opening-logo{
+
+/*
+   CIRCLE MASK
+   This sits above the line and behind the logo.
+   Therefore the line disappears where the logo is.
+*/
+
+.opening-logo-mask{
 
     position:relative;
 
     z-index:2;
 
-    width:120px;
-    height:120px;
+    width:130px;
+    height:130px;
 
-    object-fit:contain;
+    border-radius:50%;
 
-    filter:invert(1);
+    background:#111;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
 
     opacity:0;
 
     transform:scale(.9);
 
     animation:
-    openingLogoIn .35s .25s forwards,
-    openingLogoOut .55s .65s cubic-bezier(.16,1,.3,1) forwards;
+    openingMaskIn .35s .25s forwards,
+    openingMaskOut .55s .65s cubic-bezier(.16,1,.3,1) forwards;
 }
+
+
+.opening-logo{
+
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+
+    display:block;
+
+    /*
+       Original PNG is black.
+       Invert makes it white.
+    */
+
+    filter:invert(1);
+}
+
 
 @keyframes lineIn{
 
@@ -103,7 +144,8 @@ a{
 
 }
 
-@keyframes openingLogoIn{
+
+@keyframes openingMaskIn{
 
     to{
         opacity:1;
@@ -112,7 +154,8 @@ a{
 
 }
 
-@keyframes openingLogoOut{
+
+@keyframes openingMaskOut{
 
     to{
 
@@ -128,6 +171,7 @@ a{
     }
 
 }
+
 
 @keyframes openingOut{
 
@@ -169,7 +213,7 @@ a{
 
 
 /* =========================================================
-   LOGO
+   HEADER LOGO
 ========================================================= */
 
 .logo-link{
@@ -181,8 +225,6 @@ a{
 
     pointer-events:auto;
 
-    background:transparent;
-
     transition:
     transform .5s cubic-bezier(.16,1,.3,1);
 }
@@ -190,8 +232,8 @@ a{
 .logo-link:hover{
 
     transform:scale(1.08);
-
 }
+
 
 .logo-image{
 
@@ -202,9 +244,16 @@ a{
 
     display:block;
 
+    /*
+       Make original black PNG white.
+       Difference mode then automatically
+       makes it black on light areas
+       and white on dark areas.
+    */
+
     filter:invert(1);
 
-    mix-blend-mode:normal;
+    mix-blend-mode:difference;
 }
 
 
@@ -223,6 +272,16 @@ a{
     pointer-events:auto;
 }
 
+
+/*
+   IMPORTANT:
+   No background.
+   White base + difference mode.
+
+   Dark background  -> white
+   Light background -> black
+*/
+
 .header-link{
 
     color:#fff;
@@ -240,15 +299,13 @@ a{
     mix-blend-mode:difference;
 
     transition:
-    transform .3s,
-    opacity .3s;
+    transform .3s ease;
 }
+
 
 .header-link:hover{
 
     transform:translateY(-2px);
-
-    opacity:.7;
 }
 
 
@@ -277,29 +334,38 @@ a{
     mix-blend-mode:difference;
 }
 
+
 .language button{
 
     border:0;
 
     background:none;
 
-    color:inherit;
+    color:#fff;
 
     cursor:pointer;
 
     font:inherit;
 
+    padding:0;
+
     opacity:.4;
+
+    mix-blend-mode:difference;
 }
+
 
 .language button.active{
 
     opacity:1;
 }
 
+
 .language span{
 
     opacity:.35;
+
+    color:#fff;
 }
 
 
@@ -322,6 +388,7 @@ a{
     background:#111;
 }
 
+
 .hero-image{
 
     position:absolute;
@@ -341,6 +408,7 @@ a{
     forwards;
 }
 
+
 @keyframes heroIn{
 
     to{
@@ -348,6 +416,7 @@ a{
     }
 
 }
+
 
 .hero::after{
 
@@ -384,6 +453,7 @@ a{
     color:#fff;
 }
 
+
 .office-name{
 
     font-size:
@@ -405,6 +475,7 @@ a{
     forwards;
 }
 
+
 .hero-meta{
 
     margin-top:25px;
@@ -423,6 +494,7 @@ a{
     forwards;
 }
 
+
 @keyframes heroTextIn{
 
     from{
@@ -436,6 +508,7 @@ a{
     }
 
 }
+
 
 @keyframes heroMetaIn{
 
@@ -480,6 +553,7 @@ a{
     scrollPulse 2s infinite;
 }
 
+
 @keyframes scrollPulse{
 
     0%,100%{
@@ -494,7 +568,7 @@ a{
 
 
 /* =========================================================
-   PROJECTS INTRO
+   PROJECT INTRO
 ========================================================= */
 
 .projects-intro{
@@ -512,6 +586,7 @@ a{
     align-items:flex-end;
 }
 
+
 .projects-label{
 
     font-size:10px;
@@ -520,6 +595,7 @@ a{
 
     text-transform:uppercase;
 }
+
 
 .projects-description{
 
@@ -555,25 +631,26 @@ a{
     opacity:0;
 
     transform:
-    translateX(100px)
+    translateX(110px)
     scale(.97);
 
     transition:
     opacity .65s cubic-bezier(.16,1,.3,1),
-    transform .75s cubic-bezier(.16,1,.3,1);
+    transform .8s cubic-bezier(.16,1,.3,1);
 }
 
 
-/* =========================================================
-   ALTERNATING DIRECTIONS
-========================================================= */
+/* EVEN PROJECTS FROM LEFT */
 
 .project:nth-of-type(even){
 
     transform:
-    translateX(-100px)
+    translateX(-110px)
     scale(.97);
 }
+
+
+/* VISIBLE */
 
 .project.visible{
 
@@ -598,6 +675,7 @@ a{
     overflow:hidden;
 }
 
+
 .project-image{
 
     width:100%;
@@ -618,6 +696,7 @@ a{
     transform 1.5s cubic-bezier(.16,1,.3,1),
     filter 1s ease;
 }
+
 
 .project.visible .project-image{
 
@@ -652,10 +731,12 @@ a{
     opacity .8s ease;
 }
 
+
 .project-link:hover::after{
 
     opacity:.9;
 }
+
 
 .project-link:hover .project-image{
 
@@ -693,6 +774,7 @@ a{
     pointer-events:none;
 }
 
+
 .project-number{
 
     font-size:10px;
@@ -710,12 +792,14 @@ a{
     opacity .55s .08s;
 }
 
+
 .project.visible .project-number{
 
     transform:translateY(0);
 
     opacity:.7;
 }
+
 
 .project-title{
 
@@ -739,12 +823,14 @@ a{
     opacity .65s .12s;
 }
 
+
 .project.visible .project-title{
 
     transform:translateY(0);
 
     opacity:1;
 }
+
 
 .project-details{
 
@@ -767,12 +853,14 @@ a{
     opacity .6s .18s;
 }
 
+
 .project.visible .project-details{
 
     transform:translateY(0);
 
     opacity:1;
 }
+
 
 .project-link:hover .project-title{
 
@@ -802,12 +890,14 @@ a{
     gap:80px;
 }
 
+
 .contact-label{
 
     font-size:10px;
 
     letter-spacing:2px;
 }
+
 
 .contact-title{
 
@@ -823,6 +913,7 @@ a{
     font-weight:500;
 }
 
+
 .contact-info{
 
     align-self:end;
@@ -832,11 +923,13 @@ a{
     line-height:2;
 }
 
+
 .contact-info a{
 
     border-bottom:
     1px solid #777;
 }
+
 
 .contact-small{
 
@@ -892,16 +985,19 @@ a{
         padding:0 18px;
     }
 
+
     .logo-link{
 
         width:36px;
         height:36px;
     }
 
+
     .header-right{
 
         gap:16px;
     }
+
 
     .header-link,
     .language{
@@ -913,10 +1009,12 @@ a{
         letter-spacing:.8px;
     }
 
+
     .hero{
 
         min-height:600px;
     }
+
 
     .hero-content{
 
@@ -925,6 +1023,7 @@ a{
 
         bottom:30px;
     }
+
 
     .office-name{
 
@@ -940,6 +1039,7 @@ a{
         word-break:normal;
     }
 
+
     .hero-meta{
 
         margin-top:18px;
@@ -948,6 +1048,7 @@ a{
 
         letter-spacing:1.2px;
     }
+
 
     .scroll-indicator{
 
@@ -958,6 +1059,7 @@ a{
         font-size:8px;
     }
 
+
     .projects-intro{
 
         display:block;
@@ -965,6 +1067,7 @@ a{
         padding:
         100px 18px 70px;
     }
+
 
     .projects-description{
 
@@ -975,12 +1078,13 @@ a{
         line-height:1.05;
     }
 
+
     .project{
 
         margin-bottom:5px;
 
         transform:
-        translateX(70px)
+        translateX(75px)
         scale(.98);
 
         transition:
@@ -988,12 +1092,14 @@ a{
         transform .65s cubic-bezier(.16,1,.3,1);
     }
 
+
     .project:nth-of-type(even){
 
         transform:
-        translateX(-70px)
+        translateX(-75px)
         scale(.98);
     }
+
 
     .project.visible{
 
@@ -1002,12 +1108,14 @@ a{
         scale(1);
     }
 
+
     .project-image{
 
         height:72svh;
 
         min-height:500px;
     }
+
 
     .project-info{
 
@@ -1019,12 +1127,14 @@ a{
         display:block;
     }
 
+
     .project-number{
 
         font-size:8px;
 
         margin-bottom:10px;
     }
+
 
     .project-title{
 
@@ -1035,6 +1145,7 @@ a{
 
         letter-spacing:-3px;
     }
+
 
     .project-details{
 
@@ -1047,6 +1158,7 @@ a{
         line-height:1.7;
     }
 
+
     .contact{
 
         display:block;
@@ -1054,6 +1166,7 @@ a{
         padding:
         100px 18px;
     }
+
 
     .contact-title{
 
@@ -1065,12 +1178,14 @@ a{
         letter-spacing:-3px;
     }
 
+
     .contact-info{
 
         margin-top:70px;
 
         font-size:12px;
     }
+
 
     .footer{
 
@@ -1080,10 +1195,11 @@ a{
         font-size:8px;
     }
 
-    .opening-logo{
 
-        width:90px;
-        height:90px;
+    .opening-logo-mask{
+
+        width:100px;
+        height:100px;
     }
 
 }
@@ -1126,10 +1242,14 @@ a{
 
     <div class="opening-line"></div>
 
-    <img
-        src="images/logo.png"
-        class="opening-logo"
-        alt="DOGAN ARCHITECTURE">
+    <div class="opening-logo-mask">
+
+        <img
+            src="images/logo.png"
+            class="opening-logo"
+            alt="DOGAN ARCHITECTURE">
+
+    </div>
 
 </div>
 
@@ -1213,6 +1333,7 @@ a{
         src="images/villa-ozdemir/cover.jpg"
         class="hero-image"
         alt="Villa Ozdemir">
+
 
     <div class="hero-content">
 
@@ -1716,10 +1837,6 @@ a{
 </footer>
 
 
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
-
 <script>
 
 /* =====================================================
@@ -1736,7 +1853,7 @@ document.getElementById("enBtn");
 function changeLanguage(language){
 
     document.documentElement
-        .setAttribute("lang", language);
+        .setAttribute("lang",language);
 
 
     document
@@ -1754,16 +1871,15 @@ function changeLanguage(language){
     if(language === "fr"){
 
         frBtn.classList.add("active");
-
         enBtn.classList.remove("active");
 
     }else{
 
         enBtn.classList.add("active");
-
         frBtn.classList.remove("active");
 
     }
+
 
     localStorage.setItem(
         "dogan-language",
@@ -1785,14 +1901,11 @@ enBtn.addEventListener(
 );
 
 
-/* =====================================================
-   DEFAULT LANGUAGE
-===================================================== */
-
 const savedLanguage =
 localStorage.getItem(
     "dogan-language"
 );
+
 
 changeLanguage(
     savedLanguage || "fr"
@@ -1801,12 +1914,10 @@ changeLanguage(
 
 /* =====================================================
    PROJECT REVEAL
-===================================================== */
+========================================================= */
 
 const projects =
-document.querySelectorAll(
-    ".project"
-);
+document.querySelectorAll(".project");
 
 
 const projectObserver =
@@ -1845,48 +1956,67 @@ projects.forEach(project => {
 
 /* =====================================================
    PROJECT PARALLAX
-===================================================== */
+========================================================= */
+
+let ticking = false;
+
+
+function updateProjectParallax(){
+
+    const images =
+    document.querySelectorAll(
+        ".project-image"
+    );
+
+
+    images.forEach(image => {
+
+        const project =
+        image.closest(".project");
+
+
+        if(!project) return;
+
+
+        const rect =
+        project.getBoundingClientRect();
+
+
+        const center =
+        window.innerHeight / 2;
+
+
+        const distance =
+        rect.top - center;
+
+
+        const movement =
+        distance * -0.035;
+
+
+        image.style.transform =
+            `scale(1.015)
+             translateY(${movement}px)`;
+
+    });
+
+
+    ticking = false;
+}
+
 
 window.addEventListener(
     "scroll",
     () => {
 
-        const images =
-        document.querySelectorAll(
-            ".project-image"
-        );
+        if(!ticking){
 
+            window.requestAnimationFrame(
+                updateProjectParallax
+            );
 
-        images.forEach(image => {
-
-            const project =
-            image.closest(".project");
-
-
-            if(!project) return;
-
-
-            const rect =
-            project.getBoundingClientRect();
-
-
-            const center =
-            window.innerHeight / 2;
-
-
-            const distance =
-            rect.top - center;
-
-
-            const movement =
-            distance * -0.035;
-
-
-            image.style.transform =
-                `scale(1.015)
-                 translateY(${movement}px)`;
-
-        });
+            ticking = true;
+        }
 
     },
     {
@@ -1897,7 +2027,7 @@ window.addEventListener(
 
 /* =====================================================
    HERO PARALLAX
-===================================================== */
+========================================================= */
 
 window.addEventListener(
     "scroll",
@@ -1932,8 +2062,8 @@ window.addEventListener(
 
 
 /* =====================================================
-   OPENING
-===================================================== */
+   PREVENT SCROLL DURING OPENING
+========================================================= */
 
 document.body.style.overflow =
 "hidden";
@@ -1944,7 +2074,7 @@ setTimeout(() => {
     document.body.style.overflow =
     "";
 
-}, 1500);
+},1500);
 
 </script>
 
