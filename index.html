@@ -61,8 +61,6 @@ a{
 }
 
 
-/* LINE */
-
 .opening-line{
 
     position:absolute;
@@ -83,12 +81,6 @@ a{
     lineIn .45s .05s cubic-bezier(.16,1,.3,1) forwards;
 }
 
-
-/*
-   CIRCLE MASK
-   This sits above the line and behind the logo.
-   Therefore the line disappears where the logo is.
-*/
 
 .opening-logo-mask{
 
@@ -126,11 +118,6 @@ a{
     object-fit:contain;
 
     display:block;
-
-    /*
-       Original PNG is black.
-       Invert makes it white.
-    */
 
     filter:invert(1);
 }
@@ -229,6 +216,7 @@ a{
     transform .5s cubic-bezier(.16,1,.3,1);
 }
 
+
 .logo-link:hover{
 
     transform:scale(1.08);
@@ -244,16 +232,8 @@ a{
 
     display:block;
 
-    /*
-       Make original black PNG white.
-       Difference mode then automatically
-       makes it black on light areas
-       and white on dark areas.
-    */
-
-    filter:invert(1);
-
-    mix-blend-mode:difference;
+    transition:
+    filter .15s linear;
 }
 
 
@@ -273,15 +253,6 @@ a{
 }
 
 
-/*
-   IMPORTANT:
-   No background.
-   White base + difference mode.
-
-   Dark background  -> white
-   Light background -> black
-*/
-
 .header-link{
 
     color:#fff;
@@ -296,9 +267,8 @@ a{
 
     text-transform:uppercase;
 
-    mix-blend-mode:difference;
-
     transition:
+    color .15s linear,
     transform .3s ease;
 }
 
@@ -308,10 +278,6 @@ a{
     transform:translateY(-2px);
 }
 
-
-/* =========================================================
-   LANGUAGE
-========================================================= */
 
 .language{
 
@@ -331,7 +297,8 @@ a{
 
     letter-spacing:1px;
 
-    mix-blend-mode:difference;
+    transition:
+    color .15s linear;
 }
 
 
@@ -341,7 +308,7 @@ a{
 
     background:none;
 
-    color:#fff;
+    color:inherit;
 
     cursor:pointer;
 
@@ -351,7 +318,6 @@ a{
 
     opacity:.4;
 
-    mix-blend-mode:difference;
 }
 
 
@@ -364,8 +330,6 @@ a{
 .language span{
 
     opacity:.35;
-
-    color:#fff;
 }
 
 
@@ -568,7 +532,7 @@ a{
 
 
 /* =========================================================
-   PROJECT INTRO
+   PROJECTS INTRO
 ========================================================= */
 
 .projects-intro{
@@ -640,8 +604,6 @@ a{
 }
 
 
-/* EVEN PROJECTS FROM LEFT */
-
 .project:nth-of-type(even){
 
     transform:
@@ -649,8 +611,6 @@ a{
     scale(.97);
 }
 
-
-/* VISIBLE */
 
 .project.visible{
 
@@ -1325,7 +1285,7 @@ a{
 
 <!-- =====================================================
      HERO
-===================================================== -->
+========================================================= -->
 
 <section class="hero">
 
@@ -1371,7 +1331,7 @@ a{
 
 <!-- =====================================================
      PROJECTS INTRO
-===================================================== -->
+========================================================= -->
 
 <section
     class="projects-intro"
@@ -1403,7 +1363,7 @@ a{
 
 <!-- =====================================================
      01 — BUREAU ZAFER
-===================================================== -->
+========================================================= -->
 
 <section class="project">
 
@@ -1454,7 +1414,7 @@ a{
 
 <!-- =====================================================
      02 — VILLA DOGAN
-===================================================== -->
+========================================================= -->
 
 <section class="project">
 
@@ -1505,7 +1465,7 @@ a{
 
 <!-- =====================================================
      03 — VILLA GOK
-===================================================== -->
+========================================================= -->
 
 <section class="project">
 
@@ -1556,7 +1516,7 @@ a{
 
 <!-- =====================================================
      04 — MGC CONSTRUCTION
-===================================================== -->
+========================================================= -->
 
 <section class="project">
 
@@ -1607,7 +1567,7 @@ a{
 
 <!-- =====================================================
      05 — UKS TRANSPORT
-===================================================== -->
+========================================================= -->
 
 <section class="project">
 
@@ -1658,7 +1618,7 @@ a{
 
 <!-- =====================================================
      06 — MK CONSTRUCTION
-===================================================== -->
+========================================================= -->
 
 <section class="project">
 
@@ -1709,7 +1669,7 @@ a{
 
 <!-- =====================================================
      07 — VILLA OZDEMIR
-===================================================== -->
+========================================================= -->
 
 <section class="project">
 
@@ -1760,7 +1720,7 @@ a{
 
 <!-- =====================================================
      CONTACT
-===================================================== -->
+========================================================= -->
 
 <section
     class="contact"
@@ -1822,7 +1782,7 @@ a{
 
 <!-- =====================================================
      FOOTER
-===================================================== -->
+========================================================= -->
 
 <footer class="footer">
 
@@ -1839,9 +1799,9 @@ a{
 
 <script>
 
-/* =====================================================
+/* =========================================================
    LANGUAGE
-===================================================== */
+========================================================= */
 
 const frBtn =
 document.getElementById("frBtn");
@@ -1912,7 +1872,7 @@ changeLanguage(
 );
 
 
-/* =====================================================
+/* =========================================================
    PROJECT REVEAL
 ========================================================= */
 
@@ -1954,7 +1914,7 @@ projects.forEach(project => {
 });
 
 
-/* =====================================================
+/* =========================================================
    PROJECT PARALLAX
 ========================================================= */
 
@@ -2025,7 +1985,7 @@ window.addEventListener(
 );
 
 
-/* =====================================================
+/* =========================================================
    HERO PARALLAX
 ========================================================= */
 
@@ -2061,7 +2021,679 @@ window.addEventListener(
 );
 
 
-/* =====================================================
+/* =========================================================
+   HEADER CONTRAST SYSTEM
+=========================================================
+
+   This is the important part.
+
+   Instead of relying on mix-blend-mode,
+   we calculate the actual image/background
+   behind the fixed header.
+
+   DARK background  -> WHITE
+   LIGHT background -> BLACK
+
+========================================================= */
+
+const header =
+document.querySelector(".header");
+
+const logo =
+document.querySelector(".logo-image");
+
+const headerLinks =
+document.querySelectorAll(".header-link");
+
+const language =
+document.querySelector(".language");
+
+const languageButtons =
+document.querySelectorAll(".language button");
+
+const languageSeparator =
+document.querySelector(".language span");
+
+
+function clamp(value,min,max){
+
+    return Math.max(
+        min,
+        Math.min(max,value)
+    );
+
+}
+
+
+/*
+   Get the pixel color from an image
+   at a given screen coordinate.
+*/
+
+function getImagePixel(
+    image,
+    screenX,
+    screenY
+){
+
+    if(
+        !image ||
+        !image.complete ||
+        !image.naturalWidth
+    ){
+
+        return null;
+    }
+
+
+    const rect =
+    image.getBoundingClientRect();
+
+
+    if(
+        screenX < rect.left ||
+        screenX > rect.right ||
+        screenY < rect.top ||
+        screenY > rect.bottom
+    ){
+
+        return null;
+    }
+
+
+    /*
+       Image uses object-fit:cover.
+       Calculate the actual visible image
+       coordinate.
+    */
+
+    const imageRatio =
+        image.naturalWidth /
+        image.naturalHeight;
+
+
+    const boxRatio =
+        rect.width /
+        rect.height;
+
+
+    let renderedWidth;
+    let renderedHeight;
+    let offsetX;
+    let offsetY;
+
+
+    if(imageRatio > boxRatio){
+
+        renderedHeight =
+            rect.height;
+
+        renderedWidth =
+            renderedHeight *
+            imageRatio;
+
+        offsetX =
+            (renderedWidth - rect.width) / 2;
+
+        offsetY = 0;
+
+    }else{
+
+        renderedWidth =
+            rect.width;
+
+        renderedHeight =
+            renderedWidth /
+            imageRatio;
+
+        offsetX = 0;
+
+        offsetY =
+            (renderedHeight - rect.height) / 2;
+
+    }
+
+
+    const localX =
+        screenX -
+        rect.left +
+        offsetX;
+
+
+    const localY =
+        screenY -
+        rect.top +
+        offsetY;
+
+
+    const pixelX =
+        clamp(
+            Math.floor(
+                localX *
+                image.naturalWidth /
+                renderedWidth
+            ),
+            0,
+            image.naturalWidth - 1
+        );
+
+
+    const pixelY =
+        clamp(
+            Math.floor(
+                localY *
+                image.naturalHeight /
+                renderedHeight
+            ),
+            0,
+            image.naturalHeight - 1
+        );
+
+
+    /*
+       Canvas is required to read the image pixel.
+       If the browser blocks canvas access,
+       we simply return null.
+    */
+
+    try{
+
+        const canvas =
+        getImageCanvas(image);
+
+
+        const ctx =
+        canvas.getContext(
+            "2d",
+            {
+                willReadFrequently:true
+            }
+        );
+
+
+        const pixel =
+        ctx.getImageData(
+            pixelX,
+            pixelY,
+            1,
+            1
+        ).data;
+
+
+        return {
+            r:pixel[0],
+            g:pixel[1],
+            b:pixel[2]
+        };
+
+    }catch(error){
+
+        return null;
+    }
+
+}
+
+
+const imageCanvasCache =
+new WeakMap();
+
+
+function getImageCanvas(image){
+
+    if(
+        imageCanvasCache.has(image)
+    ){
+
+        return imageCanvasCache.get(image);
+    }
+
+
+    const canvas =
+    document.createElement("canvas");
+
+
+    /*
+       We do not need the full resolution.
+       A small canvas is enough to read colors.
+    */
+
+    const width =
+    Math.min(
+        image.naturalWidth,
+        800
+    );
+
+
+    const height =
+    Math.max(
+        1,
+        Math.round(
+            width *
+            image.naturalHeight /
+            image.naturalWidth
+        )
+    );
+
+
+    canvas.width = width;
+    canvas.height = height;
+
+
+    const ctx =
+    canvas.getContext(
+        "2d",
+        {
+            willReadFrequently:true
+        }
+    );
+
+
+    try{
+
+        ctx.drawImage(
+            image,
+            0,
+            0,
+            width,
+            height
+        );
+
+    }catch(error){
+
+        return canvas;
+    }
+
+
+    imageCanvasCache.set(
+        image,
+        canvas
+    );
+
+
+    return canvas;
+}
+
+
+/*
+   Calculate perceived brightness.
+
+   Human eye is more sensitive to green,
+   so use a weighted luminance formula.
+*/
+
+function getBrightness(pixel){
+
+    if(!pixel) return null;
+
+
+    return (
+        pixel.r * .299 +
+        pixel.g * .587 +
+        pixel.b * .114
+    );
+}
+
+
+/*
+   Sample several pixels around the logo/menu.
+   This prevents one tiny bright/dark detail
+   from making the whole header change color.
+*/
+
+function getAverageBrightness(
+    x,
+    y,
+    radius
+){
+
+    const images =
+    document.querySelectorAll(
+        ".hero-image, .project-image"
+    );
+
+
+    let values = [];
+
+
+    images.forEach(image => {
+
+        const rect =
+        image.getBoundingClientRect();
+
+
+        if(
+            x >= rect.left &&
+            x <= rect.right &&
+            y >= rect.top &&
+            y <= rect.bottom
+        ){
+
+            const points = [
+
+                [x,y],
+
+                [x-radius,y],
+
+                [x+radius,y],
+
+                [x,y-radius],
+
+                [x,y+radius],
+
+                [x-radius,y-radius],
+
+                [x+radius,y-radius],
+
+                [x-radius,y+radius],
+
+                [x+radius,y+radius]
+
+            ];
+
+
+            points.forEach(point => {
+
+                const pixel =
+                getImagePixel(
+                    image,
+                    point[0],
+                    point[1]
+                );
+
+
+                const brightness =
+                getBrightness(pixel);
+
+
+                if(brightness !== null){
+
+                    values.push(
+                        brightness
+                    );
+
+                }
+
+            });
+
+        }
+
+    });
+
+
+    /*
+       If no image exists behind this point,
+       inspect the actual page background.
+    */
+
+    if(values.length === 0){
+
+        return 17;
+    }
+
+
+    return values.reduce(
+        (a,b) => a+b,
+        0
+    ) / values.length;
+}
+
+
+/*
+   Determine the color behind each header element.
+
+   Logo gets sampled from its center.
+
+   Menu items get sampled individually.
+*/
+
+function updateHeaderContrast(){
+
+    if(!header) return;
+
+
+    /*
+       LOGO
+    */
+
+    const logoRect =
+    logo.getBoundingClientRect();
+
+
+    const logoBrightness =
+    getAverageBrightness(
+        logoRect.left +
+        logoRect.width / 2,
+
+        logoRect.top +
+        logoRect.height / 2,
+
+        Math.max(
+            8,
+            logoRect.width * .22
+        )
+    );
+
+
+    /*
+       Lower threshold means the background
+       must be quite dark before switching white.
+    */
+
+    const logoDark =
+        logoBrightness < 125;
+
+
+    /*
+       IMPORTANT:
+       PNG is black.
+
+       For white:
+       invert(1)
+
+       For black:
+       invert(0)
+    */
+
+    logo.style.filter =
+        logoDark
+        ? "invert(1)"
+        : "invert(0)";
+
+
+    /*
+       MENU ITEMS
+    */
+
+    headerLinks.forEach(link => {
+
+        const rect =
+        link.getBoundingClientRect();
+
+
+        const brightness =
+        getAverageBrightness(
+            rect.left +
+            rect.width / 2,
+
+            rect.top +
+            rect.height / 2,
+
+            12
+        );
+
+
+        const dark =
+        brightness < 125;
+
+
+        link.style.color =
+            dark
+            ? "#fff"
+            : "#000";
+
+    });
+
+
+    /*
+       LANGUAGE
+    */
+
+    const langRect =
+    language.getBoundingClientRect();
+
+
+    const languageBrightness =
+    getAverageBrightness(
+        langRect.left +
+        langRect.width / 2,
+
+        langRect.top +
+        langRect.height / 2,
+
+        12
+    );
+
+
+    const languageDark =
+    languageBrightness < 125;
+
+
+    language.style.color =
+        languageDark
+        ? "#fff"
+        : "#000";
+
+
+    languageButtons.forEach(button => {
+
+        button.style.color =
+            languageDark
+            ? "#fff"
+            : "#000";
+
+    });
+
+
+    languageSeparator.style.color =
+        languageDark
+        ? "#fff"
+        : "#000";
+}
+
+
+/* =========================================================
+   HEADER CONTRAST LOOP
+========================================================= */
+
+let headerContrastTicking =
+false;
+
+
+function requestHeaderContrast(){
+
+    if(headerContrastTicking){
+
+        return;
+    }
+
+
+    headerContrastTicking =
+    true;
+
+
+    requestAnimationFrame(() => {
+
+        updateHeaderContrast();
+
+        headerContrastTicking =
+        false;
+
+    });
+
+}
+
+
+window.addEventListener(
+    "scroll",
+    requestHeaderContrast,
+    {
+        passive:true
+    }
+);
+
+
+window.addEventListener(
+    "resize",
+    requestHeaderContrast
+);
+
+
+window.addEventListener(
+    "load",
+    () => {
+
+        /*
+           Wait for images to be fully rendered.
+        */
+
+        setTimeout(
+            updateHeaderContrast,
+            100
+        );
+
+        setTimeout(
+            updateHeaderContrast,
+            500
+        );
+
+        setTimeout(
+            updateHeaderContrast,
+            1200
+        );
+
+    }
+);
+
+
+/*
+   Also update continuously while scrolling.
+   This is what makes the color follow the
+   photograph smoothly.
+*/
+
+let lastScroll =
+window.scrollY;
+
+
+function contrastAnimation(){
+
+    if(
+        Math.abs(
+            window.scrollY -
+            lastScroll
+        ) > .1
+    ){
+
+        lastScroll =
+            window.scrollY;
+
+        updateHeaderContrast();
+
+    }
+
+
+    requestAnimationFrame(
+        contrastAnimation
+    );
+}
+
+
+requestAnimationFrame(
+    contrastAnimation
+);
+
+
+/* =========================================================
    PREVENT SCROLL DURING OPENING
 ========================================================= */
 
@@ -2073,6 +2705,8 @@ setTimeout(() => {
 
     document.body.style.overflow =
     "";
+
+    updateHeaderContrast();
 
 },1500);
 
