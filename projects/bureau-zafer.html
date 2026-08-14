@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
 
 <meta charset="UTF-8">
@@ -33,109 +32,71 @@ a{
 }
 
 
-/* =====================================================
-   HEADER
-===================================================== */
+/* HEADER */
 
 header{
-
     position:fixed;
-
     top:0;
     left:0;
-
     width:100%;
     height:90px;
-
-    padding:0 40px;
-
+    padding:0 45px;
     display:flex;
-    align-items:center;
     justify-content:space-between;
-
+    align-items:center;
     z-index:1000;
-
     mix-blend-mode:difference;
 }
 
 .logo{
-
     width:48px;
     height:48px;
-
     display:block;
 }
 
 .logo img{
-
     width:100%;
     height:100%;
-
     object-fit:contain;
-
     display:block;
-
     filter:brightness(0) invert(1);
 }
 
 .back{
-
     font-size:10px;
-
     letter-spacing:1.5px;
-
     text-transform:uppercase;
 }
 
 
-/* =====================================================
-   HERO
-===================================================== */
+/* HERO */
 
 .hero{
-
     height:100svh;
-
     min-height:600px;
-
     position:relative;
-
     overflow:hidden;
 }
 
-.hero img{
-
+.hero > img{
     width:100%;
     height:100%;
-
     object-fit:cover;
-
     transform:scale(1.08);
-
-    animation:
-    heroZoom 1.6s
-    cubic-bezier(.16,1,.3,1)
-    forwards;
+    animation:heroZoom 1.6s cubic-bezier(.16,1,.3,1) forwards;
 }
 
 @keyframes heroZoom{
-
     to{
         transform:scale(1);
     }
-
 }
 
 .hero::after{
-
     content:"";
-
     position:absolute;
-
     inset:0;
-
-    background:
-    linear-gradient(
+    background:linear-gradient(
         to top,
         rgba(0,0,0,.75),
         transparent 65%
@@ -143,279 +104,177 @@ header{
 }
 
 .hero-info{
-
     position:absolute;
-
     z-index:2;
-
-    left:40px;
-    right:40px;
-    bottom:40px;
-
+    bottom:45px;
+    left:45px;
+    right:45px;
     display:flex;
-
     justify-content:space-between;
     align-items:flex-end;
 }
 
 .title{
-
-    font-size:
-    clamp(55px,9vw,140px);
-
+    font-size:clamp(55px,9vw,140px);
     line-height:.82;
-
     letter-spacing:-5px;
-
     font-weight:500;
-
-    text-transform:uppercase;
 }
 
 .number{
-
     font-size:10px;
-
     letter-spacing:2px;
-
-    margin-bottom:14px;
+    margin-bottom:15px;
 }
 
 .details{
-
     text-align:right;
-
     font-size:10px;
-
     line-height:1.8;
-
     letter-spacing:1.5px;
-
     text-transform:uppercase;
 }
 
 
-/* =====================================================
-   INTRO
-===================================================== */
+/* INTRO */
 
 .intro{
-
     min-height:65vh;
-
-    padding:150px 40px;
-
+    padding:150px 45px;
     display:grid;
-
     grid-template-columns:1fr 1fr;
-
     gap:100px;
-
-    align-items:start;
 }
 
 .intro-title{
-
     font-size:10px;
-
     letter-spacing:2px;
-
     text-transform:uppercase;
 }
 
 .description{
-
     max-width:650px;
-
-    font-size:
-    clamp(20px,2.3vw,30px);
-
-    line-height:1.35;
-
+    font-size:23px;
+    line-height:1.4;
     font-weight:300;
 }
 
 
-/* =====================================================
-   GALLERY
-===================================================== */
+/* GALLERY */
 
 .gallery{
-
     width:100%;
-
     overflow:hidden;
 }
 
 .gallery-item{
-
     width:100%;
-
-    margin-bottom:4px;
-
+    margin-bottom:3px;
     overflow:hidden;
-
     opacity:0;
-
-    transform:
-    translateX(-120px)
-    scale(.985);
-
+    transform:translateX(-120px) scale(.985);
     transition:
-    opacity .7s cubic-bezier(.16,1,.3,1),
-    transform .9s cubic-bezier(.16,1,.3,1);
+        opacity .65s cubic-bezier(.16,1,.3,1),
+        transform .85s cubic-bezier(.16,1,.3,1);
 }
 
-
-/*
-   Çift numaralı fotoğraflar sağdan gelir
-*/
-
 .gallery-item:nth-child(even){
-
-    transform:
-    translateX(120px)
-    scale(.985);
+    transform:translateX(120px) scale(.985);
 }
 
 .gallery-item.visible{
-
     opacity:1;
-
-    transform:
-    translateX(0)
-    scale(1);
+    transform:translateX(0) scale(1);
 }
 
 .gallery-item img{
-
     width:100%;
-
     height:auto;
-
     display:block;
-
-    transition:
-    transform 1.1s cubic-bezier(.16,1,.3,1);
+    transition:transform 1s cubic-bezier(.16,1,.3,1);
 }
 
 .gallery-item:hover img{
-
     transform:scale(1.015);
 }
 
 
-/* =====================================================
-   NEXT
-===================================================== */
+/* NEXT */
 
 .next{
-
     min-height:50vh;
-
-    padding:100px 40px;
-
+    padding:100px 45px;
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
     border-top:1px solid #333;
 }
 
 .next-label{
-
     font-size:10px;
-
     letter-spacing:2px;
 }
 
 .next-title{
-
-    font-size:
-    clamp(45px,7vw,110px);
-
+    font-size:clamp(45px,7vw,110px);
     letter-spacing:-4px;
 }
 
 
-/* =====================================================
-   MOBILE
-===================================================== */
+/* MOBILE */
 
 @media(max-width:700px){
 
     header{
-
         height:70px;
-
-        padding:0 18px;
+        padding:0 20px;
     }
 
     .logo{
-
         width:38px;
         height:38px;
     }
 
     .hero-info{
-
-        left:18px;
-        right:18px;
-        bottom:30px;
-
+        left:20px;
+        right:20px;
+        bottom:35px;
         display:block;
     }
 
     .title{
-
-        font-size:
-        clamp(48px,14vw,80px);
-
+        font-size:15vw;
         margin-bottom:25px;
     }
 
     .details{
-
         text-align:left;
     }
 
     .intro{
-
         display:block;
-
-        padding:
-        100px 18px;
+        padding:90px 20px;
     }
 
     .intro-title{
-
-        margin-bottom:45px;
+        margin-bottom:50px;
     }
 
     .description{
-
-        font-size:20px;
+        font-size:18px;
     }
 
     .next{
-
-        padding:
-        70px 18px;
-
+        padding:70px 20px;
         display:block;
     }
 
     .next-title{
-
         margin-top:30px;
     }
-
 }
 
 </style>
-
 </head>
 
 
@@ -424,234 +283,136 @@ header{
 
 <header>
 
-    <a
-        href="../index.html"
-        class="logo">
+<a href="../index.html" class="logo">
+    <img src="../images/logo.png" alt="DOGAN ARCHITECTURE">
+</a>
 
-        <img
-            src="../images/logo.png"
-            alt="DOGAN ARCHITECTURE">
-
-    </a>
-
-
-    <a
-        href="../index.html"
-        class="back">
-
-        ← PROJETS
-
-    </a>
+<a href="../index.html" class="back">
+    ← PROJETS
+</a>
 
 </header>
 
 
 <section class="hero">
 
-    <img
-        src="../images/bureau-zafer/cover.jpg"
-        alt="Bureau Zafer">
+<img
+    src="../images/bureau-zafer/cover.jpg"
+    alt="Bureau Zafer">
 
-    <div class="hero-info">
+<div class="hero-info">
 
-        <div>
+<div>
 
-            <div class="number">
-                01 / 07
-            </div>
+<div class="number">01 / 07</div>
 
-            <h1 class="title">
-                BUREAU<br>
-                ZAFER
-            </h1>
+<h1 class="title">
+BUREAU<br>ZAFER
+</h1>
 
-        </div>
+</div>
 
+<div class="details">
+SAINTE-GENEVIÈVE-DES-BOIS<br>
+2023<br>
+BUREAUX<br>
+670 m²
+</div>
 
-        <div class="details">
-
-            SAINTE-GENEVIÈVE-DES-BOIS<br>
-            2023<br>
-            BUREAUX<br>
-            670 m²
-
-        </div>
-
-    </div>
+</div>
 
 </section>
 
 
 <section class="intro">
 
-    <div class="intro-title">
-        PROJECT
-    </div>
+<div class="intro-title">
+PROJECT
+</div>
 
+<div class="description">
 
-    <div class="description">
+Bureau Zafer est un projet de bureaux
+situé à Sainte-Geneviève-des-Bois,
+en France.
 
-        Bureau Zafer est un projet de bureaux
-        situé à Sainte-Geneviève-des-Bois,
-        en France.
+<br><br>
 
-        <br><br>
+Le projet développe une architecture
+contemporaine adaptée à son contexte
+et à son programme professionnel.
 
-        Le projet développe une architecture
-        contemporaine adaptée à son contexte
-        et à son programme professionnel.
-
-    </div>
+</div>
 
 </section>
 
 
 <section
     class="gallery"
-    id="gallery">
+    data-folder="../images/bureau-zafer/">
 </section>
 
 
-<a
-    href="villa-dogan.html"
-    class="next">
+<a href="villa-dogan.html" class="next">
 
-    <div class="next-label">
-        NEXT PROJECT
-    </div>
+<div class="next-label">
+NEXT PROJECT
+</div>
 
-    <div class="next-title">
-        VILLA DOGAN →
-    </div>
+<div class="next-title">
+VILLA DOGAN →
+</div>
 
 </a>
 
 
 <script>
 
-/* =====================================================
-   AUTOMATIC GALLERY
-=====================================================
+const gallery=document.querySelector(".gallery");
+const folder=gallery.dataset.folder;
+const maxImages=30;
 
-   01.jpg
-   02.jpg
-   03.jpg
-   ...
+const observer=new IntersectionObserver(
+    entries=>{
+        entries.forEach(entry=>{
+            if(entry.isIntersecting){
+                entry.target.classList.add("visible");
+            }
+        });
+    },
+    {
+        threshold:.08,
+        rootMargin:"0px 0px -8% 0px"
+    }
+);
 
-   Sadece gerçekten bulunan fotoğraflar eklenir.
+for(let i=1;i<=maxImages;i++){
 
-===================================================== */
+    const number=String(i).padStart(2,"0");
 
-const gallery =
-document.getElementById("gallery");
+    const item=document.createElement("div");
+    item.className="gallery-item";
 
+    const img=document.createElement("img");
 
-const folder =
-"../images/bureau-zafer/";
+    img.src=folder+number+".jpg";
+    img.alt="Bureau Zafer "+number;
 
-
-const maxImages = 30;
-
-
-let loadedImages = 0;
-
-
-function addImage(number){
-
-    const src =
-        folder +
-        String(number).padStart(2,"0") +
-        ".jpg";
-
-
-    const item =
-        document.createElement("div");
-
-    item.className =
-        "gallery-item";
-
-
-    const image =
-        document.createElement("img");
-
-    image.src =
-        src;
-
-    image.alt =
-        "Bureau Zafer " + number;
-
-
-    image.onload = () => {
+    img.onload=function(){
 
         gallery.appendChild(item);
-
-        item.appendChild(image);
-
-        loadedImages++;
+        item.appendChild(img);
 
         observer.observe(item);
 
     };
 
-
-    image.onerror = () => {
-
-        /*
-           Dosya yoksa hiçbir şey eklenmez.
-        */
-
+    img.onerror=function(){
         item.remove();
-
     };
-
 }
-
-
-for(
-    let i = 1;
-    i <= maxImages;
-    i++
-){
-
-    addImage(i);
-
-}
-
-
-/* =====================================================
-   SCROLL REVEAL
-===================================================== */
-
-const observer =
-new IntersectionObserver(
-
-    entries => {
-
-        entries.forEach(entry => {
-
-            if(entry.isIntersecting){
-
-                entry.target
-                    .classList
-                    .add("visible");
-
-            }
-
-        });
-
-    },
-
-    {
-        threshold:.08,
-        rootMargin:
-        "0px 0px -8% 0px"
-    }
-
-);
 
 </script>
 
-
 </body>
-
 </html>
