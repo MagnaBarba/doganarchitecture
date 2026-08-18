@@ -1,2467 +1,493 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>DOGAN ARCHITECTURE</title>
 
 <style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#111;color:#fff;font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
 
-/* =========================================================
-   RESET
-========================================================= */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    background:#111;
-    color:#fff;
-    font-family:Arial, Helvetica, sans-serif;
-    overflow-x:hidden;
-}
-
-a{
-    color:inherit;
-    text-decoration:none;
-}
-
-
-/* =========================================================
-   OPENING
-========================================================= */
+/* ================= OPENING ================= */
 
 .opening{
-    position:fixed;
-    inset:0;
-    background:#111;
-    z-index:99999;
-    pointer-events:none;
-    overflow:hidden;
+position:fixed;inset:0;background:#111;z-index:99999;
+pointer-events:none;overflow:hidden;
+animation:openingOut .25s 2s forwards;
 }
-
-
-/* Siyah perde.
-   Kollar bunu fiziksel olarak temizliyormuş
-   hissi vermek için üstte kalır. */
-
-.opening-clean{
-    position:absolute;
-    inset:0;
-    background:#111;
-    z-index:1;
-}
-
-
-/* =========================================================
-   OPENING GROUP
-   Logo + kollar TEK GRUP.
-   Böylece kollar logodan kopmaz.
-========================================================= */
-
-.opening-group{
-    position:absolute;
-
-    left:50%;
-    top:50%;
-
-    width:1px;
-    height:1px;
-
-    z-index:5;
-
-    transform:
-        translate(-50%,-50%);
-
-    animation:
-        openingMove
-        1.05s
-        1.05s
-        cubic-bezier(.18,.82,.18,1)
-        forwards;
-}
-
-
-/* Logo */
-
-.opening-logo-holder{
-    position:absolute;
-
-    left:50%;
-    top:50%;
-
-    width:120px;
-    height:120px;
-
-    transform:
-        translate(-50%,-50%);
-
-    border-radius:50%;
-
-    background:#111;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    overflow:hidden;
-}
-
-
-/* Logo */
 
 .opening-logo{
-    width:100%;
-    height:100%;
-
-    object-fit:contain;
-
-    display:block;
-
-    filter:
-        brightness(0)
-        invert(1);
+position:absolute;
+width:105px;height:105px;
+left:50%;top:50%;
+transform:translate(-50%,-50%);
+z-index:5;
+object-fit:contain;
+filter:brightness(0) invert(1);
 }
-
-
-/* =========================================================
-   KOLLAR
-========================================================= */
 
 .opening-arm{
-    position:absolute;
-
-    top:50%;
-
-    width:100vw;
-    height:1px;
-
-    background:#fff;
-
-    transform-origin:center;
-
-    opacity:0;
-
-    animation:
-        armsAppear
-        .42s
-        .48s
-        cubic-bezier(.16,1,.3,1)
-        forwards;
+position:absolute;
+height:1px;
+width:100vw;
+background:#fff;
+top:50%;
+z-index:4;
+transform-origin:center;
 }
 
+.opening-arm.left{right:50%;transform:translateY(-50%) scaleX(0)}
+.opening-arm.right{left:50%;transform:translateY(-50%) scaleX(0)}
 
-/* Logo merkezinden iki yana */
-
-.opening-arm.left{
-    right:50%;
-
-    transform:
-        translateY(-50%)
-        scaleX(0);
-
-    transform-origin:right center;
+.opening-stage{
+position:absolute;
+left:50%;top:50%;
+width:105px;height:105px;
+transform:translate(-50%,-50%);
+z-index:6;
 }
 
-.opening-arm.right{
-    left:50%;
-
-    transform:
-        translateY(-50%)
-        scaleX(0);
-
-    transform-origin:left center;
+.opening-stage .opening-logo{
+position:absolute;
+left:0;top:0;
+transform:none;
 }
 
-
-@keyframes armsAppear{
-
-    to{
-        opacity:1;
-    }
+.opening-stage .opening-arm{
+position:absolute;
+top:52px;
+width:50vw;
 }
 
+.opening-stage .left{right:50%;transform-origin:right center}
+.opening-stage .right{left:50%;transform-origin:left center}
 
-/* =========================================================
-   TEMİZLEME
-========================================================= */
-
-/*
-   Kollar ekranı tararken siyah perdeyi
-   soldan/çapraz değil, kolların hareketiyle
-   açıyormuş hissi oluşturuyor.
-*/
-
-.opening-clean{
-    animation:
-        openingClean
-        .95s
-        1.55s
-        cubic-bezier(.65,0,.2,1)
-        forwards;
+@keyframes armsIn{
+0%{transform:translateY(-50%) scaleX(0)}
+100%{transform:translateY(-50%) scaleX(1)}
 }
-
-
-@keyframes openingClean{
-
-    0%{
-        clip-path:
-            polygon(
-                0 0,
-                100% 0,
-                100% 100%,
-                0 100%
-            );
-    }
-
-    100%{
-        clip-path:
-            polygon(
-                100% 0,
-                100% 0,
-                100% 100%,
-                100% 100%
-            );
-    }
-}
-
-
-/* =========================================================
-   LOGO + KOLLARIN TEK PARÇA HAREKETİ
-========================================================= */
 
 @keyframes openingMove{
-
-    0%{
-
-        left:50%;
-        top:50%;
-
-        transform:
-            translate(-50%,-50%)
-            rotate(0deg);
-
-    }
-
-    100%{
-
-        left:40px;
-        top:45px;
-
-        transform:
-            translate(-50%,-50%)
-            rotate(-760deg);
-
-    }
+0%{
+left:50%;top:50%;
+transform:translate(-50%,-50%) rotate(0deg);
+}
+100%{
+left:40px;top:45px;
+transform:translate(0,0) rotate(720deg);
+}
 }
 
-
-/*
-   Kollar hareket sırasında ekrana uzanıyor.
-   Aynı parent içinde oldukları için logo ile
-   birlikte dönüyorlar.
-*/
-
-.opening-group .opening-arm{
-    width:100vw;
+@keyframes openingFade{
+0%{opacity:1}
+100%{opacity:0}
 }
-
-
-/* Açılışın sonunda kaybol */
-
-.opening{
-    animation:
-        openingOut
-        .3s
-        2.55s
-        forwards;
-}
-
 
 @keyframes openingOut{
-
-    to{
-        opacity:0;
-        visibility:hidden;
-    }
+to{opacity:0;visibility:hidden}
 }
 
+.opening-stage{
+animation:openingMove 1.05s .85s cubic-bezier(.16,1,.3,1) forwards;
+}
 
-/* =========================================================
-   HEADER
-========================================================= */
+.opening-stage .left,
+.opening-stage .right{
+animation:armsIn .45s .35s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+.opening-stage:after{
+content:"";
+position:absolute;
+inset:-100vh -100vw;
+background:transparent;
+z-index:-1;
+}
+
+/* ================= HEADER ================= */
 
 .header{
-    position:fixed;
-
-    top:0;
-    left:0;
-
-    width:100%;
-    height:90px;
-
-    padding:0 40px;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    z-index:5000;
-
-    pointer-events:none;
-
-    opacity:0;
-
-    transition:
-        opacity .2s ease;
+position:fixed;top:0;left:0;width:100%;height:90px;
+padding:0 40px;display:flex;align-items:center;
+justify-content:space-between;z-index:5000;
+pointer-events:none;opacity:0;transition:opacity .2s;
 }
-
-.header.ready{
-    opacity:1;
+.header.ready{opacity:1}
+.logo-link{width:45px;height:45px;display:block;pointer-events:auto}
+.logo-image{width:100%;height:100%;object-fit:contain;filter:brightness(0) invert(1)}
+.header-right{display:flex;align-items:center;gap:30px;pointer-events:auto}
+.header-link,.language{
+background:none;border:0;color:#fff;font-size:10px;
+letter-spacing:1.5px;text-transform:uppercase;
+cursor:pointer
 }
+.language{display:flex;gap:5px}
+.language button{border:0;background:none;color:inherit;font:inherit;cursor:pointer;opacity:.4}
+.language button.active{opacity:1}
+.language span{opacity:.35}
 
-
-.logo-link{
-    width:45px;
-    height:45px;
-
-    display:block;
-
-    pointer-events:auto;
-
-    position:relative;
-
-    transition:
-        transform .5s
-        cubic-bezier(.16,1,.3,1);
-}
-
-.logo-link:hover{
-    transform:scale(1.08);
-}
-
-.logo-image{
-    width:100%;
-    height:100%;
-
-    object-fit:contain;
-    display:block;
-
-    filter:
-        brightness(0)
-        invert(1);
-
-    transition:
-        filter .18s ease;
-}
-
-
-.header-right{
-    display:flex;
-    align-items:center;
-    gap:30px;
-
-    pointer-events:auto;
-}
-
-.header-link{
-    background:transparent;
-
-    padding:4px 0;
-
-    font-size:10px;
-    letter-spacing:1.5px;
-
-    text-transform:uppercase;
-
-    color:#fff;
-
-    transition:
-        color .18s ease,
-        transform .3s ease;
-}
-
-.header-link:hover{
-    transform:translateY(-2px);
-}
-
-
-.language{
-    display:flex;
-    align-items:center;
-
-    gap:5px;
-
-    padding:4px 0;
-
-    background:transparent;
-
-    color:#fff;
-
-    font-size:10px;
-    letter-spacing:1px;
-}
-
-.language button{
-    border:0;
-    background:none;
-
-    color:inherit;
-
-    cursor:pointer;
-
-    font:inherit;
-
-    padding:0;
-
-    opacity:.4;
-}
-
-.language button.active{
-    opacity:1;
-}
-
-.language span{
-    opacity:.35;
-}
-
-
-/* =========================================================
-   HERO
-========================================================= */
+/* ================= HERO ================= */
 
 .hero{
-    width:100%;
-    height:100svh;
-
-    min-height:600px;
-
-    position:relative;
-
-    overflow:hidden;
-
-    background:#111;
+height:100svh;min-height:600px;position:relative;
+overflow:hidden;background:#111
 }
-
 .hero-image{
-    position:absolute;
-
-    inset:0;
-
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
-
-    transform:scale(1.1);
-
-    animation:
-        heroIn
-        1.6s
-        1.05s
-        cubic-bezier(.16,1,.3,1)
-        forwards;
+position:absolute;inset:0;width:100%;height:100%;
+object-fit:cover;transform:scale(1.1);
+animation:heroIn 1.6s 1.05s cubic-bezier(.16,1,.3,1) forwards
 }
-
-@keyframes heroIn{
-
-    to{
-        transform:scale(1);
-    }
+@keyframes heroIn{to{transform:scale(1)}}
+.hero:after{
+content:"";position:absolute;inset:0;
+background:linear-gradient(to top,rgba(0,0,0,.72),rgba(0,0,0,.08) 65%)
 }
-
-.hero::after{
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-        linear-gradient(
-            to top,
-            rgba(0,0,0,.72),
-            rgba(0,0,0,.08) 65%
-        );
-}
-
-
-/* =========================================================
-   HERO CONTENT
-========================================================= */
-
 .hero-content{
-    position:absolute;
-
-    z-index:10;
-
-    left:40px;
-    right:40px;
-
-    bottom:42px;
-
-    color:#fff;
+position:absolute;z-index:10;left:40px;right:40px;bottom:42px
 }
-
 .office-name{
-    font-size:
-        clamp(55px,9.5vw,150px);
-
-    line-height:.82;
-
-    letter-spacing:-6px;
-
-    font-weight:500;
-
-    text-transform:uppercase;
-
-    opacity:0;
-
-    animation:
-        heroTextIn
-        .8s
-        1.12s
-        cubic-bezier(.16,1,.3,1)
-        forwards;
+font-size:clamp(55px,9.5vw,150px);
+line-height:.82;letter-spacing:-6px;font-weight:500;
+opacity:0;animation:heroTextIn .8s 1.12s forwards
 }
-
 .hero-meta{
-    margin-top:25px;
-
-    font-size:10px;
-
-    letter-spacing:2px;
-
-    text-transform:uppercase;
-
-    opacity:0;
-
-    animation:
-        heroMetaIn
-        .7s
-        1.22s
-        cubic-bezier(.16,1,.3,1)
-        forwards;
+margin-top:25px;font-size:10px;letter-spacing:2px;
+text-transform:uppercase;opacity:0;
+animation:heroTextIn .7s 1.22s forwards
 }
-
 @keyframes heroTextIn{
-
-    from{
-        opacity:0;
-        transform:translateY(70px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+from{opacity:0;transform:translateY(50px)}
+to{opacity:1;transform:translateY(0)}
 }
-
-@keyframes heroMetaIn{
-
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-
-/* =========================================================
-   SCROLL
-========================================================= */
-
 .scroll-indicator{
-    position:absolute;
-
-    z-index:10;
-
-    right:40px;
-    bottom:42px;
-
-    color:#fff;
-
-    font-size:9px;
-    letter-spacing:2px;
-
-    writing-mode:vertical-rl;
-
-    opacity:.7;
-
-    animation:
-        scrollPulse
-        2s
-        infinite;
+position:absolute;z-index:10;right:40px;bottom:42px;
+font-size:9px;letter-spacing:2px;writing-mode:vertical-rl;
+animation:scrollPulse 2s infinite
 }
+@keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:1}}
 
-@keyframes scrollPulse{
-
-    0%,100%{
-        opacity:.3;
-    }
-
-    50%{
-        opacity:1;
-    }
-}
-
-
-/* =========================================================
-   PROJECT INTRO
-========================================================= */
+/* ================= INTRO ================= */
 
 .projects-intro{
-    background:#111;
-    color:#fff;
-
-    padding:150px 40px 100px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:flex-end;
+background:#111;padding:150px 40px 100px;
+display:flex;justify-content:space-between;align-items:flex-end
 }
-
-.projects-label{
-    font-size:10px;
-
-    letter-spacing:2px;
-
-    text-transform:uppercase;
-}
-
+.projects-label{font-size:10px;letter-spacing:2px;text-transform:uppercase}
 .projects-description{
-    max-width:600px;
-
-    font-size:
-        clamp(24px,3vw,42px);
-
-    line-height:1.05;
-
-    letter-spacing:-1.5px;
-
-    font-weight:300;
+max-width:600px;font-size:clamp(24px,3vw,42px);
+line-height:1.05;letter-spacing:-1.5px;font-weight:300
 }
 
-
-/* =========================================================
-   PROJECT
-========================================================= */
+/* ================= PROJECTS ================= */
 
 .project{
-    position:relative;
-
-    width:100%;
-
-    margin-bottom:8px;
-
-    overflow:hidden;
-
-    background:#111;
-
-    opacity:0;
-
-    transform:
-        translateX(100px)
-        scale(.985);
-
-    transition:
-        opacity .65s
-        cubic-bezier(.16,1,.3,1),
-
-        transform .8s
-        cubic-bezier(.16,1,.3,1);
+position:relative;width:100%;margin-bottom:8px;overflow:hidden;
+background:#111;opacity:0;
+transform:translateX(100px) scale(.985);
+transition:opacity .65s cubic-bezier(.16,1,.3,1),
+transform .8s cubic-bezier(.16,1,.3,1)
 }
-
-.project.from-left{
-    transform:
-        translateX(-100px)
-        scale(.985);
-}
-
-.project.visible{
-    opacity:1;
-
-    transform:
-        translateX(0)
-        scale(1);
-}
-
-
-/* =========================================================
-   PROJECT REVERSE
-========================================================= */
-
-/*
-   Yukarı çıkarken görünüm tekrar ters yönden
-   geliyor. JS .visible sınıfını kaldırıyor.
-*/
-
-.project.reverse-left{
-    transform:
-        translateX(-100px)
-        scale(.985);
-}
-
-.project.reverse-right{
-    transform:
-        translateX(100px)
-        scale(.985);
-}
-
-
-/* =========================================================
-   PROJECT IMAGE
-========================================================= */
-
-.project-link{
-    display:block;
-
-    position:relative;
-
-    overflow:hidden;
-}
-
+.project.from-left{transform:translateX(-100px) scale(.985)}
+.project.visible{opacity:1;transform:translateX(0) scale(1)}
+.project-link{display:block;position:relative;overflow:hidden}
 .project-image{
-    width:100%;
-
-    height:82vh;
-
-    min-height:600px;
-
-    object-fit:cover;
-
-    display:block;
-
-    transform:
-        scale(1.05)
-        translateY(20px);
-
-    transition:
-        transform 1s
-        cubic-bezier(.16,1,.3,1),
-
-        filter .7s ease;
+width:100%;height:82vh;min-height:600px;object-fit:cover;
+display:block;transform:scale(1.05) translateY(20px);
+transition:transform 1s cubic-bezier(.16,1,.3,1),filter .7s
 }
-
-.project.visible .project-image{
-    transform:
-        scale(1)
-        translateY(0);
+.project.visible .project-image{transform:scale(1) translateY(0)}
+.project-link:after{
+content:"";position:absolute;inset:0;
+background:linear-gradient(to top,rgba(0,0,0,.75),transparent 60%);
+opacity:.65;transition:opacity .6s
 }
-
-
-/* =========================================================
-   PROJECT OVERLAY
-========================================================= */
-
-.project-link::after{
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-        linear-gradient(
-            to top,
-            rgba(0,0,0,.75),
-            transparent 60%
-        );
-
-    opacity:.65;
-
-    transition:
-        opacity .6s ease;
-}
-
-.project-link:hover::after{
-    opacity:.9;
-}
-
-.project-link:hover .project-image{
-    transform:
-        scale(1.035);
-
-    filter:
-        brightness(.82);
-}
-
-
-/* =========================================================
-   PROJECT INFO
-========================================================= */
-
+.project-link:hover:after{opacity:.9}
+.project-link:hover .project-image{transform:scale(1.035);filter:brightness(.82)}
 .project-info{
-    position:absolute;
-
-    z-index:5;
-
-    left:40px;
-    right:40px;
-    bottom:35px;
-
-    color:#fff;
-
-    display:flex;
-
-    align-items:flex-end;
-
-    justify-content:space-between;
-
-    pointer-events:none;
+position:absolute;z-index:5;left:40px;right:40px;bottom:35px;
+display:flex;align-items:flex-end;justify-content:space-between;
+pointer-events:none
 }
-
-.project-number{
-    font-size:10px;
-
-    letter-spacing:2px;
-
-    margin-bottom:12px;
-
-    opacity:0;
-
-    transform:translateY(15px);
-
-    transition:
-        transform .7s .15s,
-        opacity .7s .15s;
-}
-
-.project.visible .project-number{
-    transform:translateY(0);
-
-    opacity:.7;
-}
-
+.project-number{font-size:10px;letter-spacing:2px;margin-bottom:12px;opacity:.7}
 .project-title{
-    font-size:
-        clamp(50px,8vw,125px);
-
-    line-height:.82;
-
-    letter-spacing:-5px;
-
-    font-weight:500;
-
-    text-transform:uppercase;
-
-    transform:translateY(40px);
-
-    opacity:0;
-
-    transition:
-        transform .8s .2s
-        cubic-bezier(.16,1,.3,1),
-
-        opacity .8s .2s;
+font-size:clamp(50px,8vw,125px);line-height:.82;
+letter-spacing:-5px;font-weight:500;text-transform:uppercase
 }
-
-.project.visible .project-title{
-    transform:translateY(0);
-
-    opacity:1;
-}
-
 .project-details{
-    text-align:right;
-
-    font-size:10px;
-
-    line-height:1.8;
-
-    letter-spacing:1.5px;
-
-    text-transform:uppercase;
-
-    transform:translateY(20px);
-
-    opacity:0;
-
-    transition:
-        transform .7s .3s,
-        opacity .7s .3s;
+text-align:right;font-size:10px;line-height:1.8;
+letter-spacing:1.5px;text-transform:uppercase
 }
 
-.project.visible .project-details{
-    transform:translateY(0);
-
-    opacity:1;
-}
-
-.project-link:hover .project-title{
-    transform:
-        translateX(15px);
-}
-
-
-/* =========================================================
-   CONTACT
-========================================================= */
+/* ================= CONTACT ================= */
 
 .contact{
-    min-height:75vh;
-
-    padding:150px 40px;
-
-    background:#111;
-
-    color:#fff;
-
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    gap:80px;
+min-height:75vh;padding:150px 40px;background:#111;
+display:grid;grid-template-columns:1fr 1fr;gap:80px
 }
-
-.contact-label{
-    font-size:10px;
-
-    letter-spacing:2px;
-}
-
+.contact-label{font-size:10px;letter-spacing:2px}
 .contact-title{
-    margin-top:45px;
-
-    font-size:
-        clamp(55px,9vw,135px);
-
-    line-height:.82;
-
-    letter-spacing:-6px;
-
-    font-weight:500;
+margin-top:45px;font-size:clamp(55px,9vw,135px);
+line-height:.82;letter-spacing:-6px;font-weight:500
 }
-
-.contact-info{
-    align-self:end;
-
-    font-size:13px;
-
-    line-height:2;
+.contact-info{align-self:end;font-size:13px;line-height:2}
+.contact-info a{border-bottom:1px solid #777}
+.instagram{
+display:flex;align-items:center;gap:9px;
+font-size:13px!important;
+border:0!important
 }
-
-.contact-info a{
-    border-bottom:
-        1px solid #777;
-}
-
-.contact-address{
-    display:block;
-}
-
-.contact-instagram{
-    display:flex;
-
-    align-items:center;
-
-    gap:9px;
-
-    width:max-content;
-
-    margin-top:3px;
-
-    border-bottom:
-        1px solid #777 !important;
-
-    line-height:1.7;
-}
-
-.instagram-icon{
-    width:15px;
-    height:15px;
-
-    display:block;
-
-    flex:none;
-}
-
+.instagram svg{width:16px;height:16px;fill:currentColor}
 .contact-small{
-    margin-top:35px;
-
-    font-size:9px;
-
-    letter-spacing:1.5px;
-
-    text-transform:uppercase;
-
-    color:#aaa;
+margin-top:35px;font-size:9px;letter-spacing:1.5px;
+text-transform:uppercase;color:#aaa
 }
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
 .footer{
-    padding:30px 40px;
-
-    background:#111;
-
-    color:#fff;
-
-    border-top:
-        1px solid #333;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    font-size:9px;
-
-    letter-spacing:1.5px;
-
-    text-transform:uppercase;
+padding:30px 40px;background:#111;border-top:1px solid #333;
+display:flex;justify-content:space-between;font-size:9px;
+letter-spacing:1.5px;text-transform:uppercase
 }
 
-
-/* =========================================================
-   MOBILE
-========================================================= */
+/* ================= MOBILE ================= */
 
 @media(max-width:700px){
-
-    .header{
-        height:70px;
-        padding:0 18px;
-    }
-
-    .logo-link{
-        width:36px;
-        height:36px;
-    }
-
-    .header-right{
-        gap:14px;
-    }
-
-    .header-link,
-    .language{
-        padding:4px 0;
-
-        font-size:8px;
-
-        letter-spacing:.8px;
-    }
-
-    .hero{
-        min-height:600px;
-    }
-
-    .hero-content{
-        left:18px;
-        right:18px;
-        bottom:30px;
-    }
-
-    .office-name{
-        font-size:
-            clamp(42px,13vw,75px);
-
-        line-height:.88;
-
-        letter-spacing:-3px;
-    }
-
-    .hero-meta{
-        margin-top:18px;
-
-        font-size:8px;
-
-        letter-spacing:1.2px;
-    }
-
-    .scroll-indicator{
-        right:18px;
-        bottom:30px;
-
-        font-size:8px;
-    }
-
-    .projects-intro{
-        display:block;
-
-        padding:
-            100px 18px 70px;
-    }
-
-    .projects-description{
-        margin-top:35px;
-
-        font-size:25px;
-        line-height:1.05;
-    }
-
-    .project{
-        margin-bottom:5px;
-
-        transform:
-            translateX(60px)
-            scale(.985);
-    }
-
-    .project.from-left{
-        transform:
-            translateX(-60px)
-            scale(.985);
-    }
-
-    .project.visible{
-        transform:
-            translateX(0)
-            scale(1);
-    }
-
-    .project.reverse-left{
-        transform:
-            translateX(-60px)
-            scale(.985);
-    }
-
-    .project.reverse-right{
-        transform:
-            translateX(60px)
-            scale(.985);
-    }
-
-    .project-image{
-        height:72svh;
-        min-height:500px;
-    }
-
-    .project-info{
-        left:18px;
-        right:18px;
-        bottom:22px;
-
-        display:block;
-    }
-
-    .project-number{
-        font-size:8px;
-        margin-bottom:10px;
-    }
-
-    .project-title{
-        font-size:
-            clamp(42px,12vw,72px);
-
-        line-height:.86;
-
-        letter-spacing:-3px;
-    }
-
-    .project-details{
-        margin-top:18px;
-
-        text-align:left;
-
-        font-size:8px;
-
-        line-height:1.7;
-    }
-
-    .contact{
-        display:block;
-
-        padding:
-            100px 18px;
-    }
-
-    .contact-title{
-        margin-top:35px;
-
-        font-size:
-            clamp(48px,13vw,75px);
-
-        letter-spacing:-3px;
-    }
-
-    .contact-info{
-        margin-top:70px;
-
-        font-size:12px;
-    }
-
-    .contact-instagram{
-        gap:8px;
-    }
-
-    .instagram-icon{
-        width:14px;
-        height:14px;
-    }
-
-    .footer{
-        padding:
-            22px 18px;
-
-        font-size:8px;
-    }
-
-    .opening-logo-holder{
-        width:90px;
-        height:90px;
-    }
+.header{height:70px;padding:0 18px}
+.logo-link{width:36px;height:36px}
+.header-right{gap:14px}
+.header-link,.language{font-size:8px;letter-spacing:.8px}
+.hero{min-height:600px}
+.hero-content{left:18px;right:18px;bottom:30px}
+.office-name{font-size:clamp(42px,13vw,75px);letter-spacing:-3px}
+.hero-meta{margin-top:18px;font-size:8px}
+.scroll-indicator{right:18px;bottom:30px}
+.projects-intro{display:block;padding:100px 18px 70px}
+.projects-description{margin-top:35px;font-size:25px}
+.project{margin-bottom:5px;transform:translateX(60px) scale(.985)}
+.project.from-left{transform:translateX(-60px) scale(.985)}
+.project.visible{transform:translateX(0) scale(1)}
+.project-image{height:72svh;min-height:500px}
+.project-info{left:18px;right:18px;bottom:22px;display:block}
+.project-title{font-size:clamp(42px,12vw,72px);letter-spacing:-3px}
+.project-details{text-align:left;margin-top:18px;font-size:8px}
+.contact{display:block;padding:100px 18px}
+.contact-title{margin-top:35px;font-size:clamp(48px,13vw,75px);letter-spacing:-3px}
+.contact-info{margin-top:70px;font-size:12px}
+.footer{padding:22px 18px;font-size:8px}
 }
-
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
 
 @media(prefers-reduced-motion:reduce){
-
-    *,
-    *::before,
-    *::after{
-
-        animation-duration:.01ms !important;
-
-        animation-iteration-count:1 !important;
-
-        transition-duration:.01ms !important;
-
-        scroll-behavior:auto !important;
-    }
+*,*:before,*:after{
+animation-duration:.01ms!important;
+transition-duration:.01ms!important
 }
-
+}
 </style>
 </head>
 
-
 <body id="top">
 
-
-<!-- =====================================================
-     OPENING
-===================================================== -->
-
+<!-- OPENING -->
 <div class="opening">
-
-    <div class="opening-clean"></div>
-
-    <div class="opening-group">
-
-        <div class="opening-arm left"></div>
-
-        <div class="opening-logo-holder">
-
-            <img
-                src="images/logo.png"
-                class="opening-logo"
-                alt="DOGAN ARCHITECTURE">
-
-        </div>
-
-        <div class="opening-arm right"></div>
-
-    </div>
-
+<div class="opening-stage">
+<img src="images/logo.png" class="opening-logo" alt="DOGAN ARCHITECTURE">
+<div class="opening-arm left"></div>
+<div class="opening-arm right"></div>
+</div>
 </div>
 
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
+<!-- HEADER -->
 <header class="header">
+<a href="index.html" class="logo-link">
+<img src="images/logo.png" class="logo-image" alt="DOGAN ARCHITECTURE">
+</a>
 
-    <a
-        href="index.html"
-        class="logo-link"
-        aria-label="DOGAN ARCHITECTURE">
+<div class="header-right">
+<a href="#projects" class="header-link" data-fr="PROJETS" data-en="PROJECTS">PROJETS</a>
+<a href="equipe.html" class="header-link" data-fr="ÉQUIPE" data-en="TEAM">ÉQUIPE</a>
+<a href="#contact" class="header-link" data-fr="CONTACT" data-en="CONTACT">CONTACT</a>
 
-        <img
-            src="images/logo.png"
-            class="logo-image"
-            alt="DOGAN ARCHITECTURE">
-
-    </a>
-
-
-    <div class="header-right">
-
-        <a
-            href="#projects"
-            class="header-link"
-            data-fr="PROJETS"
-            data-en="PROJECTS">
-
-            PROJETS
-
-        </a>
-
-        <a
-            href="equipe.html"
-            class="header-link"
-            data-fr="ÉQUIPE"
-            data-en="TEAM">
-
-            ÉQUIPE
-
-        </a>
-
-        <a
-            href="#contact"
-            class="header-link"
-            data-fr="CONTACT"
-            data-en="CONTACT">
-
-            CONTACT
-
-        </a>
-
-
-        <div class="language">
-
-            <button
-                id="frBtn"
-                class="active">
-
-                FR
-
-            </button>
-
-            <span>/</span>
-
-            <button
-                id="enBtn">
-
-                EN
-
-            </button>
-
-        </div>
-
-    </div>
-
+<div class="language">
+<button id="frBtn" class="active">FR</button>
+<span>/</span>
+<button id="enBtn">EN</button>
+</div>
+</div>
 </header>
 
-
-<!-- =====================================================
-     HERO
-===================================================== -->
-
+<!-- HERO -->
 <section class="hero">
-
-    <img
-        src="images/villa-ozdemir/cover.jpg"
-        class="hero-image"
-        alt="Villa Ozdemir">
-
-    <div class="hero-content">
-
-        <h1 class="office-name">
-
-            DOGAN<br>
-            ARCHITECTURE
-
-        </h1>
-
-        <div
-            class="hero-meta"
-            data-fr="ARCHITECTURE · DESIGN · CONSTRUCTION"
-            data-en="ARCHITECTURE · DESIGN · CONSTRUCTION">
-
-            ARCHITECTURE · DESIGN · CONSTRUCTION
-
-        </div>
-
-    </div>
-
-    <div
-        class="scroll-indicator"
-        data-fr="DÉFILER"
-        data-en="SCROLL">
-
-        DÉFILER
-
-    </div>
-
+<img src="images/villa-ozdemir/cover.jpg" class="hero-image" alt="Villa Ozdemir">
+<div class="hero-content">
+<h1 class="office-name">DOGAN<br>ARCHITECTURE</h1>
+<div class="hero-meta"
+data-fr="ARCHITECTURE · DESIGN · CONSTRUCTION"
+data-en="ARCHITECTURE · DESIGN · CONSTRUCTION">
+ARCHITECTURE · DESIGN · CONSTRUCTION
+</div>
+</div>
+<div class="scroll-indicator" data-fr="DÉFILER" data-en="SCROLL">DÉFILER</div>
 </section>
 
+<!-- PROJECTS -->
+<section class="projects-intro" id="projects">
+<div class="projects-label"
+data-fr="PROJETS"
+data-en="PROJECTS">PROJETS</div>
 
-<!-- =====================================================
-     PROJECTS INTRO
-===================================================== -->
-
-<section
-    class="projects-intro"
-    id="projects">
-
-    <div
-        class="projects-label"
-        data-fr="PROJETS"
-        data-en="PROJECTS">
-
-        PROJETS
-
-    </div>
-
-    <div
-        class="projects-description"
-        data-fr="Une sélection de projets d’architecture, de bureaux, de bâtiments industriels et de maisons individuelles."
-        data-en="A selection of architectural projects, offices, industrial buildings and individual houses.">
-
-        Une sélection de projets d’architecture,
-        de bureaux, de bâtiments industriels
-        et de maisons individuelles.
-
-    </div>
-
+<div class="projects-description"
+data-fr="Une sélection de projets d’architecture, de bureaux, de bâtiments industriels et de maisons individuelles."
+data-en="A selection of architectural projects, offices, industrial buildings and individual houses.">
+Une sélection de projets d’architecture, de bureaux,
+de bâtiments industriels et de maisons individuelles.
+</div>
 </section>
-
-
-<!-- =====================================================
-     PROJECTS
-===================================================== -->
 
 <section class="project from-left">
-
 <a href="projects/bureau-zafer.html" class="project-link">
-
-<img
-    src="images/bureau-zafer/cover.jpg"
-    class="project-image"
-    alt="Bureau Zafer">
-
+<img src="images/bureau-zafer/cover.jpg" class="project-image">
 <div class="project-info">
-
-<div>
-
-<div class="project-number">
-01 / 07
-</div>
-
-<h2 class="project-title">
-BUREAU<br>
-ZAFER
-</h2>
-
-</div>
-
-<div
-class="project-details"
-data-fr="SAINTE-GENEVIÈVE-DES-BOIS<br>2023<br>BUREAUX<br>670 m²"
-data-en="SAINTE-GENEVIÈVE-DES-BOIS<br>2023<br>OFFICES<br>670 m²">
-
-SAINTE-GENEVIÈVE-DES-BOIS<br>
-2023<br>
-BUREAUX<br>
-670 m²
-
-</div>
-
+<div><div class="project-number">01 / 07</div><h2 class="project-title">BUREAU<br>ZAFER</h2></div>
+<div class="project-details">SAINTE-GENEVIÈVE-DES-BOIS<br>2023<br>BUREAUX<br>670 m²</div>
 </div>
 </a>
 </section>
 
-
 <section class="project">
-
 <a href="projects/villa-dogan.html" class="project-link">
-
-<img
-src="images/villa-dogan/cover.jpg"
-class="project-image"
-alt="Villa Dogan">
-
+<img src="images/villa-dogan/cover.jpg" class="project-image">
 <div class="project-info">
-
-<div>
-
-<div class="project-number">
-02 / 07
-</div>
-
-<h2 class="project-title">
-VILLA<br>
-DOGAN
-</h2>
-
-</div>
-
-<div
-class="project-details"
-data-fr="SAINT-MICHEL-SUR-ORGE<br>2024<br>MAISON INDIVIDUELLE<br>732 m²"
-data-en="SAINT-MICHEL-SUR-ORGE<br>2024<br>INDIVIDUAL HOUSE<br>732 m²">
-
-SAINT-MICHEL-SUR-ORGE<br>
-2024<br>
-MAISON INDIVIDUELLE<br>
-732 m²
-
-</div>
-
+<div><div class="project-number">02 / 07</div><h2 class="project-title">VILLA<br>DOGAN</h2></div>
+<div class="project-details">SAINT-MICHEL-SUR-ORGE<br>2024<br>MAISON INDIVIDUELLE<br>732 m²</div>
 </div>
 </a>
 </section>
 
-
 <section class="project from-left">
-
 <a href="projects/villa-gok.html" class="project-link">
-
-<img
-src="images/villa-gok/cover.jpg"
-class="project-image"
-alt="Villa Gok">
-
+<img src="images/villa-gok/cover.jpg" class="project-image">
 <div class="project-info">
-
-<div>
-
-<div class="project-number">
-03 / 07
-</div>
-
-<h2 class="project-title">
-VILLA<br>
-GOK
-</h2>
-
-</div>
-
-<div
-class="project-details"
-data-fr="SAINT-GERMAIN-SUR-MORIN<br>2021<br>VILLA<br>2064 m²"
-data-en="SAINT-GERMAIN-SUR-MORIN<br>2021<br>VILLA<br>2064 m²">
-
-SAINT-GERMAIN-SUR-MORIN<br>
-2021<br>
-VILLA<br>
-2064 m²
-
-</div>
-
+<div><div class="project-number">03 / 07</div><h2 class="project-title">VILLA<br>GOK</h2></div>
+<div class="project-details">SAINT-GERMAIN-SUR-MORIN<br>2021<br>VILLA<br>2064 m²</div>
 </div>
 </a>
 </section>
 
-
 <section class="project">
-
 <a href="projects/mgc-construction.html" class="project-link">
-
-<img
-src="images/mgc-construction/cover.jpg"
-class="project-image"
-alt="MGC Construction">
-
+<img src="images/mgc-construction/cover.jpg" class="project-image">
 <div class="project-info">
-
-<div>
-
-<div class="project-number">
-04 / 07
-</div>
-
-<h2 class="project-title">
-MGC<br>
-CONSTRUCTION
-</h2>
-
-</div>
-
-<div
-class="project-details"
-data-fr="BREUIL-LE-SEC<br>2025<br>ENTREPÔT<br>4527 m²"
-data-en="BREUIL-LE-SEC<br>2025<br>WAREHOUSE<br>4527 m²">
-
-BREUIL-LE-SEC<br>
-2025<br>
-ENTREPÔT<br>
-4527 m²
-
-</div>
-
+<div><div class="project-number">04 / 07</div><h2 class="project-title">MGC<br>CONSTRUCTION</h2></div>
+<div class="project-details">BREUIL-LE-SEC<br>2025<br>ENTREPÔT<br>4527 m²</div>
 </div>
 </a>
 </section>
-
 
 <section class="project from-left">
-
 <a href="projects/uks-transport.html" class="project-link">
-
-<img
-src="images/uks-transport/cover.jpg"
-class="project-image"
-alt="UKS Transport">
-
+<img src="images/uks-transport/cover.jpg" class="project-image">
 <div class="project-info">
-
-<div>
-
-<div class="project-number">
-05 / 07
-</div>
-
-<h2 class="project-title">
-UKS<br>
-TRANSPORT
-</h2>
-
-</div>
-
-<div
-class="project-details"
-data-fr="MITRY-MORY<br>2025<br>BUREAUX<br>1500 m²"
-data-en="MITRY-MORY<br>2025<br>OFFICES<br>1500 m²">
-
-MITRY-MORY<br>
-2025<br>
-BUREAUX<br>
-1500 m²
-
-</div>
-
+<div><div class="project-number">05 / 07</div><h2 class="project-title">UKS<br>TRANSPORT</h2></div>
+<div class="project-details">MITRY-MORY<br>2025<br>BUREAUX<br>1500 m²</div>
 </div>
 </a>
 </section>
-
 
 <section class="project">
-
 <a href="projects/mk-construction.html" class="project-link">
-
-<img
-src="images/mk-construction/cover.jpg"
-class="project-image"
-alt="MK Construction">
-
+<img src="images/mk-construction/cover.jpg" class="project-image">
 <div class="project-info">
-
-<div>
-
-<div class="project-number">
-06 / 07
-</div>
-
-<h2 class="project-title">
-MK<br>
-CONSTRUCTION
-</h2>
-
-</div>
-
-<div
-class="project-details"
-data-fr="SACY-LE-GRAND<br>2024<br>BUREAU ET ENTREPÔT<br>2512 m²"
-data-en="SACY-LE-GRAND<br>2024<br>OFFICE & WAREHOUSE<br>2512 m²">
-
-SACY-LE-GRAND<br>
-2024<br>
-BUREAU ET ENTREPÔT<br>
-2512 m²
-
-</div>
-
+<div><div class="project-number">06 / 07</div><h2 class="project-title">MK<br>CONSTRUCTION</h2></div>
+<div class="project-details">SACY-LE-GRAND<br>2024<br>BUREAU ET ENTREPÔT<br>2512 m²</div>
 </div>
 </a>
 </section>
-
 
 <section class="project from-left">
-
 <a href="projects/villa-ozdemir.html" class="project-link">
-
-<img
-src="images/villa-ozdemir/cover.jpg"
-class="project-image"
-alt="Villa Ozdemir">
-
+<img src="images/villa-ozdemir/cover.jpg" class="project-image">
 <div class="project-info">
-
-<div>
-
-<div class="project-number">
-07 / 07
-</div>
-
-<h2 class="project-title">
-VILLA<br>
-OZDEMIR
-</h2>
-
-</div>
-
-<div
-class="project-details"
-data-fr="ESBLY<br>2023<br>VILLA<br>7329 m²"
-data-en="ESBLY<br>2023<br>VILLA<br>7329 m²">
-
-ESBLY<br>
-2023<br>
-VILLA<br>
-7329 m²
-
-</div>
-
+<div><div class="project-number">07 / 07</div><h2 class="project-title">VILLA<br>OZDEMIR</h2></div>
+<div class="project-details">ESBLY<br>2023<br>VILLA<br>7329 m²</div>
 </div>
 </a>
 </section>
 
-
-<!-- =====================================================
-     CONTACT
-===================================================== -->
-
-<section
-class="contact"
-id="contact">
-
+<!-- CONTACT -->
+<section class="contact" id="contact">
 <div>
-
-<div
-class="contact-label"
-data-fr="CONTACT"
-data-en="CONTACT">
-
-CONTACT
-
+<div class="contact-label">CONTACT</div>
+<h2 class="contact-title">PARLONS<br>DE VOTRE<br>PROJET</h2>
 </div>
-
-<h2
-class="contact-title"
-data-fr="PARLONS<br>DE VOTRE<br>PROJET"
-data-en="LET'S TALK<br>ABOUT YOUR<br>PROJECT">
-
-PARLONS<br>
-DE VOTRE<br>
-PROJET
-
-</h2>
-
-</div>
-
 
 <div class="contact-info">
+<a href="tel:+33658036077">+33 6 58 03 60 77</a><br>
 
-<a
-href="tel:+33658036077">
+20 Rue Verdi, 93130 Noisy-le-Sec<br>
 
-+33 6 58 03 60 77
-
-</a>
-
-<br>
-
-<span class="contact-address">
-20 Rue Verdi, 93130 Noisy-le-Sec
-</span>
-
-
-<a
-class="contact-instagram"
+<a class="instagram"
 href="https://www.instagram.com/dogan.architecture/"
 target="_blank"
-rel="noopener noreferrer">
-
-<svg
-class="instagram-icon"
-viewBox="0 0 24 24"
-fill="none"
-xmlns="http://www.w3.org/2000/svg">
-
-<rect
-x="3"
-y="3"
-width="18"
-height="18"
-rx="5"
-stroke="currentColor"
-stroke-width="2"/>
-
-<circle
-cx="12"
-cy="12"
-r="4"
-stroke="currentColor"
-stroke-width="2"/>
-
-<circle
-cx="17.5"
-cy="6.5"
-r="1"
-fill="currentColor"/>
-
+rel="noopener">
+<svg viewBox="0 0 24 24">
+<path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zM17.5 6.5a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/>
 </svg>
-
 dogan.architecture
-
 </a>
 
-
 <div class="contact-small">
-
-DOGAN ARCHITECTURE
-<br>
+DOGAN ARCHITECTURE<br>
 Architecture · Design · Construction
-
 </div>
-
 </div>
-
 </section>
 
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
 <footer class="footer">
-
-<div>
-© 2026 DOGAN ARCHITECTURE
-</div>
-
-<div>
-FRANCE
-</div>
-
+<div>© 2026 DOGAN ARCHITECTURE</div>
+<div>FRANCE</div>
 </footer>
 
-
 <script>
+/* LANGUAGE */
+const frBtn=document.getElementById("frBtn");
+const enBtn=document.getElementById("enBtn");
 
-/* =========================================================
-   LANGUAGE
-========================================================= */
-
-const frBtn =
-document.getElementById("frBtn");
-
-const enBtn =
-document.getElementById("enBtn");
-
-
-function changeLanguage(language){
-
-document.documentElement
-.setAttribute("lang",language);
-
-document
-.querySelectorAll("[data-fr]")
-.forEach(element => {
-
-element.innerHTML =
-element.getAttribute(
-"data-" + language
-);
-
+function changeLanguage(lang){
+document.documentElement.lang=lang;
+document.querySelectorAll("[data-fr]").forEach(el=>{
+el.innerHTML=el.getAttribute("data-"+lang);
 });
-
-
-if(language === "fr"){
-
-frBtn.classList.add("active");
-enBtn.classList.remove("active");
-
-}else{
-
-enBtn.classList.add("active");
-frBtn.classList.remove("active");
-
+frBtn.classList.toggle("active",lang==="fr");
+enBtn.classList.toggle("active",lang==="en");
+localStorage.setItem("dogan-language",lang);
 }
 
-localStorage.setItem(
-"dogan-language",
-language
-);
+frBtn.onclick=()=>changeLanguage("fr");
+enBtn.onclick=()=>changeLanguage("en");
+changeLanguage(localStorage.getItem("dogan-language")||"fr");
 
-}
-
-
-frBtn.addEventListener(
-"click",
-() => changeLanguage("fr")
-);
-
-enBtn.addEventListener(
-"click",
-() => changeLanguage("en")
-);
-
-
-changeLanguage(
-localStorage.getItem("dogan-language") || "fr"
-);
-
-
-/* =========================================================
-   PROJECT REVEAL — DOWN + UP
-========================================================= */
-
-const projects =
-document.querySelectorAll(".project");
-
-
-const projectObserver =
-new IntersectionObserver(
-
-entries => {
-
-entries.forEach(entry => {
-
-const project =
-entry.target;
-
-
+/* PROJECT REVEAL + REVERSE */
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
 if(entry.isIntersecting){
-
-project.classList.add("visible");
-
-project.classList.remove(
-"reverse-left",
-"reverse-right"
-);
-
+entry.target.classList.add("visible");
 }else{
-
-/*
-   Ekrandan çıkarken hangi taraftan
-   tekrar gelmesi gerektiğini belirliyoruz.
-*/
-
-const rect =
-project.getBoundingClientRect();
-
-
-if(rect.top < 0){
-
-/* Yukarı çıkarken */
-
-if(project.classList.contains("from-left")){
-
-project.classList.add(
-"reverse-left"
-);
-
-}else{
-
-project.classList.add(
-"reverse-right"
-);
-
+entry.target.classList.remove("visible");
 }
-
-}else{
-
-/* Aşağıdan çıkarken */
-
-if(project.classList.contains("from-left")){
-
-project.classList.remove(
-"reverse-left"
-);
-
-}else{
-
-project.classList.remove(
-"reverse-right"
-);
-
-}
-
-}
-
-project.classList.remove("visible");
-
-}
-
 });
+},{threshold:.12,rootMargin:"0px 0px -5% 0px"});
 
-},
+document.querySelectorAll(".project").forEach(p=>observer.observe(p));
 
-{
-threshold:.12,
-rootMargin:"0px 0px -5% 0px"
-}
-
-);
-
-
-projects.forEach(project => {
-
-projectObserver.observe(project);
-
-});
-
-
-/* =========================================================
-   HERO PARALLAX
-========================================================= */
-
-window.addEventListener(
-"scroll",
-
-() => {
-
-const hero =
-document.querySelector(".hero-image");
-
-if(!hero) return;
-
-const scroll =
-window.scrollY;
-
-if(scroll < window.innerHeight){
-
-hero.style.transform =
-`scale(1.03)
- translateY(${scroll * .08}px)`;
-
-}
-
-},
-
-{
-passive:true
-});
-
-
-/* =========================================================
-   SMART HEADER
-========================================================= */
-
-const colorCanvas =
-document.createElement("canvas");
-
-const colorContext =
-colorCanvas.getContext(
-"2d",
-{
-willReadFrequently:true
-});
-
-
-const backgroundImages =
-Array.from(
-document.querySelectorAll(
-".hero-image, .project-image"
-));
-
-
-function getImageLuminance(
-image,
-x,
-y
-){
-
-if(
-!image.complete ||
-!image.naturalWidth
-){
-
-return .5;
-
-}
-
-
-const rect =
-image.getBoundingClientRect();
-
-
-if(
-x < rect.left ||
-x > rect.right ||
-y < rect.top ||
-y > rect.bottom
-){
-
-return null;
-
-}
-
-
-const width =
-image.naturalWidth;
-
-const height =
-image.naturalHeight;
-
-const boxWidth =
-rect.width;
-
-const boxHeight =
-rect.height;
-
-const imageRatio =
-width / height;
-
-const boxRatio =
-boxWidth / boxHeight;
-
-let renderedWidth;
-let renderedHeight;
-
-let offsetX = 0;
-let offsetY = 0;
-
-
-if(imageRatio > boxRatio){
-
-renderedHeight =
-boxHeight;
-
-renderedWidth =
-boxHeight * imageRatio;
-
-offsetX =
-(renderedWidth - boxWidth) / 2;
-
-}else{
-
-renderedWidth =
-boxWidth;
-
-renderedHeight =
-boxWidth / imageRatio;
-
-offsetY =
-(renderedHeight - boxHeight) / 2;
-
-}
-
-
-const localX =
-x - rect.left;
-
-const localY =
-y - rect.top;
-
-
-const imageX =
-(
-localX + offsetX
-)
-/
-renderedWidth
-*
-width;
-
-
-const imageY =
-(
-localY + offsetY
-)
-/
-renderedHeight
-*
-height;
-
-
-const sampleSize = 7;
-
-colorCanvas.width =
-sampleSize;
-
-colorCanvas.height =
-sampleSize;
-
-
-try{
-
-colorContext.drawImage(
-image,
-imageX - 3,
-imageY - 3,
-7,
-7,
-0,
-0,
-7,
-7
-);
-
-}catch(error){
-
-return .5;
-
-}
-
-
-const pixels =
-colorContext.getImageData(
-0,
-0,
-7,
-7
-).data;
-
-
-let total = 0;
-let count = 0;
-
-
-for(
-let i=0;
-i<pixels.length;
-i+=4
-){
-
-const r =
-pixels[i];
-
-const g =
-pixels[i+1];
-
-const b =
-pixels[i+2];
-
-
-const luminance =
-(
-.2126*r +
-.7152*g +
-.0722*b
-)/255;
-
-
-total += luminance;
-count++;
-
-}
-
-
-return count
-?
-total/count
-:
-.5;
-
-}
-
-
-function getBackgroundLuminance(
-x,
-y
-){
-
-for(
-const image of backgroundImages
-){
-
-const rect =
-image.getBoundingClientRect();
-
-
-if(
-x >= rect.left &&
-x <= rect.right &&
-y >= rect.top &&
-y <= rect.bottom
-){
-
-const result =
-getImageLuminance(
-image,
-x,
-y
-);
-
-if(result !== null){
-
-return result;
-
-}
-
-}
-
-}
-
-return .067;
-
-}
-
-
-function updateHeaderColor(){
-
-const header =
-document.querySelector(".header");
-
-
-if(
-!header.classList.contains("ready")
-){
-
-return;
-
-}
-
-
-const logo =
-document.querySelector(".logo-link");
-
-const logoRect =
-logo.getBoundingClientRect();
-
-
-const logoBrightness =
-getBackgroundLuminance(
-logoRect.left +
-logoRect.width/2,
-logoRect.top +
-logoRect.height/2
-);
-
-
-const logoImage =
-document.querySelector(".logo-image");
-
-
-logoImage.style.filter =
-logoBrightness < .38
-?
-"brightness(0) invert(1)"
-:
-"brightness(0) invert(0)";
-
-
-document
-.querySelectorAll(".header-link")
-.forEach(link => {
-
-const rect =
-link.getBoundingClientRect();
-
-const brightness =
-getBackgroundLuminance(
-rect.left + rect.width/2,
-rect.top + rect.height/2
-);
-
-link.style.color =
-brightness < .38
-?
-"#fff"
-:
-"#000";
-
-});
-
-
-const language =
-document.querySelector(".language");
-
-const rect =
-language.getBoundingClientRect();
-
-const brightness =
-getBackgroundLuminance(
-rect.left + rect.width/2,
-rect.top + rect.height/2
-);
-
-language.style.color =
-brightness < .38
-?
-"#fff"
-:
-"#000";
-
-}
-
-
-let colorUpdateRunning = false;
-
-
-function requestColorUpdate(){
-
-if(colorUpdateRunning) return;
-
-colorUpdateRunning = true;
-
-requestAnimationFrame(() => {
-
-updateHeaderColor();
-
-colorUpdateRunning = false;
-
-});
-
-}
-
-
-window.addEventListener(
-"scroll",
-requestColorUpdate,
-{passive:true}
-);
-
-window.addEventListener(
-"resize",
-requestColorUpdate
-);
-
-window.addEventListener(
-"load",
-requestColorUpdate
-);
-
-
-/* =========================================================
-   HEADER START
-========================================================= */
-
-setTimeout(() => {
-
-const header =
-document.querySelector(".header");
-
-header.classList.add("ready");
-
-requestColorUpdate();
-
-setTimeout(
-requestColorUpdate,
-300
-);
-
-setTimeout(
-requestColorUpdate,
-800
-);
-
-setTimeout(
-requestColorUpdate,
-1600
-);
-
+/* HEADER */
+setTimeout(()=>{
+document.querySelector(".header").classList.add("ready");
 },1200);
 
-
-/* =========================================================
-   OPENING SCROLL LOCK
-========================================================= */
-
-document.body.style.overflow =
-"hidden";
-
-setTimeout(() => {
-
-document.body.style.overflow =
-"";
-
-},1500);
-
+/* SCROLL LOCK */
+document.body.style.overflow="hidden";
+setTimeout(()=>document.body.style.overflow="",1500);
 </script>
 
 </body>
