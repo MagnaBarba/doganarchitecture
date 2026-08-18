@@ -6,6 +6,12 @@
 <title>DOGAN ARCHITECTURE</title>
 
 <style>
+@property --sweep {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 360deg;
+}
+
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{background:#111;color:#fff;font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
@@ -16,29 +22,37 @@ a{color:inherit;text-decoration:none}
 .opening{
   position:fixed;inset:0;background:transparent;z-index:99999;
   pointer-events:none;overflow:hidden;
-  animation:openingOut .2s 1.85s forwards;
+  animation:openingOut .1s 1.85s forwards;
 }
 
-/* Siyah Perde: Logo ve çizgiler dönerken siyah alanı dairesel olarak dilimleyip temizler */
+/* Siyah Perde: Sahneyle birlikte sol üste kayar, son 360° dönüşte dairesel silinir */
 .opening-surface{
-  position:absolute;inset:-50%;background:#111;z-index:1;
-  transform-origin:center center;
+  position:absolute;
+  left:50%;top:50%;
+  width:400vw;height:400vh;
+  transform:translate(-50%,-50%);
+  z-index:1;
+  background:#111;
   mask-image: conic-gradient(from 0deg at 50% 50%, #000 0deg, #000 var(--sweep, 360deg), transparent var(--sweep, 360deg));
   -webkit-mask-image: conic-gradient(from 0deg at 50% 50%, #000 0deg, #000 var(--sweep, 360deg), transparent var(--sweep, 360deg));
-  animation: wipeSurface 1.35s 0.35s cubic-bezier(.25,1,.3,1) forwards;
+  animation: surfaceMove 1.15s 0.65s cubic-bezier(.16,1,.3,1) forwards,
+             wipeSurface 0.6s 1.2s linear forwards;
+}
+
+@keyframes surfaceMove{
+  0%{
+    left:50%;top:50%;
+    transform:translate(-50%,-50%);
+  }
+  100%{
+    left:62.5px;top:45px;
+    transform:translate(-50%,-50%);
+  }
 }
 
 @keyframes wipeSurface{
   0%{ --sweep: 360deg; opacity: 1; }
-  85%{ opacity: 1; }
   100%{ --sweep: 0deg; opacity: 0; }
-}
-
-/* Chrome/Safari'de conic-gradient animasyonu için CSS değişken tanımı */
-@property --sweep {
-  syntax: '<angle>';
-  inherits: false;
-  initial-value: 360deg;
 }
 
 /* Toz / Grain Dokusu */
@@ -52,11 +66,11 @@ a{color:inherit;text-decoration:none}
 
 @keyframes grainPulse{
   0%{opacity:0}
-  30%{opacity:0.25}
+  30%{opacity:0.22}
   100%{opacity:0}
 }
 
-/* Logo ve Yan Kolları Sahnesi */
+/* Logo ve Yan Kolları Sahnesi - Ekran ortasından sol üst header logosu boyutuna (45px) küçülerek kayar */
 .opening-stage{
   position:absolute;
   left:50%;top:50%;
@@ -69,7 +83,7 @@ a{color:inherit;text-decoration:none}
 .opening-stage .opening-logo{
   position:absolute;
   left:0;top:0;
-  width:105px;height:105px;
+  width:100%;height:100%;
   object-fit:contain;
   filter:brightness(0) invert(1);
 }
@@ -77,22 +91,22 @@ a{color:inherit;text-decoration:none}
 /* Logonun Yanlarından Çıkan Sonsuz Çizgiler (Kollar) */
 .opening-stage .opening-arm{
   position:absolute;
-  top:52px;
+  top:50%;
   height:1px;
   background:#fff;
 }
 
 .opening-stage .left{
-  right:100%; /* Logonun tam sol kenarından başlar */
-  width:200vw; /* Ekranın dışına taşacak kadar uzun */
+  right:100%;
+  width:200vw;
   transform-origin:right center;
   transform:scaleX(0);
   animation:armsIn .45s .2s cubic-bezier(.16,1,.3,1) forwards;
 }
 
 .opening-stage .right{
-  left:100%; /* Logonun tam sağ kenarından başlar */
-  width:200vw; /* Ekranın dışına taşacak kadar uzun */
+  left:100%;
+  width:200vw;
   transform-origin:left center;
   transform:scaleX(0);
   animation:armsIn .45s .2s cubic-bezier(.16,1,.3,1) forwards;
@@ -106,10 +120,12 @@ a{color:inherit;text-decoration:none}
 @keyframes openingMove{
   0%{
     left:50%;top:50%;
+    width:105px;height:105px;
     transform:translate(-50%,-50%) rotate(0deg);
   }
   100%{
-    left:40px;top:45px;
+    left:40px;top:22.5px;
+    width:45px;height:45px;
     transform:translate(0,0) rotate(720deg);
   }
 }
@@ -129,7 +145,17 @@ a{color:inherit;text-decoration:none}
   color:#fff;
 }
 .header.ready{opacity:1}
-.logo-link{width:45px;height:45px;display:block;pointer-events:auto}
+
+/* Header logosu açılış tamamlanana kadar gizlidir */
+.logo-link{
+  width:45px;height:45px;display:block;pointer-events:auto;
+  opacity:0;
+  transition:opacity .1s;
+}
+.header.opening-complete .logo-link{
+  opacity:1;
+}
+
 .logo-image{width:100%;height:100%;object-fit:contain;filter:brightness(0) invert(1)}
 .header-right{display:flex;align-items:center;gap:30px;pointer-events:auto}
 .header-link,.language{
@@ -305,11 +331,24 @@ a{color:inherit;text-decoration:none}
   @keyframes openingMove{
     0%{
       left:50%;top:50%;
+      width:105px;height:105px;
       transform:translate(-50%,-50%) rotate(0deg);
     }
     100%{
-      left:18px;top:35px;
+      left:18px;top:17px;
+      width:36px;height:36px;
       transform:translate(0,0) rotate(720deg);
+    }
+  }
+
+  @keyframes surfaceMove{
+    0%{
+      left:50%;top:50%;
+      transform:translate(-50%,-50%);
+    }
+    100%{
+      left:36px;top:35px;
+      transform:translate(-50%,-50%);
     }
   }
 }
@@ -520,17 +559,21 @@ const observer=new IntersectionObserver(entries=>{
 
 document.querySelectorAll(".project").forEach(p=>observer.observe(p));
 
-/* HEADER INITIAL VISIBILITY */
+/* HEADER INITIAL VISIBILITY & OPENING TRANSITION */
+const headerElement = document.querySelector(".header");
 setTimeout(()=>{
-  document.querySelector(".header").classList.add("ready");
+  headerElement.classList.add("ready");
 },1200);
+
+setTimeout(()=>{
+  headerElement.classList.add("opening-complete");
+},1800);
 
 /* OPENING SCROLL LOCK */
 document.body.style.overflow="hidden";
-setTimeout(()=>document.body.style.overflow="", 1850);
+setTimeout(()=>document.body.style.overflow="", 1800);
 
 /* NAV COLOR OVERRIDE CONTROLLER (data-nav) */
-const headerEl=document.querySelector(".header");
 const navTargets=document.querySelectorAll("[data-nav]");
 
 function updateNavColor(){
@@ -542,9 +585,9 @@ function updateNavColor(){
       forced=sec.getAttribute("data-nav");
     }
   });
-  headerEl.classList.remove("nav-dark","nav-light");
-  if(forced==="dark") headerEl.classList.add("nav-dark");
-  else if(forced==="light") headerEl.classList.add("nav-light");
+  headerElement.classList.remove("nav-dark","nav-light");
+  if(forced==="dark") headerElement.classList.add("nav-dark");
+  else if(forced==="light") headerElement.classList.add("nav-light");
 }
 
 window.addEventListener("scroll",updateNavColor,{passive:true});
