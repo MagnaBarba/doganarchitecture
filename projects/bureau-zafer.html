@@ -1,424 +1,322 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUREAU ZAFER — DOGAN ARCHITECTURE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        html {
+            scroll-behavior: smooth;
+        }
 
-<title>BUREAU ZAFER — DOGAN ARCHITECTURE</title>
+        body {
+            background: #111;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+        }
 
-<style>
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 90px;
+            padding: 0 45px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            mix-blend-mode: difference;
+        }
 
-html{
-    scroll-behavior:smooth;
-}
+        .logo {
+            width: 48px;
+            height: 48px;
+            display: block;
+        }
 
-body{
-    background:#111;
-    color:#fff;
-    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    overflow-x:hidden;
-}
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            filter: brightness(0) invert(1);
+        }
 
-a{
-    color:inherit;
-    text-decoration:none;
-}
+        .back {
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
 
+        .hero {
+            height: 100svh;
+            min-height: 600px;
+            position: relative;
+            overflow: hidden;
+        }
 
-/* HEADER */
+        .hero > img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.08);
+            animation: heroZoom 1.6s cubic-bezier(.16, 1, .3, 1) forwards;
+        }
 
-header{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:90px;
-    padding:0 45px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    z-index:1000;
-    mix-blend-mode:difference;
-}
+        @keyframes heroZoom {
+            to {
+                transform: scale(1);
+            }
+        }
 
-.logo{
-    width:48px;
-    height:48px;
-    display:block;
-}
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, .75), transparent 65%);
+        }
 
-.logo img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    display:block;
-    filter:brightness(0) invert(1);
-}
+        .hero-info {
+            position: absolute;
+            z-index: 2;
+            bottom: 45px;
+            left: 45px;
+            right: 45px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
 
-.back{
-    font-size:10px;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-}
+        .title {
+            font-size: clamp(55px, 9vw, 140px);
+            line-height: .82;
+            letter-spacing: -5px;
+            font-weight: 500;
+        }
 
+        .number {
+            font-size: 10px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
 
-/* HERO */
+        .details {
+            text-align: right;
+            font-size: 10px;
+            line-height: 1.8;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
 
-.hero{
-    height:100svh;
-    min-height:600px;
-    position:relative;
-    overflow:hidden;
-}
+        .intro {
+            min-height: 65vh;
+            padding: 150px 45px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+        }
 
-.hero > img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transform:scale(1.08);
-    animation:heroZoom 1.6s cubic-bezier(.16,1,.3,1) forwards;
-}
+        .intro-title {
+            font-size: 18px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
 
-@keyframes heroZoom{
-    to{
-        transform:scale(1);
-    }
-}
+        .description {
+            max-width: 650px;
+            font-size: 18px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
 
-.hero::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(
-        to top,
-        rgba(0,0,0,.75),
-        transparent 65%
-    );
-}
+        .gallery {
+            width: 100%;
+            overflow: hidden;
+        }
 
-.hero-info{
-    position:absolute;
-    z-index:2;
-    bottom:45px;
-    left:45px;
-    right:45px;
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-}
+        .gallery-item {
+            width: 100%;
+            margin-bottom: 3px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateX(-120px) scale(.985);
+            transition: opacity .65s cubic-bezier(.16, 1, .3, 1), transform .85s cubic-bezier(.16, 1, .3, 1);
+        }
 
-.title{
-    font-size:clamp(55px,9vw,140px);
-    line-height:.82;
-    letter-spacing:-5px;
-    font-weight:500;
-}
+        .gallery-item:nth-child(even) {
+            transform: translateX(120px) scale(.985);
+        }
 
-.number{
-    font-size:10px;
-    letter-spacing:2px;
-    margin-bottom:15px;
-}
+        .gallery-item.visible {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+        }
 
-.details{
-    text-align:right;
-    font-size:10px;
-    line-height:1.8;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-}
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 1s cubic-bezier(.16, 1, .3, 1);
+        }
 
+        .gallery-item:hover img {
+            transform: scale(1.015);
+        }
 
-/* INTRO */
+        .next {
+            min-height: 50vh;
+            padding: 100px 45px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #333;
+        }
 
-.intro{
-    min-height:65vh;
-    padding:150px 45px;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:100px;
-}
+        .next-label {
+            font-size: 10px;
+            letter-spacing: 2px;
+        }
 
-.intro-title{
-    font-size:18px;
-    letter-spacing:2px;
-    text-transform:uppercase;
-    font-weight:700;
-}
+        .next-title {
+            font-size: clamp(45px, 7vw, 110px);
+            letter-spacing: -4px;
+        }
 
-.description{
-    max-width:650px;
-    font-size:18px;
-    line-height:1.5;
-    font-weight:400;
-}
+        @media (max-width: 700px) {
+            header {
+                height: 70px;
+                padding: 0 20px;
+            }
 
+            .logo {
+                width: 38px;
+                height: 38px;
+            }
 
-/* GALLERY */
+            .hero-info {
+                left: 20px;
+                right: 20px;
+                bottom: 35px;
+                display: block;
+            }
 
-.gallery{
-    width:100%;
-    overflow:hidden;
-}
+            .title {
+                font-size: 15vw;
+                margin-bottom: 25px;
+            }
 
-.gallery-item{
-    width:100%;
-    margin-bottom:3px;
-    overflow:hidden;
-    opacity:0;
-    transform:translateX(-120px) scale(.985);
-    transition:
-        opacity .65s cubic-bezier(.16,1,.3,1),
-        transform .85s cubic-bezier(.16,1,.3,1);
-}
+            .details {
+                text-align: left;
+            }
 
-.gallery-item:nth-child(even){
-    transform:translateX(120px) scale(.985);
-}
+            .intro {
+                display: block;
+                padding: 90px 20px;
+            }
 
-.gallery-item.visible{
-    opacity:1;
-    transform:translateX(0) scale(1);
-}
+            .intro-title {
+                margin-bottom: 30px;
+            }
 
-.gallery-item img{
-    width:100%;
-    height:auto;
-    display:block;
-    transition:transform 1s cubic-bezier(.16,1,.3,1);
-}
+            .description {
+                font-size: 16px;
+            }
 
-.gallery-item:hover img{
-    transform:scale(1.015);
-}
+            .next {
+                padding: 70px 20px;
+                display: block;
+            }
 
-
-/* NEXT */
-
-.next{
-    min-height:50vh;
-    padding:100px 45px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-top:1px solid #333;
-}
-
-.next-label{
-    font-size:10px;
-    letter-spacing:2px;
-}
-
-.next-title{
-    font-size:clamp(45px,7vw,110px);
-    letter-spacing:-4px;
-}
-
-
-/* MOBILE */
-
-@media(max-width:700px){
-
-    header{
-        height:70px;
-        padding:0 20px;
-    }
-
-    .logo{
-        width:38px;
-        height:38px;
-    }
-
-    .hero-info{
-        left:20px;
-        right:20px;
-        bottom:35px;
-        display:block;
-    }
-
-    .title{
-        font-size:15vw;
-        margin-bottom:25px;
-    }
-
-    .details{
-        text-align:left;
-    }
-
-    .intro{
-        display:block;
-        padding:90px 20px;
-    }
-
-    .intro-title{
-        margin-bottom:30px;
-    }
-
-    .description{
-        font-size:16px;
-    }
-
-    .next{
-        padding:70px 20px;
-        display:block;
-    }
-
-    .next-title{
-        margin-top:30px;
-    }
-}
-
-</style>
+            .next-title {
+                margin-top: 30px;
+            }
+        }
+    </style>
 </head>
-
-
 <body>
 
+    <header>
+        <a href="../index.html" class="logo">
+            <img src="../images/logo.png" alt="DOGAN ARCHITECTURE">
+        </a>
+        <a href="../index.html" class="back" data-fr="← PROJETS" data-en="← PROJECTS">← PROJETS</a>
+    </header>
 
-<header>
+    <section class="hero">
+        <img src="../images/bureau-zafer/cover.jpg" alt="Bureau Zafer">
+        <div class="hero-info">
+            <div>
+                <div class="number">01 / 07</div>
+                <h1 class="title">BUREAU<br>ZAFER</h1>
+            </div>
+            <div class="details" data-fr="SAINTE-GENEVIÈVE-DES-BOIS<br>2023<br>BUREAUX<br>670 m²" data-en="SAINTE-GENEVIÈVE-DES-BOIS<br>2023<br>OFFICES<br>670 m²">
+                SAINTE-GENEVIÈVE-DES-BOIS<br>2023<br>BUREAUX<br>670 m²
+            </div>
+        </div>
+    </section>
 
-<a href="../index.html" class="logo">
-    <img src="../images/logo.png" alt="DOGAN ARCHITECTURE">
-</a>
+    <section class="intro">
+        <div class="intro-title" data-fr="PROJET" data-en="PROJECT">PROJET</div>
+        <div class="description" data-fr="Bureau Zafer est une réinterprétation contemporaine des espaces de travail urbains. Le projet combine une structure géométrique rigoureuse à une transparence optimale pour maximiser la lumière naturelle.<br><br>Entre façades monolithes et aménagements intérieurs modulaires, l'édifice s'intègre harmonieusement dans son environnement professionnel tout en affirmant une présence architecturale forte." data-en="Bureau Zafer is a contemporary reinterpretation of urban workspaces. The project combines a rigorous geometric structure with optimal transparency to maximize natural light.<br><br>Between monolithic facades and modular interior layouts, the building integrates harmoniously into its professional environment while asserting a strong architectural presence.">
+            Bureau Zafer est une réinterprétation contemporaine des espaces de travail urbains. Le projet combine une structure géométrique rigoureuse à une transparence optimale pour maximiser la lumière naturelle.<br><br>Entre façades monolithes et aménagements intérieurs modulaires, l'édifice s'intègre harmonieusement dans son environnement professionnel tout en affirmant une présence architecturale forte.
+        </div>
+    </section>
 
-<a href="../index.html" class="back" data-fr="← PROJETS" data-en="← PROJECTS">
-    ← PROJETS
-</a>
+    <section class="gallery" data-folder="../images/bureau-zafer/"></section>
 
-</header>
+    <a href="mgc-construction.html" class="next">
+        <div class="next-label" data-fr="PROJET SUIVANT" data-en="NEXT PROJECT">PROJET SUIVANT</div>
+        <div class="next-title">MGC CONSTRUCTION →</div>
+    </a>
 
-
-<section class="hero">
-
-<img
-    src="../images/bureau-zafer/cover.jpg"
-    alt="Bureau Zafer">
-
-<div class="hero-info">
-
-<div>
-
-<div class="number">01 / 07</div>
-
-<h1 class="title">
-BUREAU<br>ZAFER
-</h1>
-
-</div>
-
-<div class="details"
-     data-fr="SAINTE-GENEVIÈVE-DES-BOIS<br>2023<br>BUREAUX<br>670 m²"
-     data-en="SAINTE-GENEVIÈVE-DES-BOIS<br>2023<br>OFFICES<br>670 m²">
-SAINTE-GENEVIÈVE-DES-BOIS<br>
-2023<br>
-BUREAUX<br>
-670 m²
-</div>
-
-</div>
-
-</section>
-
-
-<section class="intro">
-
-<div class="intro-title" data-fr="PROJET" data-en="PROJECT">
-PROJET
-</div>
-
-<div class="description"
-     data-fr="Bureau Zafer est une réinterprétation contemporaine des espaces de travail urbains. Le projet combine une structure géométrique rigoureuse à une transparence optimale pour maximiser la lumière naturelle.<br><br>Entre façades monolithes et aménagements intérieurs modulaires, l'édifice s'intègre harmonieusement dans son environnement professionnel tout en affirmant une présence architecturale forte."
-     data-en="Bureau Zafer is a contemporary reinterpretation of urban workspaces. The project combines a rigorous geometric structure with optimal transparency to maximize natural light.<br><br>Between monolithic facades and modular interior layouts, the building integrates harmoniously into its professional environment while asserting a strong architectural presence.">
-Bureau Zafer est une réinterprétation contemporaine des espaces de travail urbains. Le projet combine une structure géométrique rigoureuse à une transparence optimale pour maximiser la lumière naturelle.
-
-<br><br>
-
-Entre façades monolithes et aménagements intérieurs modulaires, l'édifice s'intègre harmonieusement dans son environnement professionnel tout en affirmant une présence architecturale forte.
-</div>
-
-</section>
-
-
-<section
-    class="gallery"
-    data-folder="../images/bureau-zafer/">
-</section>
-
-
-<a href="villa-dogan.html" class="next">
-
-<div class="next-label" data-fr="PROJET SUIVANT" data-en="NEXT PROJECT">
-PROJET SUIVANT
-</div>
-
-<div class="next-title">
-VILLA DOGAN →
-</div>
-
-</a>
-
-
-<script>
-
-// Dil Algılama ve Uygulama Scripti
-const currentLang = localStorage.getItem('site_lang') || 'fr';
-document.querySelectorAll('[data-' + currentLang + ']').forEach(el => {
-    el.innerHTML = el.getAttribute('data-' + currentLang);
-});
-
-// Galeri Yükleme
-const gallery=document.querySelector(".gallery");
-const folder=gallery.dataset.folder;
-const maxImages=30;
-
-const observer=new IntersectionObserver(
-    entries=>{
-        entries.forEach(entry=>{
-            if(entry.isIntersecting){
-                entry.target.classList.add("visible");
-            }
+    <script>
+        const currentLang = localStorage.getItem('site_lang') || 'fr';
+        document.querySelectorAll('[data-' + currentLang + ']').forEach(el => {
+            el.innerHTML = el.getAttribute('data-' + currentLang);
         });
-    },
-    {
-        threshold:.08,
-        rootMargin:"0px 0px -8% 0px"
-    }
-);
 
-for(let i=1;i<=maxImages;i++){
+        const gallery = document.querySelector(".gallery");
+        const folder = gallery.dataset.folder;
+        const maxImages = 30;
 
-    const number=String(i).padStart(2,"0");
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                }
+            });
+        }, { threshold: .08, rootMargin: "0px 0px -8% 0px" });
 
-    const item=document.createElement("div");
-    item.className="gallery-item";
-
-    const img=document.createElement("img");
-
-    img.src=folder+number+".jpg";
-    img.alt="Bureau Zafer "+number;
-
-    img.onload=function(){
-
-        gallery.appendChild(item);
-        item.appendChild(img);
-
-        observer.observe(item);
-
-    };
-
-    img.onerror=function(){
-        item.remove();
-    };
-}
-
-</script>
-
+        for (let i = 1; i <= maxImages; i++) {
+            const number = String(i).padStart(2, "0");
+            const item = document.createElement("div");
+            item.className = "gallery-item";
+            const img = document.createElement("img");
+            img.src = folder + number + ".jpg";
+            img.alt = "Bureau Zafer " + number;
+            img.onload = function() {
+                gallery.appendChild(item);
+                item.appendChild(img);
+                observer.observe(item);
+            };
+            img.onerror = function() {
+                item.remove();
+            };
+        }
+    </script>
 </body>
 </html>
