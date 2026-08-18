@@ -6,6 +6,7 @@
 <title>DOGAN ARCHITECTURE</title>
 
 <style>
+
 *{margin:0;padding:0;box-sizing:border-box}
 
 html{scroll-behavior:smooth}
@@ -22,6 +23,7 @@ color:inherit;
 text-decoration:none
 }
 
+
 /* ================= OPENING ================= */
 
 .opening{
@@ -33,17 +35,79 @@ pointer-events:none;
 overflow:hidden;
 }
 
-/* Canvas = siyah perde + temizleme efekti */
-#openingCanvas{
+
+/*
+Ana siyah perde.
+Bu element opening'in arkasında duruyor.
+*/
+.opening-curtain{
 position:absolute;
 inset:0;
-width:100%;
-height:100%;
+background:#111;
 z-index:1;
+}
+
+
+/*
+Perdenin temizleneceği alan.
+İki uzun çizgi şeklinde.
+Başlangıçta görünmüyor.
+*/
+.opening-clean{
+position:absolute;
+inset:-20%;
+z-index:2;
+opacity:0;
 pointer-events:none;
 }
 
-/* Logo */
+
+/*
+Temizleme çizgileri.
+Çok uzun tutuluyor ki masaüstünde de
+mobilde de ekranın tamamına ulaşsın.
+*/
+.opening-clean:before,
+.opening-clean:after{
+content:"";
+position:absolute;
+width:200vw;
+height:90px;
+left:50%;
+top:50%;
+background:transparent;
+transform-origin:center;
+}
+
+
+/*
+Gerçek temizleme:
+mix-blend-mode ile siyah perdeyi
+silerek alttaki ana sayfayı gösteriyoruz.
+*/
+.opening-clean:before{
+-webkit-mask-image:
+linear-gradient(
+to bottom,
+transparent 0%,
+#000 35%,
+#000 65%,
+transparent 100%
+);
+mask-image:
+linear-gradient(
+to bottom,
+transparent 0%,
+#000 35%,
+#000 65%,
+transparent 100%
+);
+}
+
+
+/*
+Logo
+*/
 .opening-logo{
 position:absolute;
 width:105px;
@@ -56,7 +120,10 @@ object-fit:contain;
 filter:brightness(0) invert(1);
 }
 
-/* Kollar */
+
+/*
+Kollar
+*/
 .opening-arm{
 position:absolute;
 height:2px;
@@ -67,7 +134,28 @@ z-index:4;
 transform-origin:center;
 }
 
-/* Stage */
+
+/*
+İlk açılış
+*/
+.opening-arm.left{
+right:50%;
+transform:
+translateY(-50%)
+scaleX(0)
+}
+
+.opening-arm.right{
+left:50%;
+transform:
+translateY(-50%)
+scaleX(0)
+}
+
+
+/*
+Logo + kolların birlikte hareket ettiği stage
+*/
 .opening-stage{
 position:absolute;
 left:50%;
@@ -78,6 +166,10 @@ transform:translate(-50%,-50%);
 z-index:6;
 }
 
+
+/*
+Logo stage'e bağlı
+*/
 .opening-stage .opening-logo{
 position:absolute;
 left:0;
@@ -85,17 +177,24 @@ top:0;
 transform:none;
 }
 
+
 /*
 Kollar stage'e bağlı.
-Her biri stage merkezinden ekranın tamamına kadar uzuyor.
+100vw yerine 200vw kullanıyoruz;
+böylece dönüş sırasında ekranın
+her iki kenarını da kesinlikle aşarlar.
 */
 .opening-stage .opening-arm{
 position:absolute;
 top:52px;
-width:100vw;
+width:200vw;
 height:2px;
 }
 
+
+/*
+Kollar logoya bağlı.
+*/
 .opening-stage .left{
 right:52px;
 transform-origin:right center;
@@ -106,47 +205,244 @@ left:52px;
 transform-origin:left center;
 }
 
-/* Kolların ilk açılması */
+
+/* ================= ARM OPEN ================= */
+
 @keyframes armsIn{
+
 0%{
-transform:translateY(-50%) scaleX(0)
-}
-100%{
-transform:translateY(-50%) scaleX(1)
-}
+transform:
+translateY(-50%)
+scaleX(0)
 }
 
+100%{
+transform:
+translateY(-50%)
+scaleX(1)
+}
+
+}
+
+
+/* ================= MAIN OPENING MOVEMENT ================= */
+
+
 /*
-Logo + kollar:
-tek kesintisiz dönüş.
-720 yerine 540 derece:
-daha organik, daha az mekanik,
-ama hâlâ belirgin bir dönüş.
+Buraya DOKUNMUYORUZ.
+
+Logo + kollar tek bir stage olarak
+tek kesintisiz dönüş yapıyor.
+
+540 derece dönüş.
 */
 @keyframes openingMove{
 
 0%{
 left:50%;
 top:50%;
-transform:translate(-50%,-50%) rotate(0deg);
+transform:
+translate(-50%,-50%)
+rotate(0deg);
 }
 
 100%{
 left:40px;
 top:45px;
-transform:translate(0,0) rotate(540deg);
+transform:
+translate(0,0)
+rotate(540deg);
 }
 
 }
 
-/* Açılışın sonlandırılması */
-.opening.finished{
+
+/* ================= CLEANING ================= */
+
+
+/*
+Temizleme katmanı stage ile aynı
+hareketi takip ediyor.
+
+Başlangıçta görünmez.
+*/
+.opening-stage:after{
+content:"";
+position:absolute;
+left:50%;
+top:50%;
+width:200vw;
+height:200vh;
+transform:
+translate(-50%,-50%);
+background:transparent;
+z-index:-1;
+}
+
+
+/*
+Siyah perde için maske.
+
+CSS mask kullanımı:
+Siyah perde normalde tamamen görünür.
+Maske sayesinde dönüş sırasında
+ortadan başlayarak açıklık büyüyor.
+*/
+.opening-curtain{
+-webkit-mask-image:
+radial-gradient(
+ellipse 0% 0% at 50% 50%,
+transparent 0%,
+transparent 100%
+);
+mask-image:
+radial-gradient(
+ellipse 0% 0% at 50% 50%,
+transparent 0%,
+transparent 100%
+);
+}
+
+
+/*
+Temizleme animasyonu.
+
+İlk ~1.3 saniye siyah perde tamamen duruyor.
+Sonra açıklık büyümeye başlıyor.
+*/
+@keyframes curtainClean{
+
+0%{
+-webkit-mask-image:
+radial-gradient(
+ellipse 0% 0% at 50% 50%,
+transparent 0%,
+#000 0%
+);
+mask-image:
+radial-gradient(
+ellipse 0% 0% at 50% 50%,
+transparent 0%,
+#000 0%
+);
+}
+
+45%{
+-webkit-mask-image:
+radial-gradient(
+ellipse 8% 8% at 50% 50%,
+transparent 0%,
+transparent 65%,
+#000 100%
+);
+mask-image:
+radial-gradient(
+ellipse 8% 8% at 50% 50%,
+transparent 0%,
+transparent 65%,
+#000 100%
+);
+}
+
+65%{
+-webkit-mask-image:
+radial-gradient(
+ellipse 65% 65% at 50% 50%,
+transparent 0%,
+transparent 65%,
+#000 100%
+);
+mask-image:
+radial-gradient(
+ellipse 65% 65% at 50% 50%,
+transparent 0%,
+transparent 65%,
+#000 100%
+);
+}
+
+85%{
+-webkit-mask-image:
+radial-gradient(
+ellipse 110% 110% at 50% 50%,
+transparent 0%,
+transparent 65%,
+#000 100%
+);
+mask-image:
+radial-gradient(
+ellipse 110% 110% at 50% 50%,
+transparent 0%,
+transparent 65%,
+#000 100%
+);
+}
+
+100%{
+-webkit-mask-image:
+none;
+mask-image:none;
 opacity:0;
-visibility:hidden;
-transition:
-opacity .22s ease,
-visibility 0s linear .22s;
 }
+
+}
+
+
+/*
+Perde temizleme zamanlaması:
+logo hareketi başladıktan biraz sonra.
+*/
+.opening-curtain{
+animation:
+curtainClean 1.15s 1.05s
+cubic-bezier(.16,1,.3,1)
+forwards;
+}
+
+
+/* ================= STAGE ANIMATION ================= */
+
+.opening-stage{
+animation:
+openingMove
+1.05s
+.85s
+cubic-bezier(.16,1,.3,1)
+forwards;
+}
+
+.opening-stage .left,
+.opening-stage .right{
+animation:
+armsIn
+.45s
+.35s
+cubic-bezier(.16,1,.3,1)
+forwards;
+}
+
+
+/*
+Açılış bittikten sonra
+opening tamamen kalkar.
+*/
+@keyframes openingOut{
+
+to{
+opacity:0;
+visibility:hidden
+}
+
+}
+
+.opening{
+animation:
+openingOut
+.25s
+2s
+forwards;
+}
+
 
 /* ================= HEADER ================= */
 
@@ -224,6 +520,7 @@ opacity:1
 opacity:.35
 }
 
+
 /* ================= HERO ================= */
 
 .hero{
@@ -242,13 +539,19 @@ height:100%;
 object-fit:cover;
 transform:scale(1.1);
 animation:
-heroIn 1.6s 1.05s cubic-bezier(.16,1,.3,1) forwards
+heroIn
+1.6s
+1.05s
+cubic-bezier(.16,1,.3,1)
+forwards
 }
 
 @keyframes heroIn{
+
 to{
 transform:scale(1)
 }
+
 }
 
 .hero:after{
@@ -278,7 +581,10 @@ letter-spacing:-6px;
 font-weight:500;
 opacity:0;
 animation:
-heroTextIn .8s 1.12s forwards
+heroTextIn
+.8s
+1.12s
+forwards
 }
 
 .hero-meta{
@@ -288,18 +594,24 @@ letter-spacing:2px;
 text-transform:uppercase;
 opacity:0;
 animation:
-heroTextIn .7s 1.22s forwards
+heroTextIn
+.7s
+1.22s
+forwards
 }
 
 @keyframes heroTextIn{
+
 from{
 opacity:0;
 transform:translateY(50px)
 }
+
 to{
 opacity:1;
 transform:translateY(0)
 }
+
 }
 
 .scroll-indicator{
@@ -310,13 +622,24 @@ bottom:42px;
 font-size:9px;
 letter-spacing:2px;
 writing-mode:vertical-rl;
-animation:scrollPulse 2s infinite
+animation:
+scrollPulse
+2s
+infinite
 }
 
 @keyframes scrollPulse{
-0%,100%{opacity:.3}
-50%{opacity:1}
+
+0%,100%{
+opacity:.3
 }
+
+50%{
+opacity:1
+}
+
+}
+
 
 /* ================= INTRO ================= */
 
@@ -341,6 +664,7 @@ line-height:1.05;
 letter-spacing:-1.5px;
 font-weight:300
 }
+
 
 /* ================= PROJECTS ================= */
 
@@ -378,14 +702,18 @@ height:82vh;
 min-height:600px;
 object-fit:cover;
 display:block;
-transform:scale(1.05) translateY(20px);
+transform:
+scale(1.05)
+translateY(20px);
 transition:
 transform 1s cubic-bezier(.16,1,.3,1),
 filter .7s
 }
 
 .project.visible .project-image{
-transform:scale(1) translateY(0)
+transform:
+scale(1)
+translateY(0)
 }
 
 .project-link:after{
@@ -445,6 +773,7 @@ line-height:1.8;
 letter-spacing:1.5px;
 text-transform:uppercase
 }
+
 
 /* ================= CONTACT ================= */
 
@@ -512,6 +841,7 @@ font-size:9px;
 letter-spacing:1.5px;
 text-transform:uppercase
 }
+
 
 /* ================= MOBILE ================= */
 
@@ -631,6 +961,7 @@ font-size:8px
 
 }
 
+
 /* ================= REDUCED MOTION ================= */
 
 @media(prefers-reduced-motion:reduce){
@@ -641,16 +972,21 @@ transition-duration:.01ms!important
 }
 
 }
+
 </style>
 </head>
 
+
 <body id="top">
+
 
 <!-- ================= OPENING ================= -->
 
 <div class="opening">
 
-<canvas id="openingCanvas"></canvas>
+<div class="opening-curtain"></div>
+
+<div class="opening-clean"></div>
 
 <div class="opening-stage">
 
@@ -661,9 +997,11 @@ alt="DOGAN ARCHITECTURE"
 >
 
 <div class="opening-arm left"></div>
+
 <div class="opening-arm right"></div>
 
 </div>
+
 </div>
 
 
@@ -672,12 +1010,15 @@ alt="DOGAN ARCHITECTURE"
 <header class="header">
 
 <a href="index.html" class="logo-link">
+
 <img
 src="images/logo.png"
 class="logo-image"
 alt="DOGAN ARCHITECTURE"
 >
+
 </a>
+
 
 <div class="header-right">
 
@@ -708,6 +1049,7 @@ data-en="CONTACT"
 CONTACT
 </a>
 
+
 <div class="language">
 
 <button id="frBtn" class="active">
@@ -723,6 +1065,7 @@ EN
 </div>
 
 </div>
+
 </header>
 
 
@@ -778,6 +1121,7 @@ data-en="PROJECTS"
 >
 PROJETS
 </div>
+
 
 <div
 class="projects-description"
@@ -1103,6 +1447,7 @@ PROJET
 20 Rue Verdi, 93130 Noisy-le-Sec
 <br>
 
+
 <a
 class="instagram"
 href="https://www.instagram.com/dogan.architecture/"
@@ -1112,11 +1457,7 @@ rel="noopener"
 
 <svg viewBox="0 0 24 24">
 
-<path d="
-M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zM17.5 6.5a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"
->
-
-/path>
+<path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zM17.5 6.5a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/>
 
 </svg>
 
@@ -1152,461 +1493,8 @@ FRANCE
 
 <script>
 
-/* =========================================================
-   OPENING ANIMATION
-   ========================================================= */
 
-const opening=document.querySelector(".opening");
-const stage=document.querySelector(".opening-stage");
-const canvas=document.getElementById("openingCanvas");
-const ctx=canvas.getContext("2d");
-
-let width=0;
-let height=0;
-let dpr=1;
-
-function resizeOpeningCanvas(){
-
-dpr=Math.min(window.devicePixelRatio || 1,2);
-
-width=window.innerWidth;
-height=window.innerHeight;
-
-canvas.width=width*dpr;
-canvas.height=height*dpr;
-
-canvas.style.width=width+"px";
-canvas.style.height=height+"px";
-
-ctx.setTransform(dpr,0,0,dpr,0,0);
-
-}
-
-resizeOpeningCanvas();
-
-window.addEventListener(
-"resize",
-resizeOpeningCanvas,
-{passive:true}
-);
-
-
-/*
-   Açılışın zamanlaması:
-
-   0.00 - 0.35
-   tamamen siyah
-
-   0.35 - 0.80
-   kollar açılıyor
-
-   0.85 - 1.95
-   logo + kollar tek parça halinde
-   sürekli dönerek sol üste gidiyor
-
-   1.35 civarında
-   kollar siyah perdeyi temizlemeye başlıyor
-
-   1.95
-   ekran tamamen temiz
-*/
-
-
-const openingStart=performance.now();
-
-const duration=2000;
-
-const armStart=350;
-const armEnd=800;
-
-const movementStart=850;
-const movementEnd=1950;
-
-const cleaningStart=1320;
-
-
-/* Ekranı siyahla doldur */
-
-function drawBlack(){
-
-ctx.globalCompositeOperation="source-over";
-
-ctx.fillStyle="#111";
-
-ctx.fillRect(
-0,
-0,
-width,
-height
-);
-
-}
-
-
-/*
-   Logo + kol merkezinin gerçek pozisyonunu hesaplar.
-   CSS animasyonuyla birebir aynı hareket.
-*/
-
-function getStageState(now){
-
-let t;
-
-if(now<movementStart){
-
-t=0;
-
-}else{
-
-t=Math.min(
-1,
-(now-movementStart)/
-(movementEnd-movementStart)
-);
-
-}
-
-/* smooth elite easing */
-
-const eased=
-1-Math.pow(1-t,4);
-
-
-/*
-   Merkez:
-   ekran ortasından
-   sol üst tarafa.
-*/
-
-const startX=width/2;
-const startY=height/2;
-
-const endX=40+52.5;
-const endY=45+52.5;
-
-const x=
-startX+(endX-startX)*eased;
-
-const y=
-startY+(endY-startY)*eased;
-
-
-/*
-   CSS ile aynı dönüş:
-   540 derece.
-*/
-
-const angle=
-(540*eased)*
-Math.PI/180;
-
-return{
-x,
-y,
-angle,
-progress:t
-};
-
-}
-
-
-/*
-   Kolun geçtiği bölgeyi geniş,
-   yumuşak ve parçacıklı biçimde siliyoruz.
-
-   Böylece:
-   "siyah perde fade oluyor"
-   hissi değil,
-
-   "dönen kollar perdeyi temizliyor"
-   hissi oluşuyor.
-*/
-
-function eraseArm(
-x,
-y,
-angle,
-length,
-side
-){
-
-const dx=Math.cos(angle);
-const dy=Math.sin(angle);
-
-const px=-dy;
-const py=dx;
-
-
-/*
-   Kol boyunca küçük aralıklarla
-   yumuşak temizleme alanları.
-*/
-
-for(
-let d=-length;
-d<=length;
-d+=18
-){
-
-const cx=x+dx*d;
-const cy=y+dy*d;
-
-
-/* Ana silme alanı */
-
-const radius=20;
-
-const gradient=
-ctx.createRadialGradient(
-cx,
-cy,
-0,
-cx,
-cy,
-radius
-);
-
-gradient.addColorStop(
-0,
-"rgba(0,0,0,1)"
-);
-
-gradient.addColorStop(
-.45,
-"rgba(0,0,0,.92)"
-);
-
-gradient.addColorStop(
-.75,
-"rgba(0,0,0,.55)"
-);
-
-gradient.addColorStop(
-1,
-"rgba(0,0,0,0)"
-);
-
-ctx.globalCompositeOperation=
-"destination-out";
-
-ctx.fillStyle=gradient;
-
-ctx.beginPath();
-
-ctx.arc(
-cx,
-cy,
-radius,
-0,
-Math.PI*2
-);
-
-ctx.fill();
-
-
-/*
-   Toz/parçacık hissi.
-   Çok hafif tutuluyor.
-*/
-
-for(
-let p=0;
-p<2;
-p++
-){
-
-const randomSide=
-(Math.random()-.5)*55;
-
-const randomForward=
-(Math.random()-.5)*30;
-
-const dustX=
-cx+
-px*randomSide+
-dx*randomForward;
-
-const dustY=
-cy+
-py*randomSide+
-dy*randomForward;
-
-const dustRadius=
-Math.random()*5+1;
-
-const dust=
-ctx.createRadialGradient(
-dustX,
-dustY,
-0,
-dustX,
-dustY,
-dustRadius
-);
-
-dust.addColorStop(
-0,
-"rgba(0,0,0,.55)"
-);
-
-dust.addColorStop(
-1,
-"rgba(0,0,0,0)"
-);
-
-ctx.fillStyle=dust;
-
-ctx.beginPath();
-
-ctx.arc(
-dustX,
-dustY,
-dustRadius,
-0,
-Math.PI*2
-);
-
-ctx.fill();
-
-}
-
-}
-
-}
-
-
-/*
-   Açılış animasyonu.
-*/
-
-function openingFrame(now){
-
-const elapsed=
-now-openingStart;
-
-
-/* İlk anda siyah perde */
-
-if(elapsed<armStart){
-
-drawBlack();
-
-requestAnimationFrame(openingFrame);
-
-return;
-
-}
-
-
-/*
-   Perde siyah kalıyor,
-   fakat temizlenen yerler
-   gerçek sayfayı gösteriyor.
-*/
-
-if(elapsed<duration){
-
-drawBlack();
-
-const state=
-getStageState(now);
-
-
-/*
-   Temizleme sadece dönüşün
-   belirli bir noktasından sonra.
-*/
-
-if(elapsed>=cleaningStart){
-
-const cleanProgress=
-Math.min(
-1,
-(elapsed-cleaningStart)/
-(movementEnd-cleaningStart)
-);
-
-
-/*
-   Kol uzunluğu ekranın tamamını
-   garanti edecek kadar büyük.
-*/
-
-const diagonal=
-Math.sqrt(
-width*width+
-height*height
-);
-
-const cleanLength=
-diagonal*
-(0.75+cleanProgress*.55);
-
-
-/*
-   İki kolun da temizlemesi.
-   Ancak aynı eksende oldukları için
-   birleşik bir tek hareket hissi verir.
-*/
-
-eraseArm(
-state.x,
-state.y,
-state.angle,
-cleanLength,
--1
-);
-
-eraseArm(
-state.x,
-state.y,
-state.angle,
-cleanLength,
-1
-);
-
-}
-
-requestAnimationFrame(openingFrame);
-
-return;
-
-}
-
-
-/*
-   Son kare:
-   hiçbir siyah kalmasın.
-*/
-
-ctx.clearRect(
-0,
-0,
-width,
-height
-);
-
-opening.classList.add("finished");
-
-
-/*
-   Scroll kilidi kaldırılıyor.
-*/
-
-document.body.style.overflow="";
-
-
-}
-
-
-document.body.style.overflow="hidden";
-
-requestAnimationFrame(openingFrame);
-
-
-/* =========================================================
-   LANGUAGE
-   ========================================================= */
+/* ================= LANGUAGE ================= */
 
 const frBtn=
 document.getElementById("frBtn");
@@ -1628,6 +1516,7 @@ el.getAttribute("data-"+lang);
 
 });
 
+
 frBtn.classList.toggle(
 "active",
 lang==="fr"
@@ -1637,6 +1526,7 @@ enBtn.classList.toggle(
 "active",
 lang==="en"
 );
+
 
 localStorage.setItem(
 "dogan-language",
@@ -1652,14 +1542,13 @@ frBtn.onclick=
 enBtn.onclick=
 ()=>changeLanguage("en");
 
+
 changeLanguage(
 localStorage.getItem("dogan-language")||"fr"
 );
 
 
-/* =========================================================
-   PROJECT REVEAL + REVERSE
-   ========================================================= */
+/* ================= PROJECT REVEAL + REVERSE ================= */
 
 const observer=
 new IntersectionObserver(
@@ -1692,9 +1581,7 @@ document
 .forEach(p=>observer.observe(p));
 
 
-/* =========================================================
-   HEADER
-   ========================================================= */
+/* ================= HEADER ================= */
 
 setTimeout(()=>{
 
@@ -1703,6 +1590,17 @@ document
 .classList.add("ready");
 
 },1200);
+
+
+/*
+Opening bitince scroll'u serbest bırak.
+*/
+
+setTimeout(()=>{
+
+document.body.style.overflow="";
+
+},2000);
 
 </script>
 
