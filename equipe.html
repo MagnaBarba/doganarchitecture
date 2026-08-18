@@ -1,911 +1,312 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>ÉQUIPE — DOGAN ARCHITECTURE</title>
 
 <style>
-
-/* =========================================================
-   RESET
-========================================================= */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
-    background:#111;
-    color:#fff;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    overflow-x:hidden;
+background:#111;color:#fff;
+font-family:Arial,Helvetica,sans-serif;
+overflow-x:hidden
 }
+a{color:inherit;text-decoration:none}
 
-a{
-    color:inherit;
-    text-decoration:none;
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
+/* HEADER */
 
 .header{
-
-    position:fixed;
-
-    top:0;
-    left:0;
-
-    width:100%;
-    height:90px;
-
-    padding:0 40px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    z-index:5000;
-
-    mix-blend-mode:difference;
-
-    color:#fff;
+position:fixed;
+top:0;left:0;width:100%;height:90px;
+padding:0 40px;
+display:flex;align-items:center;
+justify-content:space-between;
+z-index:1000;
+mix-blend-mode:difference
 }
 
-
-.logo-link{
-
-    width:45px;
-    height:45px;
-
-    display:block;
-
-    transition:
-        transform .5s
-        cubic-bezier(.16,1,.3,1);
+.logo{
+width:45px;height:45px;
+object-fit:contain;
+filter:brightness(0) invert(1)
 }
 
-.logo-link:hover{
-
-    transform:scale(1.08);
+.nav{
+display:flex;
+align-items:center;
+gap:30px;
+font-size:10px;
+letter-spacing:1.5px;
+text-transform:uppercase
 }
 
-
-.logo-image{
-
-    width:100%;
-    height:100%;
-
-    object-fit:contain;
-
-    filter:
-        brightness(0)
-        invert(1);
-}
-
-
-.header-right{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:30px;
-}
-
-
-.header-link{
-
-    font-size:10px;
-
-    letter-spacing:1.5px;
-
-    text-transform:uppercase;
-
-    transition:
-        transform .3s ease;
-}
-
-.header-link:hover{
-
-    transform:
-        translateY(-2px);
-}
-
-
-.language{
-
-    display:flex;
-
-    gap:5px;
-
-    align-items:center;
-
-    font-size:10px;
-
-    letter-spacing:1px;
-}
-
-.language button{
-
-    border:0;
-
-    background:none;
-
-    color:inherit;
-
-    cursor:pointer;
-
-    font:inherit;
-
-    padding:0;
-
-    opacity:.4;
-}
-
-.language button.active{
-
-    opacity:1;
-}
-
-.language span{
-
-    opacity:.35;
-}
-
-
-/* =========================================================
-   HERO
-========================================================= */
+/* HERO */
 
 .equipe-hero{
-
-    height:100svh;
-
-    min-height:650px;
-
-    position:relative;
-
-    overflow:hidden;
-
-    background:#111;
+height:100svh;
+min-height:650px;
+position:relative;
+overflow:hidden
 }
 
-
-/*
-   Fotoğrafın ORTASI değil,
-   üst kısmı öncelikli.
-*/
-
-.equipe-hero-image{
-
-    position:absolute;
-
-    inset:0;
-
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
-
-    object-position:
-        center 15%;
-
-    transform:
-        scale(1.04);
-
-    animation:
-        equipeHeroIn
-        1.4s
-        cubic-bezier(.16,1,.3,1)
-        forwards;
+.equipe-hero img{
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+object-fit:cover;
+object-position:center top
 }
 
-
-@keyframes equipeHeroIn{
-
-    to{
-
-        transform:
-            scale(1);
-
-    }
-
+.equipe-hero:after{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(
+to top,
+rgba(0,0,0,.75),
+rgba(0,0,0,.05) 65%
+)
 }
 
-
-.equipe-hero::after{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-        linear-gradient(
-            to top,
-            rgba(0,0,0,.72),
-            transparent 65%
-        );
+.hero-title{
+position:absolute;
+z-index:5;
+left:40px;
+bottom:42px;
+font-size:clamp(70px,12vw,180px);
+line-height:.8;
+letter-spacing:-7px;
+font-weight:500;
+text-transform:uppercase
 }
 
+/* TEAM */
 
-/* =========================================================
-   HERO TITLE
-========================================================= */
-
-.equipe-hero-title{
-
-    position:absolute;
-
-    z-index:5;
-
-    left:40px;
-    bottom:42px;
-
-    font-size:
-        clamp(70px,12vw,180px);
-
-    line-height:.8;
-
-    letter-spacing:-7px;
-
-    font-weight:500;
-
-    text-transform:uppercase;
-
-    animation:
-        equipeTitleIn
-        .9s
-        .2s
-        cubic-bezier(.16,1,.3,1)
-        both;
+.team-member{
+min-height:100svh;
+display:grid;
+grid-template-columns:1fr 1fr;
+background:#111;
+overflow:hidden
 }
 
-
-@keyframes equipeTitleIn{
-
-    from{
-
-        opacity:0;
-
-        transform:
-            translateY(70px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:
-            translateY(0);
-
-    }
-
+.team-photo{
+position:relative;
+overflow:hidden;
+min-height:100svh
 }
 
-
-/* =========================================================
-   ARCHITECT SECTION
-========================================================= */
-
-.architect{
-
-    width:100%;
-
-    min-height:100svh;
-
-    display:grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    background:#111;
-
-    overflow:hidden;
-
-    opacity:0;
-
-    transition:
-        opacity .9s ease,
-
-        transform 1s
-        cubic-bezier(.16,1,.3,1);
+.team-photo img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
+transform:scale(1.05);
+transition:transform 1.2s cubic-bezier(.16,1,.3,1)
 }
 
-
-/* SOL */
-
-.architect.from-left{
-
-    transform:
-        translateX(-100px);
+.team-member.visible .team-photo img{
+transform:scale(1)
 }
 
-
-/* SAĞ */
-
-.architect.from-right{
-
-    transform:
-        translateX(100px);
+.team-info{
+background:#111;
+display:flex;
+flex-direction:column;
+justify-content:center;
+padding:8vw;
 }
 
-
-.architect.visible{
-
-    opacity:1;
-
-    transform:
-        translateX(0);
-
+.team-number{
+font-size:10px;
+letter-spacing:2px;
+margin-bottom:35px;
+opacity:.45
 }
 
-
-/* =========================================================
-   REVERSE EFFECT
-========================================================= */
-
-.architect.reverse-left{
-
-    opacity:0;
-
-    transform:
-        translateX(-100px);
+.team-name{
+font-size:clamp(48px,6vw,95px);
+line-height:.85;
+letter-spacing:-4px;
+font-weight:500;
+text-transform:uppercase;
+margin-bottom:30px
 }
 
-
-.architect.reverse-right{
-
-    opacity:0;
-
-    transform:
-        translateX(100px);
+.team-role{
+font-size:clamp(18px,2vw,28px);
+line-height:1.15;
+font-weight:300;
+max-width:550px;
+margin-bottom:30px
 }
 
-
-/* =========================================================
-   PHOTO
-========================================================= */
-
-.architect-photo{
-
-    width:100%;
-    height:100svh;
-
-    min-height:650px;
-
-    overflow:hidden;
+.team-description{
+font-size:13px;
+line-height:1.8;
+color:#aaa;
+max-width:550px
 }
 
+/* ALTERNATING EFFECT */
 
-.architect-photo img{
-
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
-
-    object-position:center;
-
-    transform:
-        scale(1.07);
-
-    transition:
-        transform 1.2s
-        cubic-bezier(.16,1,.3,1);
+.team-member{
+opacity:0;
+transition:
+opacity .7s cubic-bezier(.16,1,.3,1),
+transform .9s cubic-bezier(.16,1,.3,1)
 }
 
-
-.architect.visible
-.architect-photo img{
-
-    transform:
-        scale(1);
-
+.team-member.left{
+transform:translateX(-120px)
 }
 
-
-/* =========================================================
-   TEXT
-========================================================= */
-
-.architect-info{
-
-    background:#111;
-
-    color:#fff;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    padding:
-        80px;
-
+.team-member.right{
+transform:translateX(120px)
 }
 
-
-.architect-number{
-
-    font-size:10px;
-
-    letter-spacing:2px;
-
-    opacity:.45;
-
-    margin-bottom:35px;
+.team-member.visible{
+opacity:1;
+transform:translateX(0)
 }
 
-
-.architect-name{
-
-    font-size:
-        clamp(48px,6vw,95px);
-
-    line-height:.85;
-
-    letter-spacing:-4px;
-
-    font-weight:500;
-
-    text-transform:uppercase;
-
-    margin-bottom:25px;
-
-    transform:
-        translateY(35px);
-
-    opacity:0;
-
-    transition:
-        transform .9s
-        .15s
-        cubic-bezier(.16,1,.3,1),
-
-        opacity .8s
-        .15s ease;
-}
-
-
-.architect-description{
-
-    max-width:560px;
-
-    font-size:
-        clamp(17px,1.5vw,24px);
-
-    line-height:1.25;
-
-    font-weight:300;
-
-    letter-spacing:-.4px;
-
-    transform:
-        translateY(25px);
-
-    opacity:0;
-
-    transition:
-        transform .8s
-        .3s
-        cubic-bezier(.16,1,.3,1),
-
-        opacity .8s
-        .3s ease;
-}
-
-
-.architect.visible
-.architect-name{
-
-    transform:
-        translateY(0);
-
-    opacity:1;
-}
-
-
-.architect.visible
-.architect-description{
-
-    transform:
-        translateY(0);
-
-    opacity:1;
-}
-
-
-/* =========================================================
-   ALTERNATING ORDER
-========================================================= */
-
-.architect.from-right
-.architect-photo{
-
-    order:2;
-}
-
-.architect.from-right
-.architect-info{
-
-    order:1;
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
+/* FOOTER */
 
 .footer{
-
-    padding:
-        30px 40px;
-
-    background:#111;
-
-    border-top:
-        1px solid #333;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    font-size:9px;
-
-    letter-spacing:1.5px;
-
-    text-transform:uppercase;
+padding:30px 40px;
+border-top:1px solid #333;
+display:flex;
+justify-content:space-between;
+font-size:9px;
+letter-spacing:1.5px;
+text-transform:uppercase
 }
 
-
-/* =========================================================
-   MOBILE
-========================================================= */
+/* MOBILE */
 
 @media(max-width:700px){
 
-    .header{
-
-        height:70px;
-
-        padding:
-            0 18px;
-    }
-
-
-    .logo-link{
-
-        width:36px;
-        height:36px;
-    }
-
-
-    .header-right{
-
-        gap:14px;
-    }
-
-
-    .header-link,
-    .language{
-
-        font-size:8px;
-
-        letter-spacing:.8px;
-    }
-
-
-    .equipe-hero{
-
-        min-height:600px;
-    }
-
-
-    .equipe-hero-image{
-
-        object-position:
-            center 8%;
-    }
-
-
-    .equipe-hero-title{
-
-        left:18px;
-
-        bottom:30px;
-
-        font-size:
-            clamp(58px,16vw,90px);
-
-        letter-spacing:-4px;
-    }
-
-
-    .architect{
-
-        display:flex;
-
-        flex-direction:column;
-
-        min-height:auto;
-    }
-
-
-    .architect.from-right
-    .architect-photo{
-
-        order:1;
-    }
-
-
-    .architect.from-right
-    .architect-info{
-
-        order:2;
-    }
-
-
-    .architect-photo{
-
-        height:
-            72svh;
-
-        min-height:500px;
-    }
-
-
-    .architect-info{
-
-        min-height:
-            55svh;
-
-        padding:
-            70px 18px;
-    }
-
-
-    .architect-number{
-
-        margin-bottom:25px;
-    }
-
-
-    .architect-name{
-
-        font-size:
-            clamp(45px,13vw,75px);
-
-        letter-spacing:-3px;
-
-        margin-bottom:25px;
-    }
-
-
-    .architect-description{
-
-        font-size:19px;
-
-        line-height:1.3;
-    }
-
-
-    .architect.from-left,
-    .architect.from-right,
-    .architect.reverse-left,
-    .architect.reverse-right{
-
-        transform:
-            translateX(0);
-
-    }
-
-
-    .architect.from-left:not(.visible){
-
-        transform:
-            translateX(-60px);
-
-    }
-
-
-    .architect.from-right:not(.visible){
-
-        transform:
-            translateX(60px);
-
-    }
-
-
-    .architect.reverse-left{
-
-        transform:
-            translateX(-60px) !important;
-
-    }
-
-
-    .architect.reverse-right{
-
-        transform:
-            translateX(60px) !important;
-
-    }
-
-
-    .footer{
-
-        padding:
-            22px 18px;
-
-        font-size:8px;
-    }
-
+.header{
+height:70px;
+padding:0 18px
 }
 
+.logo{
+width:36px;
+height:36px
+}
 
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
+.nav{
+gap:14px;
+font-size:8px;
+letter-spacing:.8px
+}
+
+.equipe-hero{
+min-height:600px
+}
+
+.equipe-hero img{
+object-position:center top
+}
+
+.hero-title{
+left:18px;
+bottom:30px;
+font-size:clamp(55px,15vw,90px);
+letter-spacing:-4px
+}
+
+.team-member{
+display:block;
+min-height:auto
+}
+
+.team-photo{
+height:65svh;
+min-height:450px
+}
+
+.team-photo img{
+object-position:center top
+}
+
+.team-info{
+min-height:55vh;
+padding:60px 18px 80px
+}
+
+.team-number{
+margin-bottom:25px
+}
+
+.team-name{
+font-size:clamp(45px,13vw,75px);
+letter-spacing:-3px;
+margin-bottom:25px
+}
+
+.team-role{
+font-size:20px;
+margin-bottom:25px
+}
+
+.team-description{
+font-size:12px;
+line-height:1.7
+}
+
+.footer{
+padding:22px 18px;
+font-size:8px
+}
+}
 
 @media(prefers-reduced-motion:reduce){
-
-    *,
-    *::before,
-    *::after{
-
-        animation-duration:.01ms !important;
-
-        animation-iteration-count:1 !important;
-
-        transition-duration:.01ms !important;
-    }
-
+*{
+animation-duration:.01ms!important;
+transition-duration:.01ms!important
 }
-
+}
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
 <header class="header">
 
-<a
-href="index.html"
-class="logo-link">
-
-<img
-src="images/logo.png"
-class="logo-image"
-alt="DOGAN ARCHITECTURE">
-
+<a href="index.html">
+<img src="images/logo.png" class="logo" alt="DOGAN ARCHITECTURE">
 </a>
 
-
-<div class="header-right">
-
-<a
-href="index.html#projects"
-class="header-link"
-data-fr="PROJETS"
-data-en="PROJECTS">
-
-PROJETS
-
-</a>
-
-
-<a
-href="equipe.html"
-class="header-link"
-data-fr="ÉQUIPE"
-data-en="TEAM">
-
-ÉQUIPE
-
-</a>
-
-
-<a
-href="index.html#contact"
-class="header-link"
-data-fr="CONTACT"
-data-en="CONTACT">
-
-CONTACT
-
-</a>
-
-
-<div class="language">
-
-<button
-id="frBtn"
-class="active">
-
-FR
-
-</button>
-
-<span>/</span>
-
-<button
-id="enBtn">
-
-EN
-
-</button>
-
-</div>
-
-</div>
+<nav class="nav">
+<a href="index.html">PROJETS</a>
+<a href="equipe.html">ÉQUIPE</a>
+<a href="index.html#contact">CONTACT</a>
+</nav>
 
 </header>
 
-
-<!-- =====================================================
-     HERO
-===================================================== -->
+<!-- ================= HERO ================= -->
 
 <section class="equipe-hero">
 
 <img
-src="images/equipe/architecte-01.jpg"
-class="equipe-hero-image"
-alt="DOGAN ARCHITECTURE — Équipe">
+src="images/equipe/equipe.jpg"
+alt="DOGAN ARCHITECTURE — ÉQUIPE">
 
-
-<h1
-class="equipe-hero-title"
-data-fr="ÉQUIPE"
-data-en="TEAM">
-
-ÉQUIPE
-
-</h1>
+<h1 class="hero-title">ÉQUIPE</h1>
 
 </section>
 
+<!-- ================= ARCHITECTE 01 ================= -->
 
-<!-- =====================================================
-     ARCHITE 01
-===================================================== -->
+<section class="team-member left">
 
-<section
-class="architect from-left">
-
-
-<div class="architect-photo">
+<div class="team-photo">
 
 <img
 src="images/equipe/architecte-01.jpg"
@@ -913,47 +314,38 @@ alt="Architecte 01">
 
 </div>
 
+<div class="team-info">
 
-<div class="architect-info">
+<div class="team-number">01 / 03</div>
 
-<div class="architect-number">
-01 / 03
-</div>
-
-
-<h2
-class="architect-name"
-data-fr="ARCHITECTE 01"
-data-en="ARCHITECT 01">
-
-ARCHITECTE 01
-
+<h2 class="team-name">
+ARCHITECTE<br>
+01
 </h2>
 
+<div class="team-role">
+Architecte · Conception &amp; Direction de projet
+</div>
 
-<p
-class="architect-description"
-data-fr="Architecte diplômé, spécialisé dans la conception de projets contemporains et dans le développement de solutions architecturales adaptées à chaque contexte."
-data-en="Architect, specialized in contemporary design and in developing architectural solutions adapted to each context.">
-
-Architecte diplômé, spécialisé dans la conception de projets contemporains et dans le développement de solutions architecturales adaptées à chaque contexte.
-
-</p>
+<div class="team-description">
+Architecte passionné par la conception architecturale,
+le développement de projets et la recherche d'un équilibre
+entre fonctionnalité, matière et identité du lieu.
+<br><br>
+Son approche associe une vision contemporaine,
+une attention particulière aux détails et une volonté
+de créer des espaces cohérents et durables.
+</div>
 
 </div>
 
 </section>
 
+<!-- ================= ARCHITECTE 02 ================= -->
 
-<!-- =====================================================
-     ARCHITE 02
-===================================================== -->
+<section class="team-member right">
 
-<section
-class="architect from-right">
-
-
-<div class="architect-photo">
+<div class="team-photo">
 
 <img
 src="images/equipe/architecte-02.jpg"
@@ -961,47 +353,37 @@ alt="Architecte 02">
 
 </div>
 
+<div class="team-info">
 
-<div class="architect-info">
+<div class="team-number">02 / 03</div>
 
-<div class="architect-number">
-02 / 03
-</div>
-
-
-<h2
-class="architect-name"
-data-fr="ARCHITECTE 02"
-data-en="ARCHITECT 02">
-
-ARCHITECTE 02
-
+<h2 class="team-name">
+ARCHITECTE<br>
+02
 </h2>
 
+<div class="team-role">
+Architecte · Design &amp; Développement
+</div>
 
-<p
-class="architect-description"
-data-fr="Architecte travaillant sur la conception, la coordination et le développement des projets, avec une attention particulière portée aux détails, aux matériaux et à la qualité des espaces."
-data-en="Architect working on design, coordination and project development, with particular attention to detail, materials and spatial quality.">
-
-Architecte travaillant sur la conception, la coordination et le développement des projets, avec une attention particulière portée aux détails, aux matériaux et à la qualité des espaces.
-
-</p>
+<div class="team-description">
+Architecte impliqué dans la conception et le développement
+des projets, avec une attention portée à la qualité spatiale,
+aux proportions et à l'intégration du bâtiment dans son contexte.
+<br><br>
+Son travail participe à transformer les intentions
+architecturales en solutions précises et réalisables.
+</div>
 
 </div>
 
 </section>
 
+<!-- ================= ARCHITECTE 03 ================= -->
 
-<!-- =====================================================
-     ARCHITE 03
-===================================================== -->
+<section class="team-member left">
 
-<section
-class="architect from-left">
-
-
-<div class="architect-photo">
+<div class="team-photo">
 
 <img
 src="images/equipe/architecte-03.jpg"
@@ -1009,255 +391,69 @@ alt="Architecte 03">
 
 </div>
 
+<div class="team-info">
 
-<div class="architect-info">
+<div class="team-number">03 / 03</div>
 
-<div class="architect-number">
-03 / 03
-</div>
-
-
-<h2
-class="architect-name"
-data-fr="ARCHITECTE 03"
-data-en="ARCHITECT 03">
-
-ARCHITECTE 03
-
+<h2 class="team-name">
+ARCHITECTE<br>
+03
 </h2>
 
+<div class="team-role">
+Architecte · Architecture &amp; Suivi de projet
+</div>
 
-<p
-class="architect-description"
-data-fr="Architecte impliqué dans le développement des projets de l'esquisse à la réalisation, avec une approche centrée sur la fonctionnalité, la précision et l'intégration au contexte."
-data-en="Architect involved in project development from concept to construction, with an approach focused on functionality, precision and contextual integration.">
-
-Architecte impliqué dans le développement des projets de l'esquisse à la réalisation, avec une approche centrée sur la fonctionnalité, la précision et l'intégration au contexte.
-
-</p>
+<div class="team-description">
+Architecte participant aux différentes étapes du projet,
+de la réflexion initiale jusqu'au développement architectural.
+<br><br>
+Une approche attentive aux usages, aux contraintes techniques
+et à la qualité globale de l'architecture permet de construire
+des projets à la fois simples, précis et adaptés à leur contexte.
+</div>
 
 </div>
 
 </section>
 
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
 <footer class="footer">
 
-<div>
-© 2026 DOGAN ARCHITECTURE
-</div>
-
-<div>
-FRANCE
-</div>
+<div>© 2026 DOGAN ARCHITECTURE</div>
+<div>FRANCE</div>
 
 </footer>
 
-
 <script>
 
-/* =========================================================
-   LANGUAGE
-========================================================= */
+const members=document.querySelectorAll(".team-member");
 
-const frBtn =
-document.getElementById("frBtn");
-
-const enBtn =
-document.getElementById("enBtn");
-
-
-function changeLanguage(language){
-
-document.documentElement
-.setAttribute("lang",language);
-
-
-document
-.querySelectorAll("[data-fr]")
-.forEach(element => {
-
-element.innerHTML =
-element.getAttribute(
-"data-" + language
-);
-
-});
-
-
-if(language === "fr"){
-
-frBtn.classList.add("active");
-
-enBtn.classList.remove("active");
-
-}else{
-
-enBtn.classList.add("active");
-
-frBtn.classList.remove("active");
-
-}
-
-
-localStorage.setItem(
-"dogan-language",
-language
-);
-
-}
-
-
-frBtn.addEventListener(
-"click",
-() => changeLanguage("fr")
-);
-
-
-enBtn.addEventListener(
-"click",
-() => changeLanguage("en")
-);
-
-
-changeLanguage(
-localStorage.getItem("dogan-language") || "fr"
-);
-
-
-/* =========================================================
-   ARCHITECT REVEAL
-   SOL → SAĞ → SOL
-
-   Aşağı inerken görünür.
-   Yukarı çıkarken reverse olur.
-========================================================= */
-
-const architects =
-document.querySelectorAll(
-".architect"
-);
-
-
-const architectObserver =
-new IntersectionObserver(
-
-entries => {
-
-entries.forEach(entry => {
-
-const element =
-entry.target;
-
+const observer=new IntersectionObserver(
+entries=>{
+entries.forEach(entry=>{
 
 if(entry.isIntersecting){
 
-element.classList.add(
-"visible"
-);
-
-element.classList.remove(
-"reverse-left",
-"reverse-right"
-);
+entry.target.classList.add("visible");
 
 }else{
 
-const rect =
-element.getBoundingClientRect();
-
-
-if(rect.bottom < 0){
-
-/*
-   Yukarı çıkarken.
-*/
-
-if(
-element.classList.contains(
-"from-left"
-)
-){
-
-element.classList.add(
-"reverse-left"
-);
-
-}else{
-
-element.classList.add(
-"reverse-right"
-);
-
-}
-
-}else{
-
-/*
-   Aşağı doğru giderken
-   başlangıç yönünü koru.
-*/
-
-element.classList.remove(
-"reverse-left",
-"reverse-right"
-);
-
-}
-
-element.classList.remove(
-"visible"
-);
+entry.target.classList.remove("visible");
 
 }
 
 });
-
 },
-
 {
-threshold:.18,
-
-rootMargin:
-"0px 0px -8% 0px"
+threshold:.18
 }
-
 );
 
-
-architects.forEach(
-architect => {
-
-architectObserver.observe(
-architect
-);
-
-});
-
-
-/* =========================================================
-   HERO IMAGE LOAD
-========================================================= */
-
-window.addEventListener(
-"load",
-() => {
-
-document
-.querySelector(
-".equipe-hero-image"
-)
-.style.transform =
-"scale(1)";
-
+members.forEach(member=>{
+observer.observe(member);
 });
 
 </script>
 
 </body>
-
 </html>
