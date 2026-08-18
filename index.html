@@ -22,11 +22,10 @@ a{color:inherit;text-decoration:none}
 .opening{
   position:fixed;inset:0;background:transparent;z-index:99999;
   pointer-events:none;overflow:hidden;
-  animation:openingOut .01s 1.85s forwards;
+  animation:openingOut .01s 2.35s forwards;
 }
 
-/* Siyah Perde: Sayfa açılır açılmaz %100 kapalıdır. 
-   Logo sol üste doğru kayarken tam logonun merkezinden saat yönünde dönerek altındaki ana ekranı temizler. */
+/* Siyah Perde: Her iki kolun hizasından (0deg ve 180deg) aynı anda açılarak 180 derecelik iki simetrik dilimle ekranı tamamen temizler */
 .opening-surface{
   position:absolute;
   left:50%;top:50%;
@@ -34,10 +33,30 @@ a{color:inherit;text-decoration:none}
   transform:translate(-50%,-50%);
   z-index:1;
   background:#111;
-  mask-image: conic-gradient(from 90deg at 50% 50%, transparent 0deg, transparent var(--sweep, 0deg), #000 var(--sweep, 0deg), #000 360deg);
-  -webkit-mask-image: conic-gradient(from 90deg at 50% 50%, transparent 0deg, transparent var(--sweep, 0deg), #000 var(--sweep, 0deg), #000 360deg);
-  animation: surfaceMove 1.15s 0.65s cubic-bezier(.16,1,.3,1) forwards,
-             wipeSurface 0.85s 0.85s cubic-bezier(.16,1,.3,1) forwards;
+  mask-image: conic-gradient(
+    from 90deg at 50% 50%, 
+    transparent 0deg, 
+    transparent var(--sweep, 0deg), 
+    #000 var(--sweep, 0deg), 
+    #000 180deg, 
+    transparent 180deg, 
+    transparent calc(180deg + var(--sweep, 0deg)), 
+    #000 calc(180deg + var(--sweep, 0deg)), 
+    #000 360deg
+  );
+  -webkit-mask-image: conic-gradient(
+    from 90deg at 50% 50%, 
+    transparent 0deg, 
+    transparent var(--sweep, 0deg), 
+    #000 var(--sweep, 0deg), 
+    #000 180deg, 
+    transparent 180deg, 
+    transparent calc(180deg + var(--sweep, 0deg)), 
+    #000 calc(180deg + var(--sweep, 0deg)), 
+    #000 360deg
+  );
+  animation: surfaceMove 1.35s 0.95s cubic-bezier(.16,1,.3,1) forwards,
+             wipeSurface 0.95s 1.1s cubic-bezier(.16,1,.3,1) forwards;
 }
 
 @keyframes surfaceMove{
@@ -53,7 +72,7 @@ a{color:inherit;text-decoration:none}
 
 @keyframes wipeSurface{
   0%{ --sweep: 0deg; }
-  100%{ --sweep: 360deg; }
+  100%{ --sweep: 180deg; }
 }
 
 /* Logo ve Yan Kolları Sahnesi */
@@ -63,7 +82,7 @@ a{color:inherit;text-decoration:none}
   width:105px;height:105px;
   transform:translate(-50%,-50%);
   z-index:6;
-  animation:openingMove 1.15s 0.65s cubic-bezier(.16,1,.3,1) forwards;
+  animation:openingMove 1.35s 0.95s cubic-bezier(.16,1,.3,1) forwards;
 }
 
 .opening-stage .opening-logo{
@@ -74,6 +93,7 @@ a{color:inherit;text-decoration:none}
   filter:brightness(0) invert(1);
 }
 
+/* Logonun İçinden Ekranın İki Yanına Yumuşakça Uzanan Kollar */
 .opening-stage .opening-arm{
   position:absolute;
   top:50%;
@@ -86,7 +106,7 @@ a{color:inherit;text-decoration:none}
   width:200vw;
   transform-origin:right center;
   transform:scaleX(0);
-  animation:armsIn .45s .2s cubic-bezier(.16,1,.3,1) forwards;
+  animation:armsIn .75s .3s cubic-bezier(.16,1,.3,1) forwards;
 }
 
 .opening-stage .right{
@@ -94,7 +114,7 @@ a{color:inherit;text-decoration:none}
   width:200vw;
   transform-origin:left center;
   transform:scaleX(0);
-  animation:armsIn .45s .2s cubic-bezier(.16,1,.3,1) forwards;
+  animation:armsIn .75s .3s cubic-bezier(.16,1,.3,1) forwards;
 }
 
 @keyframes armsIn{
@@ -173,7 +193,7 @@ a{color:inherit;text-decoration:none}
 .hero-image{
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:cover;transform:scale(1.1);
-  animation:heroIn 1.6s 0.95s cubic-bezier(.16,1,.3,1) forwards
+  animation:heroIn 1.6s 1.2s cubic-bezier(.16,1,.3,1) forwards
 }
 @keyframes heroIn{to{transform:scale(1)}}
 .hero:after{
@@ -186,12 +206,12 @@ a{color:inherit;text-decoration:none}
 .office-name{
   font-size:clamp(55px,9.5vw,150px);
   line-height:.82;letter-spacing:-6px;font-weight:500;
-  opacity:0;animation:heroTextIn .8s 1.05s forwards
+  opacity:0;animation:heroTextIn .8s 1.3s forwards
 }
 .hero-meta{
   margin-top:25px;font-size:10px;letter-spacing:2px;
   text-transform:uppercase;opacity:0;
-  animation:heroTextIn .7s 1.15s forwards
+  animation:heroTextIn .7s 1.4s forwards
 }
 @keyframes heroTextIn{
   from{opacity:0;transform:translateY(50px)}
@@ -545,15 +565,15 @@ document.querySelectorAll(".project").forEach(p=>observer.observe(p));
 const headerElement = document.querySelector(".header");
 setTimeout(()=>{
   headerElement.classList.add("ready");
-},1200);
+},1500);
 
 setTimeout(()=>{
   headerElement.classList.add("opening-complete");
-},1800);
+},2300);
 
 /* OPENING SCROLL LOCK */
 document.body.style.overflow="hidden";
-setTimeout(()=>document.body.style.overflow="", 1800);
+setTimeout(()=>document.body.style.overflow="", 2300);
 
 /* NAV COLOR OVERRIDE CONTROLLER (data-nav) */
 const navTargets=document.querySelectorAll("[data-nav]");
