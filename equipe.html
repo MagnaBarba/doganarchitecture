@@ -93,6 +93,18 @@ background:#111;
 overflow:hidden
 }
 
+/* Zikzak Düzeni: 2. Mimar için Sütunları Yer Değiştirir (Fotoğraf Sağda / Yazı Solda) */
+.team-member.reverse {
+  grid-template-columns: 1fr 1fr;
+}
+.team-member.reverse .team-photo {
+  grid-column: 2;
+}
+.team-member.reverse .team-info {
+  grid-column: 1;
+  grid-row: 1;
+}
+
 .team-photo{
 position:relative;
 overflow:hidden;
@@ -128,8 +140,8 @@ opacity:.45
 }
 
 .team-name{
-font-size:clamp(48px,6vw,95px);
-line-height:.85;
+font-size:clamp(48px,5.5vw,85px);
+line-height:.88;
 letter-spacing:-4px;
 font-weight:500;
 text-transform:uppercase;
@@ -179,7 +191,7 @@ transform:translateX(0)
 padding:30px 40px;
 border-top:1px solid #333;
 display:flex;
-justify-content:space-between;
+justify-content:between;
 font-size:9px;
 letter-spacing:1.5px;
 text-transform:uppercase
@@ -225,6 +237,13 @@ display:block;
 min-height:auto
 }
 
+/* Mobilde varsayılan dikey sıralamaya döndürür */
+.team-member.reverse .team-photo,
+.team-member.reverse .team-info {
+  grid-column: auto;
+  grid-row: auto;
+}
+
 .team-photo{
 height:65svh;
 min-height:450px
@@ -244,7 +263,7 @@ margin-bottom:25px
 }
 
 .team-name{
-font-size:clamp(45px,13vw,75px);
+font-size:clamp(40px,11vw,65px);
 letter-spacing:-3px;
 margin-bottom:25px
 }
@@ -283,7 +302,7 @@ transition-duration:.01ms!important
 </a>
 
 <nav class="nav">
-<a href="index.html">PROJETS</a>
+<a href="index.html#projects">PROJETS</a>
 <a href="equipe.html">ÉQUIPE</a>
 <a href="index.html#contact">CONTACT</a>
 </nav>
@@ -310,7 +329,7 @@ alt="DOGAN ARCHITECTURE — ÉQUIPE">
 
 <img
 src="images/equipe/architecte-01.jpg"
-alt="Architecte 01">
+alt="M.DOGAN Sezer David">
 
 </div>
 
@@ -319,8 +338,8 @@ alt="Architecte 01">
 <div class="team-number">01 / 03</div>
 
 <h2 class="team-name">
-ARCHITECTE<br>
-01
+M.DOGAN<br>
+Sezer David
 </h2>
 
 <div class="team-role">
@@ -341,15 +360,15 @@ de créer des espaces cohérents et durables.
 
 </section>
 
-<!-- ================= ARCHITECTE 02 ================= -->
+<!-- ================= ARCHITECTE 02 (REVERSE: FOTO SAĞDA / YAZI SOLDA) ================= -->
 
-<section class="team-member right">
+<section class="team-member right reverse">
 
 <div class="team-photo">
 
 <img
 src="images/equipe/architecte-02.jpg"
-alt="Architecte 02">
+alt="M.ARIKANLI Erkam">
 
 </div>
 
@@ -358,8 +377,8 @@ alt="Architecte 02">
 <div class="team-number">02 / 03</div>
 
 <h2 class="team-name">
-ARCHITECTE<br>
-02
+M.ARIKANLI<br>
+Erkam
 </h2>
 
 <div class="team-role">
@@ -387,7 +406,7 @@ architecturales en solutions précises et réalisables.
 
 <img
 src="images/equipe/architecte-03.jpg"
-alt="Architecte 03">
+alt="M.YILMAZ Ibrahim">
 
 </div>
 
@@ -396,8 +415,8 @@ alt="Architecte 03">
 <div class="team-number">03 / 03</div>
 
 <h2 class="team-name">
-ARCHITECTE<br>
-03
+M.YILMAZ<br>
+Ibrahim
 </h2>
 
 <div class="team-role">
