@@ -44,7 +44,6 @@ a{
 .opening{
 
     position:fixed;
-
     inset:0;
 
     background:#111;
@@ -55,51 +54,51 @@ a{
 
     pointer-events:none;
 
-    animation:
-    openingOut .01s 2.08s forwards;
-}
-
-
-/* =========================================================
-   OPENING BLACK CURTAIN
-========================================================= */
-
-.opening-curtain{
-
-    position:absolute;
-
-    inset:0;
-
-    background:#111;
-
-    z-index:1;
-
-    /*
-       Siyah perde başlangıçta tamamen kapalı.
-       Kolların geçişini takip eden temizleme efekti
-       clip-path ile oluşturuluyor.
-    */
-
-    clip-path:
-        polygon(
-            0 0,
-            100% 0,
-            100% 100%,
-            0 100%
-        );
+    opacity:1;
 
     animation:
-    curtainReveal 1.10s 1.50s
+    openingEnd .35s 2.05s
     cubic-bezier(.16,1,.3,1)
     forwards;
 }
 
 
 /* =========================================================
-   OPENING ORBIT
+   OPENING CLEANING FIELD
+
+   Bu siyah perde, kolların geçtiği yerde
+   ana sayfayı görünür hale getiriyor.
 ========================================================= */
 
-.opening-orbit{
+.opening-clean{
+
+    position:absolute;
+
+    inset:0;
+
+    background:transparent;
+
+    z-index:1;
+
+    clip-path:
+    polygon(
+        0 0,
+        0 0,
+        0 0,
+        0 0
+    );
+
+}
+
+
+/* =========================================================
+   HORIZONTAL ARMS
+
+   Tek grup.
+   Logo ile beraber hareket ediyor.
+========================================================= */
+
+.opening-mark{
 
     position:absolute;
 
@@ -109,32 +108,25 @@ a{
     width:100vw;
     height:120px;
 
+    transform:
+    translate(-50%,-50%)
+    rotate(0deg);
+
     z-index:5;
 
-    transform:
-        translate(-50%,-50%)
-        rotate(0deg);
-
-    opacity:0;
+    transform-origin:
+    50% 50%;
 
     animation:
-
-        orbitAppear
-        .38s
-        .50s
-        cubic-bezier(.16,1,.3,1)
-        forwards,
-
-        orbitMove
-        1.58s
-        .90s
-        cubic-bezier(.16,1,.3,1)
-        forwards;
+    markMove 1.55s
+    .55s
+    cubic-bezier(.16,.9,.22,1)
+    forwards;
 }
 
 
 /* =========================================================
-   OPENING ARMS
+   ARMS
 ========================================================= */
 
 .opening-arm{
@@ -143,33 +135,37 @@ a{
 
     top:50%;
 
-    width:100vw;
-
     height:1px;
+
+    width:100vw;
 
     background:#fff;
 
-    transform-origin:center;
+    transform:
+    translateY(-50%);
+
+    transform-origin:center center;
+
+    box-shadow:
+    0 0 1px rgba(255,255,255,.8);
 
 }
 
 
-.opening-arm-left{
+/* Üst/alt değil.
+   İki kol logonun aynı ekseninden çıkar. */
 
-    right:50%;
-
+.opening-arm.top{
+    left:-100vw;
 }
 
-
-.opening-arm-right{
-
-    left:50%;
-
+.opening-arm.bottom{
+    left:0;
 }
 
 
 /* =========================================================
-   OPENING LOGO
+   LOGO
 ========================================================= */
 
 .opening-logo-holder{
@@ -182,6 +178,9 @@ a{
     width:120px;
     height:120px;
 
+    transform:
+    translate(-50%,-50%);
+
     border-radius:50%;
 
     background:#111;
@@ -189,39 +188,25 @@ a{
     display:flex;
 
     align-items:center;
-
     justify-content:center;
-
-    overflow:hidden;
 
     z-index:10;
 
+    overflow:hidden;
+
     opacity:0;
 
-    transform:
-        translate(-50%,-50%)
-        scale(.72);
-
     animation:
-
-        openingLogoIn
-        .38s
-        .50s
-        cubic-bezier(.16,1,.3,1)
-        forwards,
-
-        openingLogoTravel
-        1.10s
-        .90s
-        cubic-bezier(.16,1,.3,1)
-        forwards;
+    logoAppear .42s
+    .52s
+    cubic-bezier(.16,1,.3,1)
+    forwards;
 }
 
 
 .opening-logo{
 
     width:100%;
-
     height:100%;
 
     object-fit:contain;
@@ -231,340 +216,215 @@ a{
     background:transparent;
 
     filter:
-        brightness(0)
-        invert(1);
+    brightness(0)
+    invert(1);
+}
+
+
+/* =========================================================
+   OPENING ANIMATION
+
+   0.00–0.50 : siyah ekran
+   0.52      : logo belirir
+   0.55–1.00 : kollar uzar
+   0.90–1.55 : grup döner ve sola hareket eder
+   1.35      : temizleme başlar
+   2.00      : tamam
+========================================================= */
+
+@keyframes logoAppear{
+
+    0%{
+        opacity:0;
+        transform:
+        translate(-50%,-50%)
+        scale(.72);
+    }
+
+    100%{
+        opacity:1;
+        transform:
+        translate(-50%,-50%)
+        scale(1);
+    }
+
+}
+
+
+@keyframes markMove{
+
+    0%{
+
+        left:50%;
+        top:50%;
+
+        transform:
+        translate(-50%,-50%)
+        rotate(0deg);
+
+    }
+
+    18%{
+
+        left:50%;
+        top:50%;
+
+        transform:
+        translate(-50%,-50%)
+        rotate(0deg);
+
+    }
+
+    43%{
+
+        left:43%;
+        top:46%;
+
+        transform:
+        translate(-50%,-50%)
+        rotate(110deg);
+
+    }
+
+    64%{
+
+        left:28%;
+        top:36%;
+
+        transform:
+        translate(-50%,-50%)
+        rotate(220deg);
+
+    }
+
+    82%{
+
+        left:13%;
+        top:20%;
+
+        transform:
+        translate(-50%,-50%)
+        rotate(310deg);
+
+    }
+
+    100%{
+
+        left:40px;
+        top:45px;
+
+        transform:
+        translate(-50%,-50%)
+        rotate(360deg);
+
+    }
+
+}
+
+
+/* =========================================================
+   CLEANING REVEAL
+
+   Kolların hareketiyle siyah perde
+   fiziksel olarak açılıyormuş hissi.
+========================================================= */
+
+.opening::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:#111;
+
+    z-index:3;
+
+    transform-origin:
+    0% 50%;
 
     animation:
-
-        openingLogoSpin
-        1.10s
-        .90s
-        cubic-bezier(.16,1,.3,1)
-        forwards;
-}
-
-
-/* =========================================================
-   OPENING LOGO IN
-========================================================= */
-
-@keyframes openingLogoIn{
-
-    0%{
-
-        opacity:0;
-
-        transform:
-            translate(-50%,-50%)
-            scale(.72);
-
-    }
-
-    100%{
-
-        opacity:1;
-
-        transform:
-            translate(-50%,-50%)
-            scale(1);
-
-    }
+    openingSweep 1.45s
+    .95s
+    cubic-bezier(.76,0,.18,1)
+    forwards;
 
 }
 
 
-/* =========================================================
-   ARMS APPEAR
-========================================================= */
-
-@keyframes orbitAppear{
-
-    0%{
-
-        opacity:0;
-
-        transform:
-            translate(-50%,-50%)
-            scaleX(.02)
-            rotate(0deg);
-
-    }
-
-    100%{
-
-        opacity:1;
-
-        transform:
-            translate(-50%,-50%)
-            scaleX(1)
-            rotate(0deg);
-
-    }
-
-}
-
-
-/* =========================================================
-   LOGO TRAVEL
-========================================================= */
-
-@keyframes openingLogoTravel{
-
-    0%{
-
-        transform:
-            translate(-50%,-50%)
-            translate(0,0)
-            rotate(0deg)
-            scale(1);
-
-    }
-
-    25%{
-
-        transform:
-            translate(-50%,-50%)
-            translate(
-                -10vw,
-                -4vh
-            )
-            rotate(150deg)
-            scale(.95);
-
-    }
-
-    50%{
-
-        transform:
-            translate(-50%,-50%)
-            translate(
-                -24vw,
-                -16vh
-            )
-            rotate(330deg)
-            scale(.82);
-
-    }
-
-    75%{
-
-        transform:
-            translate(-50%,-50%)
-            translate(
-                -39vw,
-                -32vh
-            )
-            rotate(540deg)
-            scale(.60);
-
-    }
-
-    100%{
-
-        transform:
-            translate(-50%,-50%)
-            translate(
-                calc(-50vw + 62px),
-                calc(-50vh + 57px)
-            )
-            rotate(720deg)
-            scale(.38);
-
-    }
-
-}
-
-
-/* =========================================================
-   ARM ORBIT
-========================================================= */
-
-@keyframes orbitMove{
-
-    0%{
-
-        transform:
-            translate(-50%,-50%)
-            rotate(0deg);
-
-    }
-
-    20%{
-
-        transform:
-            translate(
-                -5vw,
-                -2vh
-            )
-            rotate(90deg);
-
-    }
-
-    40%{
-
-        transform:
-            translate(
-                -14vw,
-                -9vh
-            )
-            rotate(220deg);
-
-    }
-
-    60%{
-
-        transform:
-            translate(
-                -25vw,
-                -18vh
-            )
-            rotate(360deg);
-
-    }
-
-    78%{
-
-        transform:
-            translate(
-                -38vw,
-                -31vh
-            )
-            rotate(540deg);
-
-    }
-
-    100%{
-
-        transform:
-            translate(
-                calc(-50vw + 62px),
-                calc(-50vh + 57px)
-            )
-            rotate(720deg);
-
-    }
-
-}
-
-
-/* =========================================================
-   LOGO SPIN
-========================================================= */
-
-@keyframes openingLogoSpin{
-
-    0%{
-
-        transform:
-            rotate(0deg);
-
-    }
-
-    20%{
-
-        transform:
-            rotate(120deg);
-
-    }
-
-    45%{
-
-        transform:
-            rotate(300deg);
-
-    }
-
-    70%{
-
-        transform:
-            rotate(500deg);
-
-    }
-
-    100%{
-
-        transform:
-            rotate(720deg);
-
-    }
-
-}
-
-
-/* =========================================================
-   CURTAIN REVEAL
-========================================================= */
-
-@keyframes curtainReveal{
+/*
+   Siyah perde sola doğru çekiliyor.
+   Bu yüzden ana sayfa, kolun arkasından
+   temizleniyormuş gibi görünür.
+*/
+
+@keyframes openingSweep{
 
     0%{
 
         clip-path:
-            polygon(
-                0 0,
-                100% 0,
-                100% 100%,
-                0 100%
-            );
+        polygon(
+            0 0,
+            100% 0,
+            100% 100%,
+            0 100%
+        );
 
     }
 
-    25%{
+    35%{
 
         clip-path:
-            polygon(
-                0 0,
-                100% 0,
-                100% 100%,
-                0 100%
-            );
+        polygon(
+            0 0,
+            100% 0,
+            100% 100%,
+            0 100%
+        );
 
     }
 
     55%{
 
         clip-path:
-            polygon(
-                0 0,
-                100% 0,
-                100% 100%,
-                0 100%
-            );
-
-        opacity:.75;
+        polygon(
+            0 0,
+            48% 0,
+            48% 100%,
+            0 100%
+        );
 
     }
 
-    78%{
+    72%{
 
         clip-path:
-            polygon(
-                0 0,
-                100% 0,
-                100% 100%,
-                0 100%
-            );
-
-        opacity:.35;
+        polygon(
+            0 0,
+            20% 0,
+            20% 100%,
+            0 100%
+        );
 
     }
 
     100%{
 
-        opacity:0;
-
-        visibility:hidden;
+        clip-path:
+        polygon(
+            0 0,
+            0 0,
+            0 100%,
+            0 100%
+        );
 
     }
 
 }
 
 
-/* =========================================================
-   OPENING OUT
-========================================================= */
-
-@keyframes openingOut{
+@keyframes openingEnd{
 
     to{
 
@@ -608,24 +468,18 @@ a{
 
     transition:
     opacity .2s ease;
+
 }
 
 
 .header.ready{
-
     opacity:1;
-
 }
 
-
-/* =========================================================
-   LOGO
-========================================================= */
 
 .logo-link{
 
     width:45px;
-
     height:45px;
 
     display:block;
@@ -641,16 +495,13 @@ a{
 
 
 .logo-link:hover{
-
     transform:scale(1.08);
-
 }
 
 
 .logo-image{
 
     width:100%;
-
     height:100%;
 
     object-fit:contain;
@@ -748,21 +599,16 @@ a{
     padding:0;
 
     opacity:.4;
-
 }
 
 
 .language button.active{
-
     opacity:1;
-
 }
 
 
 .language span{
-
     opacity:.35;
-
 }
 
 
@@ -793,7 +639,6 @@ a{
     inset:0;
 
     width:100%;
-
     height:100%;
 
     object-fit:cover;
@@ -801,7 +646,8 @@ a{
     transform:scale(1.1);
 
     animation:
-    heroIn 1.6s 1.05s
+    heroIn 1.6s
+    1.05s
     cubic-bezier(.16,1,.3,1)
     forwards;
 }
@@ -810,9 +656,7 @@ a{
 @keyframes heroIn{
 
     to{
-
         transform:scale(1);
-
     }
 
 }
@@ -832,7 +676,6 @@ a{
         rgba(0,0,0,.72),
         rgba(0,0,0,.08) 65%
     );
-
 }
 
 
@@ -847,7 +690,6 @@ a{
     z-index:10;
 
     left:40px;
-
     right:40px;
 
     bottom:42px;
@@ -872,7 +714,8 @@ a{
     opacity:0;
 
     animation:
-    heroTextIn .8s 1.12s
+    heroTextIn .8s
+    1.12s
     cubic-bezier(.16,1,.3,1)
     forwards;
 }
@@ -891,7 +734,8 @@ a{
     opacity:0;
 
     animation:
-    heroMetaIn .7s 1.22s
+    heroMetaIn .7s
+    1.22s
     cubic-bezier(.16,1,.3,1)
     forwards;
 }
@@ -900,21 +744,13 @@ a{
 @keyframes heroTextIn{
 
     from{
-
         opacity:0;
-
-        transform:
-        translateY(70px);
-
+        transform:translateY(70px);
     }
 
     to{
-
         opacity:1;
-
-        transform:
-        translateY(0);
-
+        transform:translateY(0);
     }
 
 }
@@ -923,21 +759,13 @@ a{
 @keyframes heroMetaIn{
 
     from{
-
         opacity:0;
-
-        transform:
-        translateY(20px);
-
+        transform:translateY(20px);
     }
 
     to{
-
         opacity:1;
-
-        transform:
-        translateY(0);
-
+        transform:translateY(0);
     }
 
 }
@@ -954,7 +782,6 @@ a{
     z-index:10;
 
     right:40px;
-
     bottom:42px;
 
     color:#fff;
@@ -975,22 +802,18 @@ a{
 @keyframes scrollPulse{
 
     0%,100%{
-
         opacity:.3;
-
     }
 
     50%{
-
         opacity:1;
-
     }
 
 }
 
 
 /* =========================================================
-   PROJECT INTRO
+   PROJECTS INTRO
 ========================================================= */
 
 .projects-intro{
@@ -1083,40 +906,6 @@ a{
 }
 
 
-/*
-   YUKARI ÇIKARKEN REVERSE EFFECT
-*/
-
-.project.reverse-left{
-
-    transform:
-    translateX(-100px)
-    scale(.985);
-
-    opacity:0;
-}
-
-
-.project.reverse-right{
-
-    transform:
-    translateX(100px)
-    scale(.985);
-
-    opacity:0;
-}
-
-
-.project-link{
-
-    display:block;
-
-    position:relative;
-
-    overflow:hidden;
-}
-
-
 .project-image{
 
     width:100%;
@@ -1149,10 +938,6 @@ a{
 }
 
 
-/* =========================================================
-   PROJECT OVERLAY
-========================================================= */
-
 .project-link::after{
 
     content:"";
@@ -1176,7 +961,6 @@ a{
 
 
 .project-link:hover::after{
-
     opacity:.9;
 }
 
@@ -1202,7 +986,6 @@ a{
     z-index:5;
 
     left:40px;
-
     right:40px;
 
     bottom:35px;
@@ -1308,13 +1091,6 @@ a{
 }
 
 
-.project-link:hover .project-title{
-
-    transform:
-    translateX(15px);
-}
-
-
 /* =========================================================
    CONTACT
 ========================================================= */
@@ -1383,31 +1159,18 @@ a{
 
 .instagram-link{
 
-    display:flex;
+    display:flex !important;
 
     align-items:center;
 
-    gap:9px;
+    gap:8px;
 
     width:max-content;
-
-    margin-top:2px;
 
     border-bottom:
     1px solid #777 !important;
 
-    font-size:13px;
-
-    line-height:1.8;
-
-    transition:
-    opacity .2s ease;
-}
-
-
-.instagram-link:hover{
-
-    opacity:.65;
+    margin-top:2px;
 }
 
 
@@ -1419,14 +1182,9 @@ a{
 
     display:block;
 
-    object-fit:contain;
-
     filter:
     brightness(0)
     invert(1);
-
-    transition:
-    filter .18s ease;
 }
 
 
@@ -1488,7 +1246,6 @@ a{
     .logo-link{
 
         width:36px;
-
         height:36px;
     }
 
@@ -1511,7 +1268,6 @@ a{
 
 
     .hero{
-
         min-height:600px;
     }
 
@@ -1519,7 +1275,6 @@ a{
     .hero-content{
 
         left:18px;
-
         right:18px;
 
         bottom:30px;
@@ -1534,10 +1289,6 @@ a{
         line-height:.88;
 
         letter-spacing:-3px;
-
-        white-space:normal;
-
-        word-break:normal;
     }
 
 
@@ -1554,7 +1305,6 @@ a{
     .scroll-indicator{
 
         right:18px;
-
         bottom:30px;
 
         font-size:8px;
@@ -1606,26 +1356,6 @@ a{
     }
 
 
-    .project.reverse-left{
-
-        transform:
-        translateX(-60px)
-        scale(.985);
-
-        opacity:0;
-    }
-
-
-    .project.reverse-right{
-
-        transform:
-        translateX(60px)
-        scale(.985);
-
-        opacity:0;
-    }
-
-
     .project-image{
 
         height:72svh;
@@ -1637,7 +1367,6 @@ a{
     .project-info{
 
         left:18px;
-
         right:18px;
 
         bottom:22px;
@@ -1707,17 +1436,7 @@ a{
 
     .instagram-link{
 
-        font-size:12px;
-
-    }
-
-
-    .instagram-icon{
-
-        width:14px;
-
-        height:14px;
-
+        margin-top:2px;
     }
 
 
@@ -1733,22 +1452,19 @@ a{
     .opening-logo-holder{
 
         width:90px;
-
         height:90px;
     }
 
 
-    .opening-orbit{
+    .opening-mark{
 
         height:90px;
-
     }
 
 
     .opening-arm{
 
-        height:1px;
-
+        width:150vw;
     }
 
 }
@@ -1761,9 +1477,7 @@ a{
 @media(prefers-reduced-motion:reduce){
 
     *,
-
     *::before,
-
     *::after{
 
         animation-duration:.01ms !important;
@@ -1773,7 +1487,6 @@ a{
         transition-duration:.01ms !important;
 
         scroll-behavior:auto !important;
-
     }
 
 }
@@ -1792,28 +1505,21 @@ a{
 
 <div class="opening">
 
-    <div class="opening-curtain"></div>
+    <div class="opening-mark">
+
+        <div class="opening-arm top"></div>
+
+        <div class="opening-arm bottom"></div>
 
 
-    <div class="opening-orbit">
+        <div class="opening-logo-holder">
 
-        <div
-            class="opening-arm opening-arm-left">
+            <img
+                src="images/logo.png"
+                class="opening-logo"
+                alt="DOGAN ARCHITECTURE">
+
         </div>
-
-        <div
-            class="opening-arm opening-arm-right">
-        </div>
-
-    </div>
-
-
-    <div class="opening-logo-holder">
-
-        <img
-            src="images/logo.png"
-            class="opening-logo"
-            alt="DOGAN ARCHITECTURE">
 
     </div>
 
@@ -1853,23 +1559,23 @@ a{
 
 
         <a
-            href="#contact"
-            class="header-link"
-            data-fr="CONTACT"
-            data-en="CONTACT">
-
-            CONTACT
-
-        </a>
-
-
-        <a
             href="equipe.html"
             class="header-link"
             data-fr="ÉQUIPE"
             data-en="TEAM">
 
             ÉQUIPE
+
+        </a>
+
+
+        <a
+            href="#contact"
+            class="header-link"
+            data-fr="CONTACT"
+            data-en="CONTACT">
+
+            CONTACT
 
         </a>
 
@@ -1886,8 +1592,7 @@ a{
 
             <span>/</span>
 
-            <button
-                id="enBtn">
+            <button id="enBtn">
 
                 EN
 
@@ -2371,7 +2076,7 @@ a{
 
     <div class="contact-info">
 
-        <a href="tel:+330658036077">
+        <a href="tel:+33658036077">
             +33 6 58 03 60 77
         </a>
 
@@ -2381,23 +2086,44 @@ a{
 
         <br>
 
-
-        <!-- INSTAGRAM -->
-
         <a
+            class="instagram-link"
             href="https://www.instagram.com/dogan.architecture/"
             target="_blank"
-            rel="noopener noreferrer"
-            class="instagram-link">
+            rel="noopener noreferrer">
 
-            <img
-                src="https://cdn.simpleicons.org/instagram/ffffff"
+            <svg
                 class="instagram-icon"
-                alt="Instagram">
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8">
 
-            <span>
-                dogan.architecture
-            </span>
+                <rect
+                    x="3"
+                    y="3"
+                    width="18"
+                    height="18"
+                    rx="5">
+                </rect>
+
+                <circle
+                    cx="12"
+                    cy="12"
+                    r="4">
+                </circle>
+
+                <circle
+                    cx="17.5"
+                    cy="6.5"
+                    r="1"
+                    fill="currentColor"
+                    stroke="none">
+                </circle>
+
+            </svg>
+
+            dogan.architecture
 
         </a>
 
@@ -2510,7 +2236,7 @@ changeLanguage(
 
 
 /* =========================================================
-   PROJECT REVEAL + REVERSE
+   PROJECT REVEAL — BIDIRECTIONAL
 ========================================================= */
 
 const projects =
@@ -2526,78 +2252,17 @@ new IntersectionObserver(
 
         entries.forEach(entry => {
 
-            const project =
-                entry.target;
-
-
             if(entry.isIntersecting){
 
-                /*
-                   Aşağı inerken görün.
-                */
-
-                project.classList.remove(
-                    "reverse-left",
-                    "reverse-right"
-                );
-
-                project.classList.add(
+                entry.target.classList.add(
                     "visible"
                 );
 
             }else{
 
-                /*
-                   Elemanın ekranın üstünde mi
-                   altında mı olduğuna bak.
-                */
-
-                const rect =
-                    project.getBoundingClientRect();
-
-
-                /*
-                   Ekranın üstünden çıktıysa
-                   yukarı çıkarken reverse.
-                */
-
-                if(rect.bottom < 0){
-
-                    if(
-                        project.classList
-                        .contains("from-left")
-                    ){
-
-                        project.classList.add(
-                            "reverse-left"
-                        );
-
-                    }else{
-
-                        project.classList.add(
-                            "reverse-right"
-                        );
-
-                    }
-
-                }
-
-
-                /*
-                   Ekranın altındaysa
-                   tekrar aşağı gelirken
-                   normal giriş efekti.
-                */
-
-                if(rect.top > window.innerHeight){
-
-                    project.classList.remove(
-                        "visible",
-                        "reverse-left",
-                        "reverse-right"
-                    );
-
-                }
+                entry.target.classList.remove(
+                    "visible"
+                );
 
             }
 
@@ -2606,12 +2271,10 @@ new IntersectionObserver(
     },
 
     {
-
         threshold:.12,
 
         rootMargin:
         "0px 0px -5% 0px"
-
     }
 
 );
@@ -2695,10 +2358,6 @@ Array.from(
 );
 
 
-/* =========================================================
-   IMAGE LUMINANCE
-========================================================= */
-
 function getImageLuminance(
     image,
     x,
@@ -2710,7 +2369,7 @@ function getImageLuminance(
         !image.naturalWidth
     ){
 
-        return 0.5;
+        return .5;
 
     }
 
@@ -2753,11 +2412,9 @@ function getImageLuminance(
 
 
     let renderedWidth;
-
     let renderedHeight;
 
     let offsetX = 0;
-
     let offsetY = 0;
 
 
@@ -2835,11 +2492,13 @@ function getImageLuminance(
 
             imageX - 3,
             imageY - 3,
+
             7,
             7,
 
             0,
             0,
+
             7,
             7
 
@@ -2847,7 +2506,7 @@ function getImageLuminance(
 
     }catch(error){
 
-        return 0.5;
+        return .5;
 
     }
 
@@ -2882,16 +2541,14 @@ function getImageLuminance(
         pixels[i + 2];
 
 
-        const luminance =
-            (
-                0.2126 * r +
-                0.7152 * g +
-                0.0722 * b
-            )
-            / 255;
+        total +=
+        (
+            .2126 * r +
+            .7152 * g +
+            .0722 * b
+        )
+        /255;
 
-
-        total += luminance;
 
         count++;
 
@@ -2900,14 +2557,10 @@ function getImageLuminance(
 
     return count
         ? total / count
-        : 0.5;
+        : .5;
 
 }
 
-
-/* =========================================================
-   BACKGROUND UNDER POINT
-========================================================= */
 
 function getBackgroundLuminance(
     x,
@@ -2948,14 +2601,10 @@ function getBackgroundLuminance(
     }
 
 
-    return 0.067;
+    return .067;
 
 }
 
-
-/* =========================================================
-   HEADER COLOR
-========================================================= */
 
 function updateHeaderColor(){
 
@@ -2966,8 +2615,9 @@ function updateHeaderColor(){
 
 
     if(
-        !header.classList
-        .contains("ready")
+        !header.classList.contains(
+            "ready"
+        )
     ){
 
         return;
@@ -2997,88 +2647,16 @@ function updateHeaderColor(){
     logo.getBoundingClientRect();
 
 
-    const logoPoints = [
+    const logoBrightness =
+    getBackgroundLuminance(
 
-        [
-            logoRect.left +
-            logoRect.width * .5,
+        logoRect.left +
+        logoRect.width / 2,
 
-            logoRect.top +
-            logoRect.height * .5
-        ],
+        logoRect.top +
+        logoRect.height / 2
 
-        [
-            logoRect.left +
-            logoRect.width * .25,
-
-            logoRect.top +
-            logoRect.height * .25
-        ],
-
-        [
-            logoRect.left +
-            logoRect.width * .75,
-
-            logoRect.top +
-            logoRect.height * .25
-        ],
-
-        [
-            logoRect.left +
-            logoRect.width * .25,
-
-            logoRect.top +
-            logoRect.height * .75
-        ],
-
-        [
-            logoRect.left +
-            logoRect.width * .75,
-
-            logoRect.top +
-            logoRect.height * .75
-        ]
-
-    ];
-
-
-    let logoBrightness = 0;
-
-    let logoCount = 0;
-
-
-    logoPoints.forEach(
-        point => {
-
-            const value =
-            getBackgroundLuminance(
-                point[0],
-                point[1]
-            );
-
-
-            if(value !== null){
-
-                logoBrightness += value;
-
-                logoCount++;
-
-            }
-
-        }
     );
-
-
-    logoBrightness =
-    logoCount
-    ?
-    logoBrightness / logoCount
-    :
-    .067;
-
-
-    const logoShouldBeWhite =
-    logoBrightness < .38;
 
 
     const logoImage =
@@ -3087,7 +2665,9 @@ function updateHeaderColor(){
     );
 
 
-    if(logoShouldBeWhite){
+    if(
+        logoBrightness < .38
+    ){
 
         logoImage.style.filter =
             "brightness(0) invert(1)";
@@ -3107,36 +2687,22 @@ function updateHeaderColor(){
             link.getBoundingClientRect();
 
 
-            const x =
-            rect.left +
-            rect.width / 2;
-
-
-            const y =
-            rect.top +
-            rect.height / 2;
-
-
             const brightness =
             getBackgroundLuminance(
-                x,
-                y
+
+                rect.left +
+                rect.width / 2,
+
+                rect.top +
+                rect.height / 2
+
             );
 
 
-            if(
+            link.style.color =
                 brightness < .38
-            ){
-
-                link.style.color =
-                    "#fff";
-
-            }else{
-
-                link.style.color =
-                    "#000";
-
-            }
+                ? "#fff"
+                : "#000";
 
         }
     );
@@ -3158,48 +2724,25 @@ function updateHeaderColor(){
     );
 
 
-    if(
+    language.style.color =
         languageBrightness < .38
-    ){
-
-        language.style.color =
-            "#fff";
-
-    }else{
-
-        language.style.color =
-            "#000";
-
-    }
-
-
-    /*
-       Instagram ikonunun header ile ilgisi yok.
-       Contact kısmındaki ikon beyaz kalıyor.
-    */
+        ? "#fff"
+        : "#000";
 
 }
 
 
-/* =========================================================
-   COLOR UPDATE
-========================================================= */
-
-let colorUpdateRunning =
-false;
+let colorUpdateRunning = false;
 
 
 function requestColorUpdate(){
 
     if(colorUpdateRunning){
-
         return;
-
     }
 
 
-    colorUpdateRunning =
-    true;
+    colorUpdateRunning = true;
 
 
     requestAnimationFrame(
@@ -3208,8 +2751,7 @@ function requestColorUpdate(){
 
             updateHeaderColor();
 
-            colorUpdateRunning =
-            false;
+            colorUpdateRunning = false;
 
         }
 
@@ -3240,7 +2782,7 @@ window.addEventListener(
 
 
 /* =========================================================
-   START HEADER
+   HEADER START
 ========================================================= */
 
 setTimeout(
