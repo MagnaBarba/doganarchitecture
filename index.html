@@ -1,24 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-
 <title>DOGAN ARCHITECTURE</title>
 
 <style>
+*{margin:0;padding:0;box-sizing:border-box}
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box
-}
-
-html{
-scroll-behavior:smooth
-}
+html{scroll-behavior:smooth}
 
 body{
 background:#111;
@@ -32,1263 +22,662 @@ color:inherit;
 text-decoration:none
 }
 
-
 /* ================= OPENING ================= */
 
 .opening{
-
 position:fixed;
 inset:0;
 background:#111;
 z-index:99999;
-
 pointer-events:none;
 overflow:hidden;
-
-animation:
-openingOut .25s 2s forwards;
-
 }
 
+/* Canvas = siyah perde + temizleme efekti */
+#openingCanvas{
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+z-index:1;
+pointer-events:none;
+}
 
+/* Logo */
 .opening-logo{
-
 position:absolute;
-
 width:105px;
 height:105px;
-
 left:50%;
 top:50%;
-
-transform:
-translate(-50%,-50%);
-
-z-index:6;
-
-object-fit:contain;
-
-filter:
-brightness(0)
-invert(1);
-
-}
-
-
-/* LOGONUN İÇİNİ KAPATAN SİYAH DAİRE */
-
-.opening-stage::before{
-
-content:"";
-
-position:absolute;
-
-left:0;
-top:0;
-
-width:105px;
-height:105px;
-
-border-radius:50%;
-
-background:#111;
-
+transform:translate(-50%,-50%);
 z-index:5;
-
+object-fit:contain;
+filter:brightness(0) invert(1);
 }
 
-
-/* KOLLAR */
-
+/* Kollar */
 .opening-arm{
-
 position:absolute;
-
 height:2px;
-
 width:100vw;
-
 background:#fff;
-
 top:50%;
-
 z-index:4;
-
 transform-origin:center;
-
 }
 
-
-.opening-arm.left{
-
-right:50%;
-
-transform:
-translateY(-50%)
-scaleX(0);
-
-}
-
-
-.opening-arm.right{
-
-left:50%;
-
-transform:
-translateY(-50%)
-scaleX(0);
-
-}
-
-
+/* Stage */
 .opening-stage{
-
 position:absolute;
-
 left:50%;
 top:50%;
-
 width:105px;
 height:105px;
-
-transform:
-translate(-50%,-50%);
-
+transform:translate(-50%,-50%);
 z-index:6;
-
 }
-
 
 .opening-stage .opening-logo{
-
 position:absolute;
-
 left:0;
 top:0;
-
 transform:none;
-
 }
 
-
+/*
+Kollar stage'e bağlı.
+Her biri stage merkezinden ekranın tamamına kadar uzuyor.
+*/
 .opening-stage .opening-arm{
-
 position:absolute;
-
 top:52px;
-
-width:50vw;
-
+width:100vw;
+height:2px;
 }
-
 
 .opening-stage .left{
-
-right:50%;
-
+right:52px;
 transform-origin:right center;
-
 }
-
 
 .opening-stage .right{
-
-left:50%;
-
+left:52px;
 transform-origin:left center;
-
 }
 
-
+/* Kolların ilk açılması */
 @keyframes armsIn{
-
 0%{
-
-transform:
-translateY(-50%)
-scaleX(0);
-
+transform:translateY(-50%) scaleX(0)
 }
-
 100%{
-
-transform:
-translateY(-50%)
-scaleX(1);
-
+transform:translateY(-50%) scaleX(1)
+}
 }
 
-}
-
-
+/*
+Logo + kollar:
+tek kesintisiz dönüş.
+720 yerine 540 derece:
+daha organik, daha az mekanik,
+ama hâlâ belirgin bir dönüş.
+*/
 @keyframes openingMove{
 
 0%{
-
 left:50%;
 top:50%;
-
-transform:
-translate(-50%,-50%)
-rotate(0deg);
-
+transform:translate(-50%,-50%) rotate(0deg);
 }
 
 100%{
-
 left:40px;
 top:45px;
-
-transform:
-translate(0,0)
-rotate(720deg);
-
+transform:translate(0,0) rotate(540deg);
 }
 
 }
 
-
-@keyframes openingFade{
-
-0%{
-opacity:1
-}
-
-100%{
-opacity:0
-}
-
-}
-
-
-@keyframes openingOut{
-
-to{
-
+/* Açılışın sonlandırılması */
+.opening.finished{
 opacity:0;
 visibility:hidden;
-
+transition:
+opacity .22s ease,
+visibility 0s linear .22s;
 }
-
-}
-
-
-.opening-stage{
-
-animation:
-openingMove
-1.05s
-.85s
-cubic-bezier(.16,1,.3,1)
-forwards;
-
-}
-
-
-.opening-stage .left,
-.opening-stage .right{
-
-animation:
-armsIn
-.45s
-.35s
-cubic-bezier(.16,1,.3,1)
-forwards;
-
-}
-
-
-.opening-stage:after{
-
-content:"";
-
-position:absolute;
-
-inset:-100vh -100vw;
-
-background:transparent;
-
-z-index:-1;
-
-}
-
 
 /* ================= HEADER ================= */
 
 .header{
-
 position:fixed;
-
 top:0;
 left:0;
-
 width:100%;
 height:90px;
-
 padding:0 40px;
-
 display:flex;
-
 align-items:center;
-
 justify-content:space-between;
-
 z-index:5000;
-
 pointer-events:none;
-
 opacity:0;
-
-transition:
-opacity .2s;
-
+transition:opacity .2s;
 }
-
 
 .header.ready{
-
 opacity:1
-
 }
-
 
 .logo-link{
-
 width:45px;
 height:45px;
-
 display:block;
-
 pointer-events:auto
-
 }
-
 
 .logo-image{
-
 width:100%;
 height:100%;
-
 object-fit:contain;
-
-filter:
-brightness(0)
-invert(1)
-
+filter:brightness(0) invert(1)
 }
-
 
 .header-right{
-
 display:flex;
-
 align-items:center;
-
 gap:30px;
-
 pointer-events:auto
-
 }
-
 
 .header-link,
 .language{
-
 background:none;
-
 border:0;
-
 color:#fff;
-
 font-size:10px;
-
 letter-spacing:1.5px;
-
 text-transform:uppercase;
-
 cursor:pointer
-
 }
-
 
 .language{
-
 display:flex;
-
 gap:5px
-
 }
-
 
 .language button{
-
 border:0;
-
 background:none;
-
 color:inherit;
-
 font:inherit;
-
 cursor:pointer;
-
 opacity:.4
-
 }
-
 
 .language button.active{
-
 opacity:1
-
 }
-
 
 .language span{
-
 opacity:.35
-
 }
-
 
 /* ================= HERO ================= */
 
 .hero{
-
 height:100svh;
-
 min-height:600px;
-
 position:relative;
-
 overflow:hidden;
-
 background:#111
-
 }
-
 
 .hero-image{
-
 position:absolute;
-
 inset:0;
-
 width:100%;
 height:100%;
-
 object-fit:cover;
-
 transform:scale(1.1);
-
 animation:
-heroIn
-1.6s
-1.05s
-cubic-bezier(.16,1,.3,1)
-forwards
-
+heroIn 1.6s 1.05s cubic-bezier(.16,1,.3,1) forwards
 }
-
 
 @keyframes heroIn{
-
 to{
-
-transform:
-scale(1)
-
+transform:scale(1)
 }
-
 }
-
 
 .hero:after{
-
 content:"";
-
 position:absolute;
-
 inset:0;
-
 background:
 linear-gradient(
 to top,
 rgba(0,0,0,.72),
 rgba(0,0,0,.08) 65%
 )
-
 }
-
 
 .hero-content{
-
 position:absolute;
-
 z-index:10;
-
 left:40px;
 right:40px;
-
 bottom:42px
-
 }
-
 
 .office-name{
-
-font-size:
-clamp(55px,9.5vw,150px);
-
+font-size:clamp(55px,9.5vw,150px);
 line-height:.82;
-
 letter-spacing:-6px;
-
 font-weight:500;
-
 opacity:0;
-
 animation:
-heroTextIn
-.8s
-1.12s
-forwards
-
+heroTextIn .8s 1.12s forwards
 }
-
 
 .hero-meta{
-
 margin-top:25px;
-
 font-size:10px;
-
 letter-spacing:2px;
-
 text-transform:uppercase;
-
 opacity:0;
-
 animation:
-heroTextIn
-.7s
-1.22s
-forwards
-
+heroTextIn .7s 1.22s forwards
 }
-
 
 @keyframes heroTextIn{
-
 from{
-
 opacity:0;
-
-transform:
-translateY(50px)
-
+transform:translateY(50px)
 }
-
 to{
-
 opacity:1;
-
-transform:
-translateY(0)
-
+transform:translateY(0)
 }
-
 }
-
 
 .scroll-indicator{
-
 position:absolute;
-
 z-index:10;
-
 right:40px;
-
 bottom:42px;
-
 font-size:9px;
-
 letter-spacing:2px;
-
 writing-mode:vertical-rl;
-
-animation:
-scrollPulse
-2s
-infinite
-
+animation:scrollPulse 2s infinite
 }
-
 
 @keyframes scrollPulse{
-
-0%,100%{
-opacity:.3
+0%,100%{opacity:.3}
+50%{opacity:1}
 }
-
-50%{
-opacity:1
-}
-
-}
-
 
 /* ================= INTRO ================= */
 
 .projects-intro{
-
 background:#111;
-
-padding:
-150px 40px 100px;
-
+padding:150px 40px 100px;
 display:flex;
-
 justify-content:space-between;
-
 align-items:flex-end
-
 }
-
 
 .projects-label{
-
 font-size:10px;
-
 letter-spacing:2px;
-
 text-transform:uppercase
-
 }
-
 
 .projects-description{
-
 max-width:600px;
-
-font-size:
-clamp(24px,3vw,42px);
-
+font-size:clamp(24px,3vw,42px);
 line-height:1.05;
-
 letter-spacing:-1.5px;
-
 font-weight:300
-
 }
-
 
 /* ================= PROJECTS ================= */
 
 .project{
-
 position:relative;
-
 width:100%;
-
 margin-bottom:8px;
-
 overflow:hidden;
-
 background:#111;
-
 opacity:0;
-
-transform:
-translateX(100px)
-scale(.985);
-
+transform:translateX(100px) scale(.985);
 transition:
-
-opacity
-.65s
-cubic-bezier(.16,1,.3,1),
-
-transform
-.8s
-cubic-bezier(.16,1,.3,1)
-
+opacity .65s cubic-bezier(.16,1,.3,1),
+transform .8s cubic-bezier(.16,1,.3,1)
 }
-
 
 .project.from-left{
-
-transform:
-translateX(-100px)
-scale(.985)
-
+transform:translateX(-100px) scale(.985)
 }
-
 
 .project.visible{
-
 opacity:1;
-
-transform:
-translateX(0)
-scale(1)
-
+transform:translateX(0) scale(1)
 }
-
 
 .project-link{
-
 display:block;
-
 position:relative;
-
 overflow:hidden
-
 }
-
 
 .project-image{
-
 width:100%;
-
 height:82vh;
-
 min-height:600px;
-
 object-fit:cover;
-
 display:block;
-
-transform:
-scale(1.05)
-translateY(20px);
-
+transform:scale(1.05) translateY(20px);
 transition:
-
-transform
-1s
-cubic-bezier(.16,1,.3,1),
-
+transform 1s cubic-bezier(.16,1,.3,1),
 filter .7s
-
 }
-
 
 .project.visible .project-image{
-
-transform:
-scale(1)
-translateY(0)
-
+transform:scale(1) translateY(0)
 }
 
-
 .project-link:after{
-
 content:"";
-
 position:absolute;
-
 inset:0;
-
 background:
 linear-gradient(
 to top,
 rgba(0,0,0,.75),
 transparent 60%
 );
-
 opacity:.65;
-
-transition:
-opacity .6s
-
+transition:opacity .6s
 }
-
 
 .project-link:hover:after{
-
 opacity:.9
-
 }
-
 
 .project-link:hover .project-image{
-
-transform:
-scale(1.035);
-
-filter:
-brightness(.82)
-
+transform:scale(1.035);
+filter:brightness(.82)
 }
-
 
 .project-info{
-
 position:absolute;
-
 z-index:5;
-
 left:40px;
 right:40px;
-
 bottom:35px;
-
 display:flex;
-
 align-items:flex-end;
-
 justify-content:space-between;
-
 pointer-events:none
-
 }
-
 
 .project-number{
-
 font-size:10px;
-
 letter-spacing:2px;
-
 margin-bottom:12px;
-
 opacity:.7
-
 }
-
 
 .project-title{
-
-font-size:
-clamp(50px,8vw,125px);
-
+font-size:clamp(50px,8vw,125px);
 line-height:.82;
-
 letter-spacing:-5px;
-
 font-weight:500;
-
 text-transform:uppercase
-
 }
-
 
 .project-details{
-
 text-align:right;
-
 font-size:10px;
-
 line-height:1.8;
-
 letter-spacing:1.5px;
-
 text-transform:uppercase
-
 }
-
 
 /* ================= CONTACT ================= */
 
 .contact{
-
 min-height:75vh;
-
-padding:
-150px 40px;
-
+padding:150px 40px;
 background:#111;
-
 display:grid;
-
 grid-template-columns:1fr 1fr;
-
 gap:80px
-
 }
-
 
 .contact-label{
-
 font-size:10px;
-
 letter-spacing:2px
-
 }
-
 
 .contact-title{
-
 margin-top:45px;
-
-font-size:
-clamp(55px,9vw,135px);
-
+font-size:clamp(55px,9vw,135px);
 line-height:.82;
-
 letter-spacing:-6px;
-
 font-weight:500
-
 }
-
 
 .contact-info{
-
 align-self:end;
-
 font-size:13px;
-
 line-height:2
-
 }
-
 
 .contact-info a{
-
-border-bottom:
-1px solid #777
-
+border-bottom:1px solid #777
 }
-
 
 .instagram{
-
 display:flex;
-
 align-items:center;
-
 gap:9px;
-
 font-size:13px!important;
-
 border:0!important
-
 }
-
 
 .instagram svg{
-
 width:16px;
-
 height:16px;
-
 fill:currentColor
-
 }
-
 
 .contact-small{
-
 margin-top:35px;
-
 font-size:9px;
-
 letter-spacing:1.5px;
-
 text-transform:uppercase;
-
 color:#aaa
-
 }
-
 
 .footer{
-
 padding:30px 40px;
-
 background:#111;
-
-border-top:
-1px solid #333;
-
+border-top:1px solid #333;
 display:flex;
-
 justify-content:space-between;
-
 font-size:9px;
-
 letter-spacing:1.5px;
-
 text-transform:uppercase
-
 }
-
 
 /* ================= MOBILE ================= */
 
 @media(max-width:700px){
 
 .header{
-
 height:70px;
-
 padding:0 18px
-
 }
-
 
 .logo-link{
-
 width:36px;
 height:36px
-
 }
-
 
 .header-right{
-
 gap:14px
-
 }
-
 
 .header-link,
 .language{
-
 font-size:8px;
-
 letter-spacing:.8px
-
 }
-
 
 .hero{
-
 min-height:600px
-
 }
-
 
 .hero-content{
-
 left:18px;
 right:18px;
-
 bottom:30px
-
 }
-
 
 .office-name{
-
-font-size:
-clamp(42px,13vw,75px);
-
+font-size:clamp(42px,13vw,75px);
 letter-spacing:-3px
-
 }
-
 
 .hero-meta{
-
 margin-top:18px;
-
 font-size:8px
-
 }
-
 
 .scroll-indicator{
-
 right:18px;
-
 bottom:30px
-
 }
-
 
 .projects-intro{
-
 display:block;
-
-padding:
-100px 18px 70px
-
+padding:100px 18px 70px
 }
-
 
 .projects-description{
-
 margin-top:35px;
-
 font-size:25px
-
 }
-
 
 .project{
-
 margin-bottom:5px;
-
-transform:
-translateX(60px)
-scale(.985)
-
+transform:translateX(60px) scale(.985)
 }
-
 
 .project.from-left{
-
-transform:
-translateX(-60px)
-scale(.985)
-
+transform:translateX(-60px) scale(.985)
 }
-
 
 .project.visible{
-
-transform:
-translateX(0)
-scale(1)
-
+transform:translateX(0) scale(1)
 }
-
 
 .project-image{
-
 height:72svh;
-
 min-height:500px
-
 }
-
 
 .project-info{
-
 left:18px;
-
 right:18px;
-
 bottom:22px;
-
 display:block
-
 }
-
 
 .project-title{
-
-font-size:
-clamp(42px,12vw,72px);
-
+font-size:clamp(42px,12vw,72px);
 letter-spacing:-3px
-
 }
-
 
 .project-details{
-
 text-align:left;
-
 margin-top:18px;
-
 font-size:8px
-
 }
-
 
 .contact{
-
 display:block;
-
-padding:
-100px 18px
-
+padding:100px 18px
 }
-
 
 .contact-title{
-
 margin-top:35px;
-
-font-size:
-clamp(48px,13vw,75px);
-
+font-size:clamp(48px,13vw,75px);
 letter-spacing:-3px
-
 }
-
 
 .contact-info{
-
 margin-top:70px;
-
 font-size:12px
-
 }
-
 
 .footer{
-
-padding:
-22px 18px;
-
+padding:22px 18px;
 font-size:8px
-
 }
 
 }
 
+/* ================= REDUCED MOTION ================= */
 
 @media(prefers-reduced-motion:reduce){
 
 *,*:before,*:after{
-
 animation-duration:.01ms!important;
-
 transition-duration:.01ms!important
-
 }
 
 }
-
 </style>
-
 </head>
-
 
 <body id="top">
 
-
-<!-- OPENING -->
+<!-- ================= OPENING ================= -->
 
 <div class="opening">
+
+<canvas id="openingCanvas"></canvas>
 
 <div class="opening-stage">
 
 <img
 src="images/logo.png"
 class="opening-logo"
-alt="DOGAN ARCHITECTURE">
+alt="DOGAN ARCHITECTURE"
+>
 
 <div class="opening-arm left"></div>
-
 <div class="opening-arm right"></div>
 
 </div>
-
 </div>
 
 
-<!-- HEADER -->
+<!-- ================= HEADER ================= -->
 
 <header class="header">
 
-<a
-href="index.html"
-class="logo-link">
-
+<a href="index.html" class="logo-link">
 <img
 src="images/logo.png"
 class="logo-image"
-alt="DOGAN ARCHITECTURE">
-
+alt="DOGAN ARCHITECTURE"
+>
 </a>
-
 
 <div class="header-right">
 
@@ -1296,130 +685,107 @@ alt="DOGAN ARCHITECTURE">
 href="#projects"
 class="header-link"
 data-fr="PROJETS"
-data-en="PROJECTS">
-
+data-en="PROJECTS"
+>
 PROJETS
-
 </a>
-
 
 <a
 href="equipe.html"
 class="header-link"
 data-fr="ÉQUIPE"
-data-en="TEAM">
-
+data-en="TEAM"
+>
 ÉQUIPE
-
 </a>
-
 
 <a
 href="#contact"
 class="header-link"
 data-fr="CONTACT"
-data-en="CONTACT">
-
+data-en="CONTACT"
+>
 CONTACT
-
 </a>
-
 
 <div class="language">
 
-<button
-id="frBtn"
-class="active">
-
+<button id="frBtn" class="active">
 FR
-
 </button>
 
 <span>/</span>
 
-<button
-id="enBtn">
-
+<button id="enBtn">
 EN
-
 </button>
 
 </div>
 
 </div>
-
 </header>
 
 
-<!-- HERO -->
+<!-- ================= HERO ================= -->
 
 <section class="hero">
 
 <img
 src="images/villa-ozdemir/cover.jpg"
 class="hero-image"
-alt="Villa Ozdemir">
-
+alt="Villa Ozdemir"
+>
 
 <div class="hero-content">
 
 <h1 class="office-name">
-
 DOGAN<br>
 ARCHITECTURE
-
 </h1>
-
 
 <div
 class="hero-meta"
 data-fr="ARCHITECTURE · DESIGN · CONSTRUCTION"
-data-en="ARCHITECTURE · DESIGN · CONSTRUCTION">
-
+data-en="ARCHITECTURE · DESIGN · CONSTRUCTION"
+>
 ARCHITECTURE · DESIGN · CONSTRUCTION
-
 </div>
 
 </div>
-
 
 <div
 class="scroll-indicator"
 data-fr="DÉFILER"
-data-en="SCROLL">
-
+data-en="SCROLL"
+>
 DÉFILER
-
 </div>
 
 </section>
 
 
-<!-- PROJECTS -->
+<!-- ================= PROJECTS ================= -->
 
 <section
 class="projects-intro"
-id="projects">
+id="projects"
+>
 
 <div
 class="projects-label"
 data-fr="PROJETS"
-data-en="PROJECTS">
-
+data-en="PROJECTS"
+>
 PROJETS
-
 </div>
-
 
 <div
 class="projects-description"
 data-fr="Une sélection de projets d’architecture, de bureaux, de bâtiments industriels et de maisons individuelles."
-data-en="A selection of architectural projects, offices, industrial buildings and individual houses.">
-
-Une sélection de projets d’architecture,
-de bureaux, de bâtiments industriels
-et de maisons individuelles.
-
+data-en="A selection of architectural projects, offices, industrial buildings and individual houses."
+>
+Une sélection de projets d’architecture, de bureaux,
+de bâtiments industriels et de maisons individuelles.
 </div>
 
 </section>
@@ -1429,40 +795,33 @@ et de maisons individuelles.
 
 <a
 href="projects/bureau-zafer.html"
-class="project-link">
+class="project-link"
+>
 
 <img
 src="images/bureau-zafer/cover.jpg"
-class="project-image">
-
+class="project-image"
+>
 
 <div class="project-info">
 
 <div>
 
 <div class="project-number">
-
 01 / 07
-
 </div>
 
 <h2 class="project-title">
-
-BUREAU<br>
-ZAFER
-
+BUREAU<br>ZAFER
 </h2>
 
 </div>
 
-
 <div class="project-details">
-
 SAINTE-GENEVIÈVE-DES-BOIS<br>
 2023<br>
 BUREAUX<br>
 670 m²
-
 </div>
 
 </div>
@@ -1476,40 +835,33 @@ BUREAUX<br>
 
 <a
 href="projects/villa-dogan.html"
-class="project-link">
+class="project-link"
+>
 
 <img
 src="images/villa-dogan/cover.jpg"
-class="project-image">
-
+class="project-image"
+>
 
 <div class="project-info">
 
 <div>
 
 <div class="project-number">
-
 02 / 07
-
 </div>
 
 <h2 class="project-title">
-
-VILLA<br>
-DOGAN
-
+VILLA<br>DOGAN
 </h2>
 
 </div>
 
-
 <div class="project-details">
-
 SAINT-MICHEL-SUR-ORGE<br>
 2024<br>
 MAISON INDIVIDUELLE<br>
 732 m²
-
 </div>
 
 </div>
@@ -1523,40 +875,33 @@ MAISON INDIVIDUELLE<br>
 
 <a
 href="projects/villa-gok.html"
-class="project-link">
+class="project-link"
+>
 
 <img
 src="images/villa-gok/cover.jpg"
-class="project-image">
-
+class="project-image"
+>
 
 <div class="project-info">
 
 <div>
 
 <div class="project-number">
-
 03 / 07
-
 </div>
 
 <h2 class="project-title">
-
-VILLA<br>
-GOK
-
+VILLA<br>GOK
 </h2>
 
 </div>
 
-
 <div class="project-details">
-
 SAINT-GERMAIN-SUR-MORIN<br>
 2021<br>
 VILLA<br>
 2064 m²
-
 </div>
 
 </div>
@@ -1570,40 +915,33 @@ VILLA<br>
 
 <a
 href="projects/mgc-construction.html"
-class="project-link">
+class="project-link"
+>
 
 <img
 src="images/mgc-construction/cover.jpg"
-class="project-image">
-
+class="project-image"
+>
 
 <div class="project-info">
 
 <div>
 
 <div class="project-number">
-
 04 / 07
-
 </div>
 
 <h2 class="project-title">
-
-MGC<br>
-CONSTRUCTION
-
+MGC<br>CONSTRUCTION
 </h2>
 
 </div>
 
-
 <div class="project-details">
-
 BREUIL-LE-SEC<br>
 2025<br>
 ENTREPÔT<br>
 4527 m²
-
 </div>
 
 </div>
@@ -1617,40 +955,33 @@ ENTREPÔT<br>
 
 <a
 href="projects/uks-transport.html"
-class="project-link">
+class="project-link"
+>
 
 <img
 src="images/uks-transport/cover.jpg"
-class="project-image">
-
+class="project-image"
+>
 
 <div class="project-info">
 
 <div>
 
 <div class="project-number">
-
 05 / 07
-
 </div>
 
 <h2 class="project-title">
-
-UKS<br>
-TRANSPORT
-
+UKS<br>TRANSPORT
 </h2>
 
 </div>
 
-
 <div class="project-details">
-
 MITRY-MORY<br>
 2025<br>
 BUREAUX<br>
 1500 m²
-
 </div>
 
 </div>
@@ -1664,40 +995,33 @@ BUREAUX<br>
 
 <a
 href="projects/mk-construction.html"
-class="project-link">
+class="project-link"
+>
 
 <img
 src="images/mk-construction/cover.jpg"
-class="project-image">
-
+class="project-image"
+>
 
 <div class="project-info">
 
 <div>
 
 <div class="project-number">
-
 06 / 07
-
 </div>
 
 <h2 class="project-title">
-
-MK<br>
-CONSTRUCTION
-
+MK<br>CONSTRUCTION
 </h2>
 
 </div>
 
-
 <div class="project-details">
-
 SACY-LE-GRAND<br>
 2024<br>
 BUREAU ET ENTREPÔT<br>
 2512 m²
-
 </div>
 
 </div>
@@ -1711,40 +1035,33 @@ BUREAU ET ENTREPÔT<br>
 
 <a
 href="projects/villa-ozdemir.html"
-class="project-link">
+class="project-link"
+>
 
 <img
 src="images/villa-ozdemir/cover.jpg"
-class="project-image">
-
+class="project-image"
+>
 
 <div class="project-info">
 
 <div>
 
 <div class="project-number">
-
 07 / 07
-
 </div>
 
 <h2 class="project-title">
-
-VILLA<br>
-OZDEMIR
-
+VILLA<br>OZDEMIR
 </h2>
 
 </div>
 
-
 <div class="project-details">
-
 ESBLY<br>
 2023<br>
 VILLA<br>
 7329 m²
-
 </div>
 
 </div>
@@ -1754,27 +1071,23 @@ VILLA<br>
 </section>
 
 
-<!-- CONTACT -->
+<!-- ================= CONTACT ================= -->
 
 <section
 class="contact"
-id="contact">
+id="contact"
+>
 
 <div>
 
 <div class="contact-label">
-
 CONTACT
-
 </div>
 
-
 <h2 class="contact-title">
-
 PARLONS<br>
 DE VOTRE<br>
 PROJET
-
 </h2>
 
 </div>
@@ -1782,30 +1095,28 @@ PROJET
 
 <div class="contact-info">
 
-<a
-href="tel:+33658036077">
-
+<a href="tel:+33658036077">
 +33 6 58 03 60 77
-
 </a>
-
 <br>
-
 
 20 Rue Verdi, 93130 Noisy-le-Sec
-
 <br>
-
 
 <a
 class="instagram"
 href="https://www.instagram.com/dogan.architecture/"
 target="_blank"
-rel="noopener">
+rel="noopener"
+>
 
 <svg viewBox="0 0 24 24">
 
-<path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zM17.5 6.5a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/>
+<path d="
+M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zM17.5 6.5a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"
+>
+
+/path>
 
 </svg>
 
@@ -1817,7 +1128,6 @@ dogan.architecture
 <div class="contact-small">
 
 DOGAN ARCHITECTURE<br>
-
 Architecture · Design · Construction
 
 </div>
@@ -1830,16 +1140,11 @@ Architecture · Design · Construction
 <footer class="footer">
 
 <div>
-
 © 2026 DOGAN ARCHITECTURE
-
 </div>
 
-
 <div>
-
 FRANCE
-
 </div>
 
 </footer>
@@ -1847,12 +1152,466 @@ FRANCE
 
 <script>
 
-/* LANGUAGE */
+/* =========================================================
+   OPENING ANIMATION
+   ========================================================= */
 
-const frBtn =
+const opening=document.querySelector(".opening");
+const stage=document.querySelector(".opening-stage");
+const canvas=document.getElementById("openingCanvas");
+const ctx=canvas.getContext("2d");
+
+let width=0;
+let height=0;
+let dpr=1;
+
+function resizeOpeningCanvas(){
+
+dpr=Math.min(window.devicePixelRatio || 1,2);
+
+width=window.innerWidth;
+height=window.innerHeight;
+
+canvas.width=width*dpr;
+canvas.height=height*dpr;
+
+canvas.style.width=width+"px";
+canvas.style.height=height+"px";
+
+ctx.setTransform(dpr,0,0,dpr,0,0);
+
+}
+
+resizeOpeningCanvas();
+
+window.addEventListener(
+"resize",
+resizeOpeningCanvas,
+{passive:true}
+);
+
+
+/*
+   Açılışın zamanlaması:
+
+   0.00 - 0.35
+   tamamen siyah
+
+   0.35 - 0.80
+   kollar açılıyor
+
+   0.85 - 1.95
+   logo + kollar tek parça halinde
+   sürekli dönerek sol üste gidiyor
+
+   1.35 civarında
+   kollar siyah perdeyi temizlemeye başlıyor
+
+   1.95
+   ekran tamamen temiz
+*/
+
+
+const openingStart=performance.now();
+
+const duration=2000;
+
+const armStart=350;
+const armEnd=800;
+
+const movementStart=850;
+const movementEnd=1950;
+
+const cleaningStart=1320;
+
+
+/* Ekranı siyahla doldur */
+
+function drawBlack(){
+
+ctx.globalCompositeOperation="source-over";
+
+ctx.fillStyle="#111";
+
+ctx.fillRect(
+0,
+0,
+width,
+height
+);
+
+}
+
+
+/*
+   Logo + kol merkezinin gerçek pozisyonunu hesaplar.
+   CSS animasyonuyla birebir aynı hareket.
+*/
+
+function getStageState(now){
+
+let t;
+
+if(now<movementStart){
+
+t=0;
+
+}else{
+
+t=Math.min(
+1,
+(now-movementStart)/
+(movementEnd-movementStart)
+);
+
+}
+
+/* smooth elite easing */
+
+const eased=
+1-Math.pow(1-t,4);
+
+
+/*
+   Merkez:
+   ekran ortasından
+   sol üst tarafa.
+*/
+
+const startX=width/2;
+const startY=height/2;
+
+const endX=40+52.5;
+const endY=45+52.5;
+
+const x=
+startX+(endX-startX)*eased;
+
+const y=
+startY+(endY-startY)*eased;
+
+
+/*
+   CSS ile aynı dönüş:
+   540 derece.
+*/
+
+const angle=
+(540*eased)*
+Math.PI/180;
+
+return{
+x,
+y,
+angle,
+progress:t
+};
+
+}
+
+
+/*
+   Kolun geçtiği bölgeyi geniş,
+   yumuşak ve parçacıklı biçimde siliyoruz.
+
+   Böylece:
+   "siyah perde fade oluyor"
+   hissi değil,
+
+   "dönen kollar perdeyi temizliyor"
+   hissi oluşuyor.
+*/
+
+function eraseArm(
+x,
+y,
+angle,
+length,
+side
+){
+
+const dx=Math.cos(angle);
+const dy=Math.sin(angle);
+
+const px=-dy;
+const py=dx;
+
+
+/*
+   Kol boyunca küçük aralıklarla
+   yumuşak temizleme alanları.
+*/
+
+for(
+let d=-length;
+d<=length;
+d+=18
+){
+
+const cx=x+dx*d;
+const cy=y+dy*d;
+
+
+/* Ana silme alanı */
+
+const radius=20;
+
+const gradient=
+ctx.createRadialGradient(
+cx,
+cy,
+0,
+cx,
+cy,
+radius
+);
+
+gradient.addColorStop(
+0,
+"rgba(0,0,0,1)"
+);
+
+gradient.addColorStop(
+.45,
+"rgba(0,0,0,.92)"
+);
+
+gradient.addColorStop(
+.75,
+"rgba(0,0,0,.55)"
+);
+
+gradient.addColorStop(
+1,
+"rgba(0,0,0,0)"
+);
+
+ctx.globalCompositeOperation=
+"destination-out";
+
+ctx.fillStyle=gradient;
+
+ctx.beginPath();
+
+ctx.arc(
+cx,
+cy,
+radius,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+
+/*
+   Toz/parçacık hissi.
+   Çok hafif tutuluyor.
+*/
+
+for(
+let p=0;
+p<2;
+p++
+){
+
+const randomSide=
+(Math.random()-.5)*55;
+
+const randomForward=
+(Math.random()-.5)*30;
+
+const dustX=
+cx+
+px*randomSide+
+dx*randomForward;
+
+const dustY=
+cy+
+py*randomSide+
+dy*randomForward;
+
+const dustRadius=
+Math.random()*5+1;
+
+const dust=
+ctx.createRadialGradient(
+dustX,
+dustY,
+0,
+dustX,
+dustY,
+dustRadius
+);
+
+dust.addColorStop(
+0,
+"rgba(0,0,0,.55)"
+);
+
+dust.addColorStop(
+1,
+"rgba(0,0,0,0)"
+);
+
+ctx.fillStyle=dust;
+
+ctx.beginPath();
+
+ctx.arc(
+dustX,
+dustY,
+dustRadius,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+}
+
+}
+
+}
+
+
+/*
+   Açılış animasyonu.
+*/
+
+function openingFrame(now){
+
+const elapsed=
+now-openingStart;
+
+
+/* İlk anda siyah perde */
+
+if(elapsed<armStart){
+
+drawBlack();
+
+requestAnimationFrame(openingFrame);
+
+return;
+
+}
+
+
+/*
+   Perde siyah kalıyor,
+   fakat temizlenen yerler
+   gerçek sayfayı gösteriyor.
+*/
+
+if(elapsed<duration){
+
+drawBlack();
+
+const state=
+getStageState(now);
+
+
+/*
+   Temizleme sadece dönüşün
+   belirli bir noktasından sonra.
+*/
+
+if(elapsed>=cleaningStart){
+
+const cleanProgress=
+Math.min(
+1,
+(elapsed-cleaningStart)/
+(movementEnd-cleaningStart)
+);
+
+
+/*
+   Kol uzunluğu ekranın tamamını
+   garanti edecek kadar büyük.
+*/
+
+const diagonal=
+Math.sqrt(
+width*width+
+height*height
+);
+
+const cleanLength=
+diagonal*
+(0.75+cleanProgress*.55);
+
+
+/*
+   İki kolun da temizlemesi.
+   Ancak aynı eksende oldukları için
+   birleşik bir tek hareket hissi verir.
+*/
+
+eraseArm(
+state.x,
+state.y,
+state.angle,
+cleanLength,
+-1
+);
+
+eraseArm(
+state.x,
+state.y,
+state.angle,
+cleanLength,
+1
+);
+
+}
+
+requestAnimationFrame(openingFrame);
+
+return;
+
+}
+
+
+/*
+   Son kare:
+   hiçbir siyah kalmasın.
+*/
+
+ctx.clearRect(
+0,
+0,
+width,
+height
+);
+
+opening.classList.add("finished");
+
+
+/*
+   Scroll kilidi kaldırılıyor.
+*/
+
+document.body.style.overflow="";
+
+
+}
+
+
+document.body.style.overflow="hidden";
+
+requestAnimationFrame(openingFrame);
+
+
+/* =========================================================
+   LANGUAGE
+   ========================================================= */
+
+const frBtn=
 document.getElementById("frBtn");
 
-const enBtn =
+const enBtn=
 document.getElementById("enBtn");
 
 
@@ -1860,28 +1619,24 @@ function changeLanguage(lang){
 
 document.documentElement.lang=lang;
 
-
 document
 .querySelectorAll("[data-fr]")
 .forEach(el=>{
 
-el.innerHTML =
+el.innerHTML=
 el.getAttribute("data-"+lang);
 
 });
-
 
 frBtn.classList.toggle(
 "active",
 lang==="fr"
 );
 
-
 enBtn.classList.toggle(
 "active",
 lang==="en"
 );
-
 
 localStorage.setItem(
 "dogan-language",
@@ -1891,100 +1646,65 @@ lang
 }
 
 
-frBtn.onclick=()=>
-changeLanguage("fr");
+frBtn.onclick=
+()=>changeLanguage("fr");
 
-
-enBtn.onclick=()=>
-changeLanguage("en");
-
+enBtn.onclick=
+()=>changeLanguage("en");
 
 changeLanguage(
-localStorage.getItem(
-"dogan-language"
-)||"fr"
+localStorage.getItem("dogan-language")||"fr"
 );
 
 
-/* PROJECT REVEAL + REVERSE */
+/* =========================================================
+   PROJECT REVEAL + REVERSE
+   ========================================================= */
 
-const observer =
+const observer=
 new IntersectionObserver(
-
 entries=>{
 
 entries.forEach(entry=>{
 
 if(entry.isIntersecting){
 
-entry.target.classList.add(
-"visible"
-);
+entry.target.classList.add("visible");
 
 }else{
 
-entry.target.classList.remove(
-"visible"
-);
+entry.target.classList.remove("visible");
 
 }
 
 });
 
 },
-
 {
 threshold:.12,
 rootMargin:"0px 0px -5% 0px"
 }
-
 );
 
 
 document
 .querySelectorAll(".project")
-.forEach(
-p=>observer.observe(p)
-);
+.forEach(p=>observer.observe(p));
 
 
-/* HEADER */
+/* =========================================================
+   HEADER
+   ========================================================= */
 
-setTimeout(
-
-()=>{
+setTimeout(()=>{
 
 document
 .querySelector(".header")
 .classList.add("ready");
 
-},
-
-1200
-
-);
-
-
-/* SCROLL LOCK */
-
-document.body.style.overflow="hidden";
-
-
-setTimeout(
-
-()=>{
-
-document.body.style.overflow="";
-
-},
-
-1500
-
-);
+},1200);
 
 </script>
 
-
 </body>
-
 </html>
