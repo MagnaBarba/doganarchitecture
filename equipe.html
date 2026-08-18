@@ -2,98 +2,115 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <title>ÉQUIPE — DOGAN ARCHITECTURE</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-background:#111;color:#fff;
-font-family:Arial,Helvetica,sans-serif;
-overflow-x:hidden
+html, body{
+  width:100%;
+  max-width:100%;
+  overflow-x:hidden!important;
+  scroll-behavior:smooth;
+  background:#111;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
 }
 a{color:inherit;text-decoration:none}
 
 /* HEADER */
 
 .header{
-position:fixed;
-top:0;left:0;width:100%;height:90px;
-padding:0 40px;
-display:flex;align-items:center;
-justify-content:space-between;
-z-index:1000;
-mix-blend-mode:difference
+  position:fixed;
+  top:0;left:0;width:100%;height:90px;
+  padding:0 40px;
+  display:flex;align-items:center;
+  justify-content:space-between;
+  z-index:1000;
+  mix-blend-mode:difference
 }
 
 .logo{
-width:45px;height:45px;
-object-fit:contain;
-filter:brightness(0) invert(1)
+  width:45px;height:45px;
+  object-fit:contain;
+  filter:brightness(0) invert(1)
 }
 
 .nav{
-display:flex;
-align-items:center;
-gap:30px;
-font-size:10px;
-letter-spacing:1.5px;
-text-transform:uppercase
+  display:flex;
+  align-items:center;
+  gap:30px;
 }
+
+.nav-link, .language{
+  background:none;border:0;color:inherit;font-size:10px;
+  letter-spacing:1.5px;text-transform:uppercase;
+  cursor:pointer;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+.language{display:flex;gap:5px}
+.language button{border:0;background:none;color:inherit;font:inherit;cursor:pointer;opacity:.4}
+.language button.active{opacity:1}
+.language span{opacity:.35}
 
 /* HERO */
 
 .equipe-hero{
-height:100svh;
-min-height:650px;
-position:relative;
-overflow:hidden
+  height:100svh;
+  min-height:650px;
+  position:relative;
+  overflow:hidden;
+  width:100%;
 }
 
 .equipe-hero img{
-position:absolute;
-inset:0;
-width:100%;
-height:100%;
-object-fit:cover;
-object-position:center top
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center top
 }
 
 .equipe-hero:after{
-content:"";
-position:absolute;
-inset:0;
-background:linear-gradient(
-to top,
-rgba(0,0,0,.75),
-rgba(0,0,0,.05) 65%
-)
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to top,
+    rgba(0,0,0,.75),
+    rgba(0,0,0,.05) 65%
+  )
 }
 
 .hero-title{
-position:absolute;
-z-index:5;
-left:40px;
-bottom:42px;
-font-size:clamp(70px,12vw,180px);
-line-height:.8;
-letter-spacing:-7px;
-font-weight:500;
-text-transform:uppercase
+  position:absolute;
+  z-index:5;
+  left:40px;
+  bottom:42px;
+  font-size:clamp(70px,12vw,180px);
+  line-height:.8;
+  letter-spacing:-7px;
+  font-weight:500;
+  text-transform:uppercase
 }
 
 /* TEAM */
 
 .team-member{
-min-height:100svh;
-display:grid;
-grid-template-columns:1fr 1fr;
-background:#111;
-overflow:hidden
+  min-height:100svh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  background:#111;
+  overflow:hidden;
+  width:100%;
+  opacity:0;
+  transition:
+    opacity .7s cubic-bezier(.16,1,.3,1),
+    transform .9s cubic-bezier(.16,1,.3,1)
 }
 
-/* Zikzak Düzeni: 2. Mimar için Sütunları Yer Değiştirir (Fotoğraf Sağda / Yazı Solda) */
 .team-member.reverse {
   grid-template-columns: 1fr 1fr;
 }
@@ -106,95 +123,95 @@ overflow:hidden
 }
 
 .team-photo{
-position:relative;
-overflow:hidden;
-min-height:100svh
+  position:relative;
+  overflow:hidden;
+  min-height:100svh
 }
 
 .team-photo img{
-width:100%;
-height:100%;
-object-fit:cover;
-display:block;
-transform:scale(1.05);
-transition:transform 1.2s cubic-bezier(.16,1,.3,1)
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transform:scale(1.05);
+  transition:transform 1.2s cubic-bezier(.16,1,.3,1)
 }
 
 .team-member.visible .team-photo img{
-transform:scale(1)
+  transform:scale(1)
 }
 
 .team-info{
-background:#111;
-display:flex;
-flex-direction:column;
-justify-content:center;
-padding:8vw;
+  background:#111;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:8vw;
 }
 
 .team-number{
-font-size:10px;
-letter-spacing:2px;
-margin-bottom:35px;
-opacity:.45
+  font-size:11px;
+  letter-spacing:1.5px;
+  margin-bottom:35px;
+  opacity:.45
 }
 
 .team-name{
-font-size:clamp(48px,5.5vw,85px);
-line-height:.88;
-letter-spacing:-4px;
-font-weight:500;
-text-transform:uppercase;
-margin-bottom:30px
+  font-size:clamp(48px,5.5vw,85px);
+  line-height:.88;
+  letter-spacing:-4px;
+  font-weight:500;
+  text-transform:uppercase;
+  margin-bottom:30px
 }
 
+/* GÖZ DOLDURAN DOLGUN FONT STİLİ */
 .team-role{
-font-size:clamp(18px,2vw,28px);
-line-height:1.15;
-font-weight:300;
-max-width:550px;
-margin-bottom:30px
+  font-size:clamp(14px, 1.2vw, 18px);
+  line-height:1.5;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  font-weight:600;
+  max-width:600px;
+  margin-bottom:25px;
+  color:#fff;
 }
 
 .team-description{
-font-size:13px;
-line-height:1.8;
-color:#aaa;
-max-width:550px
+  font-size:clamp(12px, 0.95vw, 14px);
+  line-height:1.8;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  color:#ccc;
+  max-width:600px;
 }
 
-/* ALTERNATING EFFECT */
-
-.team-member{
-opacity:0;
-transition:
-opacity .7s cubic-bezier(.16,1,.3,1),
-transform .9s cubic-bezier(.16,1,.3,1)
-}
+/* ANIMATIONS */
 
 .team-member.left{
-transform:translateX(-120px)
+  transform:translateX(-60px)
 }
 
 .team-member.right{
-transform:translateX(120px)
+  transform:translateX(60px)
 }
 
 .team-member.visible{
-opacity:1;
-transform:translateX(0)
+  opacity:1;
+  transform:translateX(0)
 }
 
 /* FOOTER */
 
 .footer{
-padding:30px 40px;
-border-top:1px solid #333;
-display:flex;
-justify-content:between;
-font-size:9px;
-letter-spacing:1.5px;
-text-transform:uppercase
+  padding:30px 40px;
+  border-top:1px solid #333;
+  display:flex;
+  justify-content:space-between;
+  font-size:10px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  width:100%;
 }
 
 /* MOBILE */
@@ -202,42 +219,45 @@ text-transform:uppercase
 @media(max-width:700px){
 
 .header{
-height:70px;
-padding:0 18px
+  height:70px;
+  padding:0 18px
 }
 
 .logo{
-width:36px;
-height:36px
+  width:36px;
+  height:36px
 }
 
 .nav{
-gap:14px;
-font-size:8px;
-letter-spacing:.8px
+  gap:14px;
+}
+
+.nav-link, .language{
+  font-size:8px;
+  letter-spacing:.8px
 }
 
 .equipe-hero{
-min-height:600px
+  min-height:600px
 }
 
 .equipe-hero img{
-object-position:center top
+  object-position:center top
 }
 
 .hero-title{
-left:18px;
-bottom:30px;
-font-size:clamp(55px,15vw,90px);
-letter-spacing:-4px
+  left:18px;
+  bottom:30px;
+  font-size:clamp(55px,15vw,90px);
+  letter-spacing:-4px
 }
 
 .team-member{
-display:block;
-min-height:auto
+  display:block;
+  min-height:auto;
+  transform:none!important;
 }
 
-/* Mobilde varsayılan dikey sıralamaya döndürür */
 .team-member.reverse .team-photo,
 .team-member.reverse .team-info {
   grid-column: auto;
@@ -245,49 +265,53 @@ min-height:auto
 }
 
 .team-photo{
-height:65svh;
-min-height:450px
+  height:65svh;
+  min-height:450px
 }
 
 .team-photo img{
-object-position:center top
+  object-position:center top
 }
 
 .team-info{
-min-height:55vh;
-padding:60px 18px 80px
+  min-height:auto;
+  padding:50px 18px 70px
 }
 
 .team-number{
-margin-bottom:25px
+  margin-bottom:20px
 }
 
 .team-name{
-font-size:clamp(40px,11vw,65px);
-letter-spacing:-3px;
-margin-bottom:25px
+  font-size:clamp(38px,10vw,60px);
+  letter-spacing:-3px;
+  margin-bottom:20px
 }
 
 .team-role{
-font-size:20px;
-margin-bottom:25px
+  font-size:12px;
+  line-height:1.6;
+  letter-spacing:1px;
+  margin-bottom:20px
 }
 
 .team-description{
-font-size:12px;
-line-height:1.7
+  font-size:11px;
+  line-height:1.7;
+  letter-spacing:1px
 }
 
 .footer{
-padding:22px 18px;
-font-size:8px
+  padding:22px 18px;
+  font-size:8px;
+  letter-spacing:1px
 }
 }
 
 @media(prefers-reduced-motion:reduce){
 *{
-animation-duration:.01ms!important;
-transition-duration:.01ms!important
+  animation-duration:.01ms!important;
+  transition-duration:.01ms!important
 }
 }
 </style>
@@ -302,9 +326,16 @@ transition-duration:.01ms!important
 </a>
 
 <nav class="nav">
-<a href="index.html#projects">PROJETS</a>
-<a href="equipe.html">ÉQUIPE</a>
-<a href="index.html#contact">CONTACT</a>
+<a href="index.html#projects" class="nav-link" data-fr="PROJETS" data-en="PROJECTS">PROJETS</a>
+<a href="equipe.html" class="nav-link" data-fr="ÉQUIPE" data-en="TEAM">ÉQUIPE</a>
+<!-- Doğrudan Ana Sayfadaki Contact Bölümüne Bağlandı -->
+<a href="index.html#contact" class="nav-link" data-fr="CONTACT" data-en="CONTACT">CONTACT</a>
+
+<div class="language">
+  <button id="frBtn" class="active">FR</button>
+  <span>/</span>
+  <button id="enBtn">EN</button>
+</div>
 </nav>
 
 </header>
@@ -317,7 +348,7 @@ transition-duration:.01ms!important
 src="images/equipe/equipe.jpg"
 alt="DOGAN ARCHITECTURE — ÉQUIPE">
 
-<h1 class="hero-title">ÉQUIPE</h1>
+<h1 class="hero-title" data-fr="ÉQUIPE" data-en="TEAM">ÉQUIPE</h1>
 
 </section>
 
@@ -342,25 +373,23 @@ M.DOGAN<br>
 Sezer David
 </h2>
 
-<div class="team-role">
-Architecte · Conception &amp; Direction de projet
+<div class="team-role" 
+     data-fr="ARCHITECTE · CONCEPTION &amp; DIRECTION DE PROJET"
+     data-en="ARCHITECT · DESIGN &amp; PROJECT MANAGEMENT">
+ARCHITECTE · CONCEPTION &amp; DIRECTION DE PROJET
 </div>
 
-<div class="team-description">
-Architecte passionné par la conception architecturale,
-le développement de projets et la recherche d'un équilibre
-entre fonctionnalité, matière et identité du lieu.
-<br><br>
-Son approche associe une vision contemporaine,
-une attention particulière aux détails et une volonté
-de créer des espaces cohérents et durables.
+<div class="team-description"
+     data-fr="ARCHITECTE PASSIONNÉ PAR LA CONCEPTION ARCHITECTURALE, LE DÉVELOPPEMENT DE PROJETS ET LA RECHERCHE D'UN ÉQUILIBRE ENTRE FONCTIONNALITÉ, MATIÈRE ET IDENTITÉ DU LIEU.<br><br>SON APPROCHE ASSOCIE UNE VISION CONTEMPORAINE, UNE ATTENTION PARTICULIÈRE AUX DÉTAILS ET UNE VOLONTÉ DE CRÉER DES ESPACES COHÉRENTS ET DURABLES."
+     data-en="ARCHITECT PASSIONATE ABOUT ARCHITECTURAL DESIGN, PROJECT DEVELOPMENT, AND SEEKING A BALANCE BETWEEN FUNCTIONALITY, MATERIALITY, AND SITE IDENTITY.<br><br>HIS APPROACH COMBINES A CONTEMPORARY VISION, METICULOUS ATTENTION TO DETAIL, AND A COMMITMENT TO CREATING COHESIVE AND SUSTAINABLE SPACES.">
+ARCHITECTE PASSIONNÉ PAR LA CONCEPTION ARCHITECTURALE, LE DÉVELOPPEMENT DE PROJETS ET LA RECHERCHE D'UN ÉQUILIBRE ENTRE FONCTIONNALITÉ, MATIÈRE ET IDENTITÉ DU LIEU.<br><br>SON APPROCHE ASSOCIE UNE VISION CONTEMPORAINE, UNE ATTENTION PARTICULIÈRE AUX DÉTAILS ET UNE VOLONTÉ DE CRÉER DES ESPACES COHÉRENTS ET DURABLES.
 </div>
 
 </div>
 
 </section>
 
-<!-- ================= ARCHITECTE 02 (REVERSE: FOTO SAĞDA / YAZI SOLDA) ================= -->
+<!-- ================= ARCHITECTE 02 (REVERSE) ================= -->
 
 <section class="team-member right reverse">
 
@@ -381,17 +410,16 @@ M.ARIKANLI<br>
 Erkam
 </h2>
 
-<div class="team-role">
-Architecte · Design &amp; Développement
+<div class="team-role"
+     data-fr="ARCHITECTE · DESIGN &amp; DÉVELOPPEMENT"
+     data-en="ARCHITECT · DESIGN &amp; DEVELOPMENT">
+ARCHITECTE · DESIGN &amp; DÉVELOPPEMENT
 </div>
 
-<div class="team-description">
-Architecte impliqué dans la conception et le développement
-des projets, avec une attention portée à la qualité spatiale,
-aux proportions et à l'intégration du bâtiment dans son contexte.
-<br><br>
-Son travail participe à transformer les intentions
-architecturales en solutions précises et réalisables.
+<div class="team-description"
+     data-fr="ARCHITECTE IMPLIQUÉ DANS LA CONCEPTION ET LE DÉVELOPPEMENT DES PROJETS, AVEC UNE ATTENTION PORTÉE À LA QUALITÉ SPATIALE, AUX PROPORTIONS ET À L'INTÉGRATION DU BÂTIMENT DANS SON CONTEXTE.<br><br>SON TRAVAIL PARTICIPE À TRANSFORMER LES INTENTIONS ARCHITECTURALES EN SOLUTIONS PRÉCISES ET RÉALISABLES."
+     data-en="ARCHITECT INVOLVED IN PROJECT DESIGN AND DEVELOPMENT, WITH A FOCUS ON SPATIAL QUALITY, PROPORTIONS, AND BUILDING INTEGRATION WITHIN ITS CONTEXT.<br><br>HIS WORK HELPS TRANSFORM ARCHITECTURAL INTENTIONS INTO PRECISE AND ACHIEVABLE SOLUTIONS.">
+ARCHITECTE IMPLIQUÉ DANS LA CONCEPTION ET LE DÉVELOPPEMENT DES PROJETS, AVEC UNE ATTENTION PORTÉE À LA QUALITÉ SPATIALE, AUX PROPORTIONS ET À L'INTÉGRATION DU BÂTIMENT DANS SON CONTEXTE.<br><br>SON TRAVAIL PARTICIPE À TRANSFORMER LES INTENTIONS ARCHITECTURALES EN SOLUTIONS PRÉCISES ET RÉALISABLES.
 </div>
 
 </div>
@@ -419,17 +447,16 @@ M.YILMAZ<br>
 Ibrahim
 </h2>
 
-<div class="team-role">
-Architecte · Architecture &amp; Suivi de projet
+<div class="team-role"
+     data-fr="ARCHITECTE · ARCHITECTURE &amp; SUIVI DE PROJET"
+     data-en="ARCHITECT · ARCHITECTURE &amp; PROJECT MONITORING">
+ARCHITECTE · ARCHITECTURE &amp; SUIVI DE PROJET
 </div>
 
-<div class="team-description">
-Architecte participant aux différentes étapes du projet,
-de la réflexion initiale jusqu'au développement architectural.
-<br><br>
-Une approche attentive aux usages, aux contraintes techniques
-et à la qualité globale de l'architecture permet de construire
-des projets à la fois simples, précis et adaptés à leur contexte.
+<div class="team-description"
+     data-fr="ARCHITECTE PARTICIPANT AUX DIFFÉRENTES ÉTAPES DU PROJET, DE LA RÉFLEXION INITIALE JUSQU'AU DÉVELOPPEMENT ARCHITECTURAL.<br><br>UNE APPROCHE ATTENTIVE AUX USAGES, AUX CONTRAINTES TECHNIQUES ET À LA QUALITÉ GLOBALE DE L'ARCHITECTURE PERMET DE CONSTRUIRE DES PROJETS À LA FOIS SIMPLES, PRÉCIS ET ADAPTÉS À LEUR CONTEXTE."
+     data-en="ARCHITECT INVOLVED IN ALL PROJECT STAGES, FROM INITIAL CONCEPTUALIZATION TO ARCHITECTURAL DEVELOPMENT.<br><br>AN APPROACH ATTENTIVE TO USAGE, TECHNICAL CONSTRAINTS, AND OVERALL ARCHITECTURAL QUALITY ENABLES THE CREATION OF SIMPLE, PRECISE, AND CONTEXT-DRIVEN PROJECTS.">
+ARCHITECTE PARTICIPANT AUX DIFFÉRENTES ÉTAPES DU PROJET, DE LA RÉFLEXION INITIALE JUSQU'AU DÉVELOPPEMENT ARCHITECTURAL.<br><br>UNE APPROCHE ATTENTIVE AUX USAGES, AUX CONTRAINTES TECHNIQUES ET À LA QUALITÉ GLOBALE DE L'ARCHITECTURE PERMET DE CONSTRUIRE DES PROJETS À LA FOIS SIMPLES, PRÉCIS ET ADAPTÉS À LEUR CONTEXTE.
 </div>
 
 </div>
@@ -444,34 +471,43 @@ des projets à la fois simples, précis et adaptés à leur contexte.
 </footer>
 
 <script>
+/* LANGUAGE SWITCHER */
+const frBtn=document.getElementById("frBtn");
+const enBtn=document.getElementById("enBtn");
 
+function changeLanguage(lang){
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-fr]").forEach(el=>{
+    el.innerHTML=el.getAttribute("data-"+lang);
+  });
+  frBtn.classList.toggle("active",lang==="fr");
+  enBtn.classList.toggle("active",lang==="en");
+  localStorage.setItem("dogan-language",lang);
+}
+
+frBtn.onclick=()=>changeLanguage("fr");
+enBtn.onclick=()=>changeLanguage("en");
+changeLanguage(localStorage.getItem("dogan-language")||"fr");
+
+/* INTERSECTION OBSERVER */
 const members=document.querySelectorAll(".team-member");
 
 const observer=new IntersectionObserver(
-entries=>{
-entries.forEach(entry=>{
-
-if(entry.isIntersecting){
-
-entry.target.classList.add("visible");
-
-}else{
-
-entry.target.classList.remove("visible");
-
-}
-
-});
-},
-{
-threshold:.18
-}
+  entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add("visible");
+      }else{
+        entry.target.classList.remove("visible");
+      }
+    });
+  },
+  { threshold:.15 }
 );
 
 members.forEach(member=>{
-observer.observe(member);
+  observer.observe(member);
 });
-
 </script>
 
 </body>
