@@ -42,92 +42,131 @@ a{
 ========================================================= */
 
 .opening{
+
     position:fixed;
     inset:0;
+
     background:#111;
+
     z-index:99999;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     pointer-events:none;
+
     animation:openingOut .35s 1.15s forwards;
 }
 
+
 .opening-line{
+
     position:absolute;
+
     left:0;
     top:50%;
+
     width:0;
     height:1px;
+
     background:#fff;
-    z-index:1;
+
     transform:translateY(-50%);
+
     animation:
     lineIn .45s .05s
     cubic-bezier(.16,1,.3,1)
     forwards;
 }
 
+
 .opening-logo-holder{
+
     position:relative;
     z-index:2;
+
     width:120px;
     height:120px;
+
     border-radius:50%;
+
     background:#111;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     overflow:hidden;
+
     opacity:0;
+
     transform:scale(.75);
+
     animation:
     openingLogoHolderIn .35s .25s forwards,
     openingLogoHolderOut .55s .65s
     cubic-bezier(.16,1,.3,1) forwards;
 }
 
+
 .opening-logo{
+
     width:100%;
     height:100%;
+
     object-fit:contain;
-    display:block;
-    background:transparent;
+
     filter:
     brightness(0)
     invert(1);
+
     animation:
     openingLogoColor .5s .65s
     cubic-bezier(.16,1,.3,1)
     forwards;
 }
 
+
 @keyframes lineIn{
+
     to{
         width:100%;
     }
+
 }
 
+
 @keyframes openingLogoHolderIn{
+
     to{
         opacity:1;
         transform:scale(1);
     }
+
 }
 
+
 @keyframes openingLogoHolderOut{
+
     to{
+
         opacity:0;
+
         transform:
         scale(.45)
         translate(
             calc(-50vw + 75px),
             calc(-50vh + 50px)
         );
+
     }
+
 }
 
+
 @keyframes openingLogoColor{
+
     0%{
         filter:
         brightness(0)
@@ -139,13 +178,17 @@ a{
         brightness(0)
         invert(0);
     }
+
 }
 
+
 @keyframes openingOut{
+
     to{
         opacity:0;
         visibility:hidden;
     }
+
 }
 
 
@@ -154,20 +197,30 @@ a{
 ========================================================= */
 
 .header{
+
     position:fixed;
+
     top:0;
     left:0;
+
     width:100%;
     height:90px;
+
     padding:0 40px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     z-index:5000;
+
     pointer-events:none;
+
     opacity:0;
+
     transition:opacity .2s ease;
 }
+
 
 .header.ready{
     opacity:1;
@@ -179,28 +232,38 @@ a{
 ========================================================= */
 
 .logo-link{
+
     width:45px;
     height:45px;
+
     display:block;
+
     pointer-events:auto;
-    position:relative;
+
     transition:
     transform .5s
     cubic-bezier(.16,1,.3,1);
 }
 
+
 .logo-link:hover{
     transform:scale(1.08);
 }
 
+
 .logo-image{
+
     width:100%;
     height:100%;
+
     object-fit:contain;
+
     display:block;
+
     filter:
     brightness(0)
     invert(1);
+
     transition:filter .18s ease;
 }
 
@@ -210,53 +273,82 @@ a{
 ========================================================= */
 
 .header-right{
+
     display:flex;
     align-items:center;
+
     gap:30px;
+
     pointer-events:auto;
 }
 
+
 .header-link{
+
     background:transparent;
+
     padding:4px 0;
+
     font-size:10px;
+
     letter-spacing:1.5px;
+
     text-transform:uppercase;
+
     color:#fff;
+
     transition:
     color .18s ease,
     transform .3s ease;
 }
 
+
 .header-link:hover{
     transform:translateY(-2px);
 }
 
+
 .language{
+
     display:flex;
     align-items:center;
+
     gap:5px;
+
     padding:4px 0;
+
     background:transparent;
+
     color:#fff;
+
     font-size:10px;
     letter-spacing:1px;
+
     transition:color .18s ease;
 }
 
+
 .language button{
+
     border:0;
     background:none;
+
     color:inherit;
+
     cursor:pointer;
+
     font:inherit;
+
     padding:0;
+
     opacity:.4;
 }
+
 
 .language button.active{
     opacity:1;
 }
+
 
 .language span{
     opacity:.35;
@@ -268,37 +360,55 @@ a{
 ========================================================= */
 
 .hero{
+
     width:100%;
     height:100svh;
+
     min-height:600px;
+
     position:relative;
+
     overflow:hidden;
+
     background:#111;
 }
 
+
 .hero-image{
+
     position:absolute;
     inset:0;
+
     width:100%;
     height:100%;
+
     object-fit:cover;
+
     transform:scale(1.1);
+
     animation:
     heroIn 1.6s 1.05s
     cubic-bezier(.16,1,.3,1)
     forwards;
 }
 
+
 @keyframes heroIn{
+
     to{
         transform:scale(1);
     }
+
 }
 
+
 .hero::after{
+
     content:"";
+
     position:absolute;
     inset:0;
+
     background:
     linear-gradient(
         to top,
@@ -313,41 +423,62 @@ a{
 ========================================================= */
 
 .hero-content{
+
     position:absolute;
+
     z-index:10;
+
     left:40px;
     right:40px;
     bottom:42px;
+
     color:#fff;
 }
 
+
 .office-name{
+
     font-size:
     clamp(55px,9.5vw,150px);
+
     line-height:.82;
+
     letter-spacing:-6px;
+
     font-weight:500;
+
     text-transform:uppercase;
+
     opacity:0;
+
     animation:
     heroTextIn .8s 1.12s
     cubic-bezier(.16,1,.3,1)
     forwards;
 }
 
+
 .hero-meta{
+
     margin-top:25px;
+
     font-size:10px;
+
     letter-spacing:2px;
+
     text-transform:uppercase;
+
     opacity:0;
+
     animation:
     heroMetaIn .7s 1.22s
     cubic-bezier(.16,1,.3,1)
     forwards;
 }
 
+
 @keyframes heroTextIn{
+
     from{
         opacity:0;
         transform:translateY(70px);
@@ -357,9 +488,12 @@ a{
         opacity:1;
         transform:translateY(0);
     }
+
 }
 
+
 @keyframes heroMetaIn{
+
     from{
         opacity:0;
         transform:translateY(20px);
@@ -369,27 +503,39 @@ a{
         opacity:1;
         transform:translateY(0);
     }
+
 }
 
 
 /* =========================================================
-   SCROLL INDICATOR
+   SCROLL
 ========================================================= */
 
 .scroll-indicator{
+
     position:absolute;
+
     z-index:10;
+
     right:40px;
     bottom:42px;
+
     color:#fff;
+
     font-size:9px;
+
     letter-spacing:2px;
+
     writing-mode:vertical-rl;
+
     opacity:.7;
+
     animation:scrollPulse 2s infinite;
 }
 
+
 @keyframes scrollPulse{
+
     0%,100%{
         opacity:.3;
     }
@@ -397,34 +543,51 @@ a{
     50%{
         opacity:1;
     }
+
 }
 
 
 /* =========================================================
-   PROJECTS INTRO
+   PROJECT INTRO
 ========================================================= */
 
 .projects-intro{
+
     background:#111;
+
     color:#fff;
+
     padding:150px 40px 100px;
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:flex-end;
 }
 
+
 .projects-label{
+
     font-size:10px;
+
     letter-spacing:2px;
+
     text-transform:uppercase;
 }
 
+
 .projects-description{
+
     max-width:600px;
+
     font-size:
     clamp(24px,3vw,42px);
+
     line-height:1.05;
+
     letter-spacing:-1.5px;
+
     font-weight:300;
 }
 
@@ -434,82 +597,125 @@ a{
 ========================================================= */
 
 .project{
+
     position:relative;
+
     width:100%;
+
     margin-bottom:8px;
+
     overflow:hidden;
+
     background:#111;
+
     opacity:0;
+
     transform:
     translateX(100px)
     scale(.985);
+
     transition:
     opacity .65s
     cubic-bezier(.16,1,.3,1),
+
     transform .8s
     cubic-bezier(.16,1,.3,1);
 }
 
+
 .project.from-left{
+
     transform:
     translateX(-100px)
     scale(.985);
 }
 
+
 .project.visible{
+
     opacity:1;
+
     transform:
     translateX(0)
     scale(1);
 }
 
+
 .project-link{
+
     display:block;
+
     position:relative;
+
     overflow:hidden;
 }
 
+
 .project-image{
+
     width:100%;
+
     height:82vh;
+
     min-height:600px;
+
     object-fit:cover;
+
     display:block;
+
     transform:
     scale(1.05)
     translateY(20px);
+
     transition:
     transform 1s
     cubic-bezier(.16,1,.3,1),
+
     filter .7s ease;
 }
 
+
 .project.visible .project-image{
+
     transform:
     scale(1)
     translateY(0);
 }
 
+
+/* =========================================================
+   PROJECT OVERLAY
+========================================================= */
+
 .project-link::after{
+
     content:"";
+
     position:absolute;
     inset:0;
+
     background:
     linear-gradient(
         to top,
         rgba(0,0,0,.75),
         transparent 60%
     );
+
     opacity:.65;
+
     transition:opacity .6s ease;
 }
+
 
 .project-link:hover::after{
     opacity:.9;
 }
 
+
 .project-link:hover .project-image{
+
     transform:scale(1.035);
+
     filter:brightness(.82);
 }
 
@@ -519,180 +725,118 @@ a{
 ========================================================= */
 
 .project-info{
+
     position:absolute;
+
     z-index:5;
+
     left:40px;
     right:40px;
     bottom:35px;
+
     color:#fff;
+
     display:flex;
+
     align-items:flex-end;
+
     justify-content:space-between;
+
     pointer-events:none;
 }
 
+
 .project-number{
+
     font-size:10px;
+
     letter-spacing:2px;
+
     margin-bottom:12px;
+
     opacity:0;
+
     transform:translateY(15px);
+
     transition:
     transform .7s .15s,
     opacity .7s .15s;
 }
 
+
 .project.visible .project-number{
+
     transform:translateY(0);
+
     opacity:.7;
 }
 
+
 .project-title{
+
     font-size:
     clamp(50px,8vw,125px);
+
     line-height:.82;
+
     letter-spacing:-5px;
+
     font-weight:500;
+
     text-transform:uppercase;
+
     transform:translateY(40px);
+
     opacity:0;
+
     transition:
     transform .8s .2s
     cubic-bezier(.16,1,.3,1),
+
     opacity .8s .2s;
 }
 
+
 .project.visible .project-title{
+
     transform:translateY(0);
+
     opacity:1;
 }
 
+
 .project-details{
+
     text-align:right;
+
     font-size:10px;
+
     line-height:1.8;
+
     letter-spacing:1.5px;
+
     text-transform:uppercase;
+
     transform:translateY(20px);
+
     opacity:0;
+
     transition:
     transform .7s .3s,
     opacity .7s .3s;
 }
 
+
 .project.visible .project-details{
+
     transform:translateY(0);
+
     opacity:1;
 }
+
 
 .project-link:hover .project-title{
     transform:translateX(15px);
-}
-
-
-/* =========================================================
-   EQUIPE
-========================================================= */
-
-.equipe{
-    background:#111;
-    color:#fff;
-    padding:150px 40px 130px;
-}
-
-.equipe-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-    margin-bottom:70px;
-}
-
-.equipe-label{
-    font-size:10px;
-    letter-spacing:2px;
-    text-transform:uppercase;
-}
-
-.equipe-intro{
-    max-width:600px;
-    font-size:
-    clamp(24px,3vw,42px);
-    line-height:1.05;
-    letter-spacing:-1.5px;
-    font-weight:300;
-}
-
-.equipe-main-image{
-    width:100%;
-    height:75vh;
-    min-height:550px;
-    object-fit:cover;
-    display:block;
-    margin-bottom:90px;
-    opacity:0;
-    transform:scale(1.035);
-    transition:
-    opacity .9s ease,
-    transform 1.2s
-    cubic-bezier(.16,1,.3,1);
-}
-
-.equipe.visible .equipe-main-image{
-    opacity:1;
-    transform:scale(1);
-}
-
-
-/* =========================================================
-   ARCHITECTS
-========================================================= */
-
-.architects{
-    display:grid;
-    grid-template-columns:
-    repeat(3,1fr);
-    gap:8px;
-}
-
-.architect{
-    overflow:hidden;
-}
-
-.architect-image{
-    width:100%;
-    aspect-ratio:3 / 4;
-    object-fit:cover;
-    display:block;
-    filter:brightness(.92);
-    transition:
-    transform .8s
-    cubic-bezier(.16,1,.3,1),
-    filter .5s ease;
-}
-
-.architect:hover .architect-image{
-    transform:scale(1.035);
-    filter:brightness(1);
-}
-
-.architect-info{
-    padding-top:18px;
-}
-
-.architect-name{
-    font-size:20px;
-    line-height:1;
-    letter-spacing:-.5px;
-    text-transform:uppercase;
-    font-weight:500;
-}
-
-.architect-role{
-    margin-top:9px;
-    font-size:9px;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-    opacity:.6;
 }
 
 
@@ -701,45 +845,73 @@ a{
 ========================================================= */
 
 .contact{
+
     min-height:75vh;
+
     padding:150px 40px;
+
     background:#111;
+
     color:#fff;
+
     display:grid;
+
     grid-template-columns:1fr 1fr;
+
     gap:80px;
 }
 
+
 .contact-label{
+
     font-size:10px;
+
     letter-spacing:2px;
 }
 
+
 .contact-title{
+
     margin-top:45px;
+
     font-size:
     clamp(55px,9vw,135px);
+
     line-height:.82;
+
     letter-spacing:-6px;
+
     font-weight:500;
 }
 
+
 .contact-info{
+
     align-self:end;
+
     font-size:13px;
+
     line-height:2;
 }
 
+
 .contact-info a{
+
     border-bottom:
     1px solid #777;
 }
 
+
 .contact-small{
+
     margin-top:35px;
+
     font-size:9px;
+
     letter-spacing:1.5px;
+
     text-transform:uppercase;
+
     color:#aaa;
 }
 
@@ -749,15 +921,24 @@ a{
 ========================================================= */
 
 .footer{
+
     padding:30px 40px;
+
     background:#111;
+
     color:#fff;
+
     border-top:
     1px solid #333;
+
     display:flex;
+
     justify-content:space-between;
+
     font-size:9px;
+
     letter-spacing:1.5px;
+
     text-transform:uppercase;
 }
 
@@ -769,181 +950,200 @@ a{
 @media(max-width:700px){
 
     .header{
+
         height:70px;
+
         padding:0 18px;
     }
 
+
     .logo-link{
+
         width:36px;
         height:36px;
     }
+
 
     .header-right{
         gap:14px;
     }
 
+
     .header-link,
     .language{
-        padding:4px 0;
+
         font-size:8px;
+
         letter-spacing:.8px;
     }
+
 
     .hero{
         min-height:600px;
     }
 
+
     .hero-content{
+
         left:18px;
         right:18px;
         bottom:30px;
     }
 
+
     .office-name{
+
         font-size:
         clamp(42px,13vw,75px);
+
         line-height:.88;
+
         letter-spacing:-3px;
-        white-space:normal;
-        word-break:normal;
     }
 
+
     .hero-meta{
+
         margin-top:18px;
+
         font-size:8px;
+
         letter-spacing:1.2px;
     }
 
+
     .scroll-indicator{
+
         right:18px;
         bottom:30px;
+
         font-size:8px;
     }
 
+
     .projects-intro{
+
         display:block;
+
         padding:
         100px 18px 70px;
     }
 
+
     .projects-description{
+
         margin-top:35px;
+
         font-size:25px;
+
         line-height:1.05;
     }
 
+
     .project{
+
         margin-bottom:5px;
+
         transform:
         translateX(60px)
         scale(.985);
     }
 
+
     .project.from-left{
+
         transform:
         translateX(-60px)
         scale(.985);
     }
 
+
     .project.visible{
+
         transform:
         translateX(0)
         scale(1);
     }
 
+
     .project-image{
+
         height:72svh;
+
         min-height:500px;
     }
 
+
     .project-info{
+
         left:18px;
         right:18px;
         bottom:22px;
+
         display:block;
     }
 
-    .project-number{
-        font-size:8px;
-        margin-bottom:10px;
-    }
 
     .project-title{
+
         font-size:
         clamp(42px,12vw,72px);
+
         line-height:.86;
+
         letter-spacing:-3px;
     }
 
+
     .project-details{
+
         margin-top:18px;
+
         text-align:left;
+
         font-size:8px;
-        line-height:1.7;
     }
 
-    /* EQUIPE MOBILE */
-
-    .equipe{
-        padding:
-        100px 18px 90px;
-    }
-
-    .equipe-header{
-        display:block;
-        margin-bottom:50px;
-    }
-
-    .equipe-intro{
-        margin-top:35px;
-        font-size:25px;
-        line-height:1.05;
-    }
-
-    .equipe-main-image{
-        height:62svh;
-        min-height:450px;
-        margin-bottom:60px;
-    }
-
-    .architects{
-        grid-template-columns:1fr;
-        gap:50px;
-    }
-
-    .architect-image{
-        aspect-ratio:4 / 5;
-    }
-
-    .architect-name{
-        font-size:18px;
-    }
 
     .contact{
+
         display:block;
+
         padding:
         100px 18px;
     }
 
+
     .contact-title{
+
         margin-top:35px;
+
         font-size:
         clamp(48px,13vw,75px);
+
         letter-spacing:-3px;
     }
 
+
     .contact-info{
+
         margin-top:70px;
+
         font-size:12px;
     }
 
+
     .footer{
+
         padding:
         22px 18px;
+
         font-size:8px;
     }
 
+
     .opening-logo-holder{
+
         width:90px;
         height:90px;
     }
@@ -962,8 +1162,11 @@ a{
     *::after{
 
         animation-duration:.01ms !important;
+
         animation-iteration-count:1 !important;
+
         transition-duration:.01ms !important;
+
         scroll-behavior:auto !important;
     }
 
@@ -1029,8 +1232,9 @@ a{
         </a>
 
 
+        <!-- SADECE BURADA ÉQUIPE VAR -->
         <a
-            href="#equipe"
+            href="equipe.html"
             class="header-link"
             data-fr="ÉQUIPE"
             data-en="TEAM">
@@ -1063,8 +1267,7 @@ a{
 
             <span>/</span>
 
-            <button
-                id="enBtn">
+            <button id="enBtn">
 
                 EN
 
@@ -1513,146 +1716,6 @@ a{
 
 
 <!-- =====================================================
-     EQUIPE
-===================================================== -->
-
-<section
-    class="equipe"
-    id="equipe">
-
-    <div class="equipe-header">
-
-        <div
-            class="equipe-label"
-            data-fr="ÉQUIPE"
-            data-en="TEAM">
-
-            ÉQUIPE
-
-        </div>
-
-
-        <div
-            class="equipe-intro"
-            data-fr="Une équipe dédiée à la conception, au développement et à la réalisation de projets architecturaux."
-            data-en="A team dedicated to the design, development and realization of architectural projects.">
-
-            Une équipe dédiée à la conception,
-            au développement et à la réalisation
-            de projets architecturaux.
-
-        </div>
-
-    </div>
-
-
-    <!-- PHOTO ÉQUIPE -->
-
-    <img
-        src="images/equipe/equipe.jpg"
-        class="equipe-main-image"
-        alt="Équipe DOGAN ARCHITECTURE">
-
-
-    <!-- 3 ARCHITECTES -->
-
-    <div class="architects">
-
-
-        <!-- ARCHITECTE 01 -->
-
-        <div class="architect">
-
-            <img
-                src="images/equipe/architecte-01.jpg"
-                class="architect-image"
-                alt="Architecte 01">
-
-
-            <div class="architect-info">
-
-                <div class="architect-name">
-                    ARCHITECTE 01
-                </div>
-
-                <div
-                    class="architect-role"
-                    data-fr="ARCHITECTE"
-                    data-en="ARCHITECT">
-
-                    ARCHITECTE
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- ARCHITECTE 02 -->
-
-        <div class="architect">
-
-            <img
-                src="images/equipe/architecte-02.jpg"
-                class="architect-image"
-                alt="Architecte 02">
-
-
-            <div class="architect-info">
-
-                <div class="architect-name">
-                    ARCHITECTE 02
-                </div>
-
-                <div
-                    class="architect-role"
-                    data-fr="ARCHITECTE"
-                    data-en="ARCHITECT">
-
-                    ARCHITECTE
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- ARCHITECTE 03 -->
-
-        <div class="architect">
-
-            <img
-                src="images/equipe/architecte-03.jpg"
-                class="architect-image"
-                alt="Architecte 03">
-
-
-            <div class="architect-info">
-
-                <div class="architect-name">
-                    ARCHITECTE 03
-                </div>
-
-                <div class="architect-role"
-                    data-fr="ARCHITECTE"
-                    data-en="ARCHITECT">
-
-                    ARCHITECTE
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
      CONTACT
 ===================================================== -->
 
@@ -1765,13 +1828,11 @@ function changeLanguage(language){
     if(language === "fr"){
 
         frBtn.classList.add("active");
-
         enBtn.classList.remove("active");
 
     }else{
 
         enBtn.classList.add("active");
-
         frBtn.classList.remove("active");
 
     }
@@ -1797,30 +1858,19 @@ enBtn.addEventListener(
 );
 
 
-const savedLanguage =
-localStorage.getItem(
-    "dogan-language"
-);
-
-
 changeLanguage(
-    savedLanguage || "fr"
+    localStorage.getItem(
+        "dogan-language"
+    ) || "fr"
 );
 
 
 /* =========================================================
-   PROJECT + EQUIPE REVEAL
+   PROJECT REVEAL
 ========================================================= */
 
 const projects =
-document.querySelectorAll(
-    ".project"
-);
-
-const equipe =
-document.querySelector(
-    ".equipe"
-);
+document.querySelectorAll(".project");
 
 
 const projectObserver =
@@ -1832,9 +1882,7 @@ new IntersectionObserver(
 
             if(entry.isIntersecting){
 
-                entry.target.classList.add(
-                    "visible"
-                );
+                entry.target.classList.add("visible");
 
             }
 
@@ -1844,32 +1892,17 @@ new IntersectionObserver(
 
     {
         threshold:.12,
-
-        rootMargin:
-        "0px 0px -5% 0px"
+        rootMargin:"0px 0px -5% 0px"
     }
 
 );
 
 
-projects.forEach(
-    project => {
+projects.forEach(project => {
 
-        projectObserver.observe(
-            project
-        );
+    projectObserver.observe(project);
 
-    }
-);
-
-
-if(equipe){
-
-    projectObserver.observe(
-        equipe
-    );
-
-}
+});
 
 
 /* =========================================================
@@ -1883,26 +1916,18 @@ window.addEventListener(
     () => {
 
         const hero =
-        document.querySelector(
-            ".hero-image"
-        );
-
+        document.querySelector(".hero-image");
 
         if(!hero) return;
-
 
         const scroll =
         window.scrollY;
 
-
-        if(
-            scroll <
-            window.innerHeight
-        ){
+        if(scroll < window.innerHeight){
 
             hero.style.transform =
-                `scale(1.03)
-                 translateY(${scroll * .08}px)`;
+            `scale(1.03)
+             translateY(${scroll * .08}px)`;
 
         }
 
@@ -1916,7 +1941,7 @@ window.addEventListener(
 
 
 /* =========================================================
-   SMART HEADER COLOR
+   HEADER COLOR
 ========================================================= */
 
 const colorCanvas =
@@ -1931,35 +1956,21 @@ colorCanvas.getContext(
 );
 
 
-/*
-   ARTIK ÉQUIPE FOTOĞRAFI DA DAHİL.
-*/
-
 const backgroundImages =
 Array.from(
     document.querySelectorAll(
-        ".hero-image, .project-image, .equipe-main-image, .architect-image"
+        ".hero-image, .project-image"
     )
 );
 
 
-/* =========================================================
-   IMAGE LUMINANCE
-========================================================= */
-
-function getImageLuminance(
-    image,
-    x,
-    y
-){
+function getImageLuminance(image,x,y){
 
     if(
         !image.complete ||
         !image.naturalWidth
     ){
-
-        return 0.5;
-
+        return .5;
     }
 
 
@@ -1973,19 +1984,15 @@ function getImageLuminance(
         y < rect.top ||
         y > rect.bottom
     ){
-
         return null;
-
     }
 
 
     const width =
     image.naturalWidth;
 
-
     const height =
     image.naturalHeight;
-
 
     const boxWidth =
     rect.width;
@@ -1993,24 +2000,20 @@ function getImageLuminance(
     const boxHeight =
     rect.height;
 
-
     const imageRatio =
     width / height;
 
     const boxRatio =
     boxWidth / boxHeight;
 
-
     let renderedWidth;
     let renderedHeight;
 
-    let offsetX = 0;
-    let offsetY = 0;
+    let offsetX=0;
+    let offsetY=0;
 
 
-    if(
-        imageRatio > boxRatio
-    ){
+    if(imageRatio > boxRatio){
 
         renderedHeight =
         boxHeight;
@@ -2019,7 +2022,7 @@ function getImageLuminance(
         boxHeight * imageRatio;
 
         offsetX =
-        (renderedWidth - boxWidth) / 2;
+        (renderedWidth-boxWidth)/2;
 
     }else{
 
@@ -2030,71 +2033,54 @@ function getImageLuminance(
         boxWidth / imageRatio;
 
         offsetY =
-        (renderedHeight - boxHeight) / 2;
+        (renderedHeight-boxHeight)/2;
 
     }
 
 
     const localX =
-    x - rect.left;
+    x-rect.left;
 
     const localY =
-    y - rect.top;
+    y-rect.top;
 
 
     const imageX =
-    (
-        localX +
-        offsetX
-    )
-    /
-    renderedWidth
-    *
-    width;
+    (localX+offsetX)
+    /renderedWidth
+    *width;
 
 
     const imageY =
-    (
-        localY +
-        offsetY
-    )
-    /
-    renderedHeight
-    *
-    height;
+    (localY+offsetY)
+    /renderedHeight
+    *height;
 
 
-    const sampleSize = 7;
+    const sampleSize=7;
 
 
-    colorCanvas.width =
-    sampleSize;
-
-    colorCanvas.height =
-    sampleSize;
+    colorCanvas.width=sampleSize;
+    colorCanvas.height=sampleSize;
 
 
     try{
 
         colorContext.drawImage(
-
             image,
-
-            imageX - 3,
-            imageY - 3,
+            imageX-3,
+            imageY-3,
             7,
             7,
-
             0,
             0,
             7,
             7
-
         );
 
     }catch(error){
 
-        return 0.5;
+        return .5;
 
     }
 
@@ -2108,37 +2094,28 @@ function getImageLuminance(
     ).data;
 
 
-    let total = 0;
-
-    let count = 0;
+    let total=0;
+    let count=0;
 
 
     for(
-        let i = 0;
-        i < pixels.length;
-        i += 4
+        let i=0;
+        i<pixels.length;
+        i+=4
     ){
 
-        const r =
-        pixels[i];
-
-        const g =
-        pixels[i + 1];
-
-        const b =
-        pixels[i + 2];
+        const r=pixels[i];
+        const g=pixels[i+1];
+        const b=pixels[i+2];
 
 
-        const luminance =
-            (
-                0.2126 * r +
-                0.7152 * g +
-                0.0722 * b
-            )
-            / 255;
+        total +=
+        (
+            .2126*r+
+            .7152*g+
+            .0722*b
+        )/255;
 
-
-        total += luminance;
 
         count++;
 
@@ -2146,20 +2123,13 @@ function getImageLuminance(
 
 
     return count
-        ? total / count
-        : 0.5;
+        ? total/count
+        : .5;
 
 }
 
 
-/* =========================================================
-   FIND BACKGROUND UNDER POINT
-========================================================= */
-
-function getBackgroundLuminance(
-    x,
-    y
-){
+function getBackgroundLuminance(x,y){
 
     for(
         const image of backgroundImages
@@ -2170,222 +2140,99 @@ function getBackgroundLuminance(
 
 
         if(
-            x >= rect.left &&
-            x <= rect.right &&
-            y >= rect.top &&
-            y <= rect.bottom
+            x>=rect.left &&
+            x<=rect.right &&
+            y>=rect.top &&
+            y<=rect.bottom
         ){
 
-            const result =
-            getImageLuminance(
+            return getImageLuminance(
                 image,
                 x,
                 y
             );
-
-
-            if(result !== null){
-
-                return result;
-
-            }
 
         }
 
     }
 
 
-    return 0.067;
+    return .067;
 
 }
 
 
-/* =========================================================
-   SMART COLOR
-========================================================= */
-
 function updateHeaderColor(){
 
     const header =
-    document.querySelector(
-        ".header"
-    );
+    document.querySelector(".header");
 
 
     if(
         !header.classList.contains("ready")
     ){
-
         return;
-
     }
 
 
     const logo =
-    document.querySelector(
-        ".logo-link"
-    );
-
-
-    const links =
-    document.querySelectorAll(
-        ".header-link"
-    );
-
-
-    const language =
-    document.querySelector(
-        ".language"
-    );
+    document.querySelector(".logo-link");
 
 
     const logoRect =
     logo.getBoundingClientRect();
 
 
-    const logoPoints = [
+    const logoBrightness =
+    getBackgroundLuminance(
+        logoRect.left+
+        logoRect.width/2,
 
-        [
-            logoRect.left +
-            logoRect.width * .5,
-
-            logoRect.top +
-            logoRect.height * .5
-        ],
-
-        [
-            logoRect.left +
-            logoRect.width * .25,
-
-            logoRect.top +
-            logoRect.height * .25
-        ],
-
-        [
-            logoRect.left +
-            logoRect.width * .75,
-
-            logoRect.top +
-            logoRect.height * .25
-        ],
-
-        [
-            logoRect.left +
-            logoRect.width * .25,
-
-            logoRect.top +
-            logoRect.height * .75
-        ],
-
-        [
-            logoRect.left +
-            logoRect.width * .75,
-
-            logoRect.top +
-            logoRect.height * .75
-        ]
-
-    ];
-
-
-    let logoBrightness = 0;
-
-    let logoCount = 0;
-
-
-    logoPoints.forEach(
-        point => {
-
-            const value =
-            getBackgroundLuminance(
-                point[0],
-                point[1]
-            );
-
-
-            if(value !== null){
-
-                logoBrightness += value;
-
-                logoCount++;
-
-            }
-
-        }
+        logoRect.top+
+        logoRect.height/2
     );
-
-
-    logoBrightness =
-    logoCount
-    ?
-    logoBrightness / logoCount
-    :
-    .067;
-
-
-    const logoShouldBeWhite =
-    logoBrightness < .38;
 
 
     const logoImage =
-    document.querySelector(
-        ".logo-image"
-    );
+    document.querySelector(".logo-image");
 
 
-    if(logoShouldBeWhite){
-
-        logoImage.style.filter =
-            "brightness(0) invert(1)";
-
-    }else{
-
-        logoImage.style.filter =
-            "brightness(0) invert(0)";
-
-    }
+    logoImage.style.filter =
+    logoBrightness < .38
+    ?
+    "brightness(0) invert(1)"
+    :
+    "brightness(0) invert(0)";
 
 
-    links.forEach(
-        link => {
+    document
+    .querySelectorAll(".header-link")
+    .forEach(link => {
 
-            const rect =
-            link.getBoundingClientRect();
-
-
-            const x =
-            rect.left +
-            rect.width / 2;
+        const rect =
+        link.getBoundingClientRect();
 
 
-            const y =
-            rect.top +
-            rect.height / 2;
+        const brightness =
+        getBackgroundLuminance(
+            rect.left+
+            rect.width/2,
+
+            rect.top+
+            rect.height/2
+        );
 
 
-            const brightness =
-            getBackgroundLuminance(
-                x,
-                y
-            );
+        link.style.color =
+        brightness < .38
+        ? "#fff"
+        : "#000";
+
+    });
 
 
-            if(
-                brightness < .38
-            ){
-
-                link.style.color =
-                    "#fff";
-
-            }else{
-
-                link.style.color =
-                    "#000";
-
-            }
-
-        }
-    );
+    const language =
+    document.querySelector(".language");
 
 
     const languageRect =
@@ -2394,63 +2241,39 @@ function updateHeaderColor(){
 
     const languageBrightness =
     getBackgroundLuminance(
+        languageRect.left+
+        languageRect.width/2,
 
-        languageRect.left +
-        languageRect.width / 2,
-
-        languageRect.top +
-        languageRect.height / 2
-
+        languageRect.top+
+        languageRect.height/2
     );
 
 
-    if(
-        languageBrightness < .38
-    ){
-
-        language.style.color =
-            "#fff";
-
-    }else{
-
-        language.style.color =
-            "#000";
-
-    }
+    language.style.color =
+    languageBrightness < .38
+    ? "#fff"
+    : "#000";
 
 }
 
 
-/* =========================================================
-   HEADER COLOR UPDATE
-========================================================= */
-
-let colorUpdateRunning = false;
+let colorUpdateRunning=false;
 
 
 function requestColorUpdate(){
 
-    if(colorUpdateRunning){
+    if(colorUpdateRunning) return;
 
-        return;
-
-    }
+    colorUpdateRunning=true;
 
 
-    colorUpdateRunning = true;
+    requestAnimationFrame(() => {
 
+        updateHeaderColor();
 
-    requestAnimationFrame(
+        colorUpdateRunning=false;
 
-        () => {
-
-            updateHeaderColor();
-
-            colorUpdateRunning = false;
-
-        }
-
-    );
+    });
 
 }
 
@@ -2458,9 +2281,7 @@ function requestColorUpdate(){
 window.addEventListener(
     "scroll",
     requestColorUpdate,
-    {
-        passive:true
-    }
+    {passive:true}
 );
 
 
@@ -2477,69 +2298,39 @@ window.addEventListener(
 
 
 /* =========================================================
-   START HEADER COLOR SYSTEM
+   START
 ========================================================= */
 
-setTimeout(
+setTimeout(() => {
 
-    () => {
-
-        const header =
-        document.querySelector(
-            ".header"
-        );
+    const header =
+    document.querySelector(".header");
 
 
-        header.classList.add(
-            "ready"
-        );
+    header.classList.add("ready");
 
 
-        requestColorUpdate();
+    requestColorUpdate();
 
+    setTimeout(requestColorUpdate,300);
+    setTimeout(requestColorUpdate,800);
+    setTimeout(requestColorUpdate,1600);
 
-        setTimeout(
-            requestColorUpdate,
-            300
-        );
-
-        setTimeout(
-            requestColorUpdate,
-            800
-        );
-
-        setTimeout(
-            requestColorUpdate,
-            1600
-        );
-
-    },
-
-    1200
-
-);
+},1200);
 
 
 /* =========================================================
    OPENING SCROLL LOCK
 ========================================================= */
 
-document.body.style.overflow =
-"hidden";
+document.body.style.overflow="hidden";
 
 
-setTimeout(
+setTimeout(() => {
 
-    () => {
+    document.body.style.overflow="";
 
-        document.body.style.overflow =
-        "";
-
-    },
-
-    1500
-
-);
+},1500);
 
 </script>
 
