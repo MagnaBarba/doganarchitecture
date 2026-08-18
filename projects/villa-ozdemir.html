@@ -1,176 +1,324 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>VILLA OZDEMIR — DOGAN ARCHITECTURE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VILLA OZDEMIR — DOGAN ARCHITECTURE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-html, body{
-  width:100%;
-  max-width:100%;
-  overflow-x:hidden!important;
-  scroll-behavior:smooth;
-  background:#111;
-  color:#fff;
-  font-family:Arial,Helvetica,sans-serif;
-}
-a{color:inherit;text-decoration:none}
+        html {
+            scroll-behavior: smooth;
+        }
 
-.header{
-  position:fixed;top:0;left:0;width:100%;height:90px;
-  padding:0 40px;display:flex;align-items:center;
-  justify-content:space-between;z-index:1000;
-  mix-blend-mode:difference;
-}
-.logo{width:45px;height:45px;object-fit:contain;filter:brightness(0) invert(1)}
-.nav{display:flex;align-items:center;gap:30px}
-.nav-link, .language{
-  background:none;border:0;color:inherit;font-size:10px;
-  letter-spacing:1.5px;text-transform:uppercase;
-  cursor:pointer;font-family:Arial,Helvetica,sans-serif;
-}
-.language{display:flex;gap:5px}
-.language button{border:0;background:none;color:inherit;font:inherit;cursor:pointer;opacity:.4}
-.language button.active{opacity:1}
-.language span{opacity:.35}
+        body {
+            background: #111;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+        }
 
-.project-detail{
-  padding:160px 40px 100px;
-  max-width:1400px;
-  margin:0 auto;
-}
-.project-header{margin-bottom:60px}
-.project-number{font-size:11px;letter-spacing:1.5px;margin-bottom:20px;opacity:.5;text-transform:uppercase}
-.project-title{
-  font-size:clamp(50px,8vw,120px);
-  line-height:.85;
-  letter-spacing:-4px;
-  font-weight:500;
-  text-transform:uppercase;
-  margin-bottom:35px;
-}
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
 
-.project-meta-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
-  gap:25px;
-  padding:30px 0;
-  border-top:1px solid #333;
-  border-bottom:1px solid #333;
-  margin-bottom:50px;
-}
-.meta-item-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;opacity:.5;margin-bottom:6px}
-.meta-item-value{font-size:clamp(12px, 0.95vw, 14px);letter-spacing:1.2px;text-transform:uppercase;font-weight:600;color:#fff}
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 90px;
+            padding: 0 45px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            mix-blend-mode: difference;
+        }
 
-.project-description{
-  font-size:clamp(13px, 1.1vw, 16px);
-  line-height:1.75;
-  letter-spacing:1.2px;
-  text-transform:uppercase;
-  font-weight:500;
-  color:#ddd;
-  max-width:850px;
-  margin-bottom:80px;
-}
+        .logo {
+            width: 48px;
+            height: 48px;
+            display: block;
+        }
 
-.project-gallery{display:flex;flex-direction:column;gap:40px;width:100%}
-.project-gallery img{width:100%;height:auto;display:block;object-fit:cover}
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            filter: brightness(0) invert(1);
+        }
 
-.footer{
-  padding:30px 40px;border-top:1px solid #333;
-  display:flex;justify-content:space-between;
-  font-size:10px;letter-spacing:1.5px;text-transform:uppercase;width:100%;
-}
+        .back {
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
 
-@media(max-width:700px){
-  .header{height:70px;padding:0 18px}
-  .logo{width:36px;height:36px}
-  .nav{gap:14px}
-  .nav-link, .language{font-size:8px;letter-spacing:.8px}
-  .project-detail{padding:110px 18px 60px}
-  .project-title{font-size:clamp(38px,10vw,68px);letter-spacing:-3px}
-  .project-meta-grid{grid-template-columns:1fr 1fr;gap:20px;padding:22px 0}
-  .meta-item-value{font-size:11px;letter-spacing:1px}
-  .project-description{font-size:12px;line-height:1.7;letter-spacing:1px;margin-bottom:50px}
-  .project-gallery{gap:20px}
-  .footer{padding:22px 18px;font-size:8px;letter-spacing:1px}
-}
-</style>
+        .hero {
+            height: 100svh;
+            min-height: 600px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero > img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.08);
+            animation: heroZoom 1.6s cubic-bezier(.16, 1, .3, 1) forwards;
+        }
+
+        @keyframes heroZoom {
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, .75), transparent 65%);
+        }
+
+        .hero-info {
+            position: absolute;
+            z-index: 2;
+            bottom: 45px;
+            left: 45px;
+            right: 45px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .title {
+            font-size: clamp(55px, 9vw, 140px);
+            line-height: .82;
+            letter-spacing: -5px;
+            font-weight: 500;
+        }
+
+        .number {
+            font-size: 10px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .details {
+            text-align: right;
+            font-size: 10px;
+            line-height: 1.8;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .intro {
+            min-height: 65vh;
+            padding: 150px 45px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+        }
+
+        .intro-title {
+            font-size: 18px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .description {
+            max-width: 650px;
+            font-size: 18px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .gallery {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .gallery-item {
+            width: 100%;
+            margin-bottom: 3px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateX(-120px) scale(.985);
+            transition: opacity .65s cubic-bezier(.16, 1, .3, 1), transform .85s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        .gallery-item:nth-child(even) {
+            transform: translateX(120px) scale(.985);
+        }
+
+        .gallery-item.visible {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 1s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.015);
+        }
+
+        .next {
+            min-height: 50vh;
+            padding: 100px 45px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #333;
+        }
+
+        .next-label {
+            font-size: 10px;
+            letter-spacing: 2px;
+        }
+
+        .next-title {
+            font-size: clamp(45px, 7vw, 110px);
+            letter-spacing: -4px;
+        }
+
+        @media (max-width: 700px) {
+            header {
+                height: 70px;
+                padding: 0 20px;
+            }
+
+            .logo {
+                width: 38px;
+                height: 38px;
+            }
+
+            .hero-info {
+                left: 20px;
+                right: 20px;
+                bottom: 35px;
+                display: block;
+            }
+
+            .title {
+                font-size: 15vw;
+                margin-bottom: 25px;
+            }
+
+            .details {
+                text-align: left;
+            }
+
+            .intro {
+                display: block;
+                padding: 90px 20px;
+            }
+
+            .intro-title {
+                margin-bottom: 30px;
+            }
+
+            .description {
+                font-size: 16px;
+            }
+
+            .next {
+                padding: 70px 20px;
+                display: block;
+            }
+
+            .next-title {
+                margin-top: 30px;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<header class="header">
-  <a href="../index.html"><img src="../images/logo.png" class="logo" alt="DOGAN ARCHITECTURE"></a>
-  <nav class="nav">
-    <a href="../index.html#projects" class="nav-link" data-fr="PROJETS" data-en="PROJECTS">PROJETS</a>
-    <a href="../equipe.html" class="nav-link" data-fr="ÉQUIPE" data-en="TEAM">ÉQUIPE</a>
-    <a href="../index.html#contact" class="nav-link" data-fr="CONTACT" data-en="CONTACT">CONTACT</a>
-    <div class="language">
-      <button id="frBtn" class="active">FR</button>
-      <span>/</span>
-      <button id="enBtn">EN</button>
-    </div>
-  </nav>
-</header>
+    <header>
+        <a href="../index.html" class="logo">
+            <img src="../images/logo.png" alt="DOGAN ARCHITECTURE">
+        </a>
+        <a href="../index.html" class="back" data-fr="← PROJETS" data-en="← PROJECTS">← PROJETS</a>
+    </header>
 
-<main class="project-detail">
-  <header class="project-header">
-    <div class="project-number">07 / 07</div>
-    <h1 class="project-title">VILLA<br>OZDEMIR</h1>
-  </header>
+    <section class="hero">
+        <img src="../images/villa-ozdemir/cover.jpg" alt="Villa Ozdemir">
+        <div class="hero-info">
+            <div>
+                <div class="number">07 / 07</div>
+                <h1 class="title">VILLA<br>OZDEMIR</h1>
+            </div>
+            <div class="details" data-fr="FRANCE<br>2024<br>MAISON INDIVIDUELLE<br>550 m²" data-en="FRANCE<br>2024<br>PRIVATE HOUSE<br>550 m²">
+                FRANCE<br>2024<br>MAISON INDIVIDUELLE<br>550 m²
+            </div>
+        </div>
+    </section>
 
-  <div class="project-meta-grid">
-    <div>
-      <div class="meta-item-label" data-fr="LOCALISATION" data-en="LOCATION">LOCALISATION</div>
-      <div class="meta-item-value">ESBLY</div>
-    </div>
-    <div>
-      <div class="meta-item-label" data-fr="ANNÉE" data-en="YEAR">ANNÉE</div>
-      <div class="meta-item-value">2023</div>
-    </div>
-    <div>
-      <div class="meta-item-label" data-fr="PROGRAMME" data-en="PROGRAM">PROGRAMME</div>
-      <div class="meta-item-value" data-fr="VILLA" data-en="VILLA">VILLA</div>
-    </div>
-    <div>
-      <div class="meta-item-label" data-fr="SURFACE" data-en="SURFACE">SURFACE</div>
-      <div class="meta-item-value">7329 m²</div>
-    </div>
-  </div>
+    <section class="intro">
+        <div class="intro-title" data-fr="PROJET" data-en="PROJECT">PROJET</div>
+        <div class="description" data-fr="La Villa Ozdemir incarne une approche minimale de l'habitat contemporain. Jouant sur la pureté des lignes, les ouvertures cadrées et les finitions haut de gamme, le projet offre un cadre de vie d'une sérénité absolue.<br><br>Chaque espace est pensé pour maximiser les perspectives intérieures et extérieures." data-en="Villa Ozdemir embodies a minimalist approach to contemporary living. Playing on clean lines, framed openings, and high-end finishes, the project delivers an environment of absolute serenity.<br><br>Every space is designed to maximize interior and exterior perspectives.">
+            La Villa Ozdemir incarne une approche minimale de l'habitat contemporain. Jouant sur la pureté des lignes, les ouvertures cadrées et les finitions haut de gamme, le projet offre un cadre de vie d'une sérénité absolue.<br><br>Chaque espace est pensé pour maximiser les perspectives intérieures et extérieures.
+        </div>
+    </section>
 
-  <div class="project-description"
-       data-fr="DOMAINE RÉSIDENTIEL DE LUXE S'ÉTENDANT SUR DE VASTES ESPACES PAYSAGERS. L'ARCHITECTURE ALLIE MODERNITÉ, CONFORT EXCLUSIF ET INTÉGRATION PAYSAGÈRE HARMONIEUSE."
-       data-en="LUXURY RESIDENTIAL ESTATE EXTENDING OVER VAST LANDSCAPED GROUNDS. THE ARCHITECTURE COMBINES MODERNITY, EXCLUSIVE COMFORT, AND HARMONIOUS LANDSCAPE INTEGRATION.">
-    DOMAINE RÉSIDENTIEL DE LUXE S'ÉTENDANT SUR DE VASTES ESPACES PAYSAGERS. L'ARCHITECTURE ALLIE MODERNITÉ, CONFORT EXCLUSIF ET INTÉGRATION PAYSAGÈRE HARMONIEUSE.
-  </div>
+    <section class="gallery" data-folder="../images/villa-ozdemir/"></section>
 
-  <section class="project-gallery">
-    <img src="../images/villa-ozdemir/cover.jpg" alt="Villa Ozdemir Image 1">
-  </section>
-</main>
+    <a href="bureau-zafer.html" class="next">
+        <div class="next-label" data-fr="PROJET SUIVANT" data-en="NEXT PROJECT">PROJET SUIVANT</div>
+        <div class="next-title">BUREAU ZAFER →</div>
+    </a>
 
-<footer class="footer">
-  <div>© 2026 DOGAN ARCHITECTURE</div>
-  <div>FRANCE</div>
-</footer>
+    <script>
+        const currentLang = localStorage.getItem('site_lang') || 'fr';
+        document.querySelectorAll('[data-' + currentLang + ']').forEach(el => {
+            el.innerHTML = el.getAttribute('data-' + currentLang);
+        });
 
-<script>
-const frBtn=document.getElementById("frBtn");
-const enBtn=document.getElementById("enBtn");
-function changeLanguage(lang){
-  document.documentElement.lang=lang;
-  document.querySelectorAll("[data-fr]").forEach(el=>{ el.innerHTML=el.getAttribute("data-"+lang); });
-  frBtn.classList.toggle("active",lang==="fr");
-  enBtn.classList.toggle("active",lang==="en");
-  localStorage.setItem("dogan-language",lang);
-}
-frBtn.onclick=()=>changeLanguage("fr");
-enBtn.onclick=()=>changeLanguage("en");
-changeLanguage(localStorage.getItem("dogan-language")||"fr");
-</script>
+        const gallery = document.querySelector(".gallery");
+        const folder = gallery.dataset.folder;
+        const maxImages = 30;
 
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                } else {
+                    entry.target.classList.remove("visible");
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -5% 0px" });
+
+        for (let i = 1; i <= maxImages; i++) {
+            const number = String(i).padStart(2, "0");
+            const item = document.createElement("div");
+            item.className = "gallery-item";
+            const img = document.createElement("img");
+            img.src = folder + number + ".jpg";
+            img.alt = "Villa Ozdemir " + number;
+            img.onload = function() {
+                gallery.appendChild(item);
+                item.appendChild(img);
+                observer.observe(item);
+            };
+            img.onerror = function() {
+                item.remove();
+            };
+        }
+    </script>
 </body>
 </html>
