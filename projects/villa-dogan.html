@@ -22,7 +22,7 @@ html{
 body{
     background:#111;
     color:#fff;
-    font-family:Arial,Helvetica,sans-serif;
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     overflow-x:hidden;
 }
 
@@ -147,16 +147,17 @@ header{
 }
 
 .intro-title{
-    font-size:10px;
+    font-size:18px;
     letter-spacing:2px;
     text-transform:uppercase;
+    font-weight:700;
 }
 
 .description{
     max-width:650px;
-    font-size:23px;
-    line-height:1.4;
-    font-weight:300;
+    font-size:18px;
+    line-height:1.5;
+    font-weight:400;
 }
 
 
@@ -257,11 +258,11 @@ header{
     }
 
     .intro-title{
-        margin-bottom:50px;
+        margin-bottom:30px;
     }
 
     .description{
-        font-size:18px;
+        font-size:16px;
     }
 
     .next{
@@ -287,7 +288,7 @@ header{
     <img src="../images/logo.png" alt="DOGAN ARCHITECTURE">
 </a>
 
-<a href="../index.html" class="back">
+<a href="../index.html" class="back" data-fr="← PROJETS" data-en="← PROJECTS">
     ← PROJETS
 </a>
 
@@ -312,7 +313,9 @@ VILLA<br>DOGAN
 
 </div>
 
-<div class="details">
+<div class="details"
+     data-fr="SAINT-MICHEL-SUR-ORGE<br>2024<br>MAISON INDIVIDUELLE<br>732 m²"
+     data-en="SAINT-MICHEL-SUR-ORGE<br>2024<br>PRIVATE HOUSE<br>732 m²">
 SAINT-MICHEL-SUR-ORGE<br>
 2024<br>
 MAISON INDIVIDUELLE<br>
@@ -326,22 +329,18 @@ MAISON INDIVIDUELLE<br>
 
 <section class="intro">
 
-<div class="intro-title">
-PROJECT
+<div class="intro-title" data-fr="PROJET" data-en="PROJECT">
+PROJET
 </div>
 
-<div class="description">
-
-Villa Dogan est une résidence privée contemporaine 
-pensée comme un dialogue harmonieux entre lumière, 
-matière et espaces ouverts.
+<div class="description"
+     data-fr="Pensée comme un sanctuaire privé, la Villa Dogan explore les limites de l'architecture résidentielle moderne à travers des jeux d'ombres et de porte-à-faux.<br><br>Les baies vitrées de grande hauteur effacent la frontière entre l'intérieur raffiné et le jardin paysager, offrant une continuité visuelle et spatiale inédite."
+     data-en="Designed as a private sanctuary, Villa Dogan explores the boundaries of modern residential architecture through plays of shadow and cantilevers.<br><br>Full-height glass walls blur the line between refined interiors and the landscaped garden, offering an unprecedented visual and spatial continuity.">
+Pensée comme un sanctuaire privé, la Villa Dogan explore les limites de l'architecture résidentielle moderne à travers des jeux d'ombres et de porte-à-faux.
 
 <br><br>
 
-Sa géométrie épurée et ses volumes traversants 
-offrent une expérience résidentielle exclusive, 
-alliant intimité et ouverture sur l'environnement.
-
+Les baies vitrées de grande hauteur effacent la frontière entre l'intérieur raffiné et le jardin paysager, offrant une continuité visuelle et spatiale inédite.
 </div>
 
 </section>
@@ -355,8 +354,8 @@ alliant intimité et ouverture sur l'environnement.
 
 <a href="villa-gok.html" class="next">
 
-<div class="next-label">
-NEXT PROJECT
+<div class="next-label" data-fr="PROJET SUIVANT" data-en="NEXT PROJECT">
+PROJET SUIVANT
 </div>
 
 <div class="next-title">
@@ -368,6 +367,13 @@ VILLA GOK →
 
 <script>
 
+// Dil Algılama ve Uygulama Scripti
+const currentLang = localStorage.getItem('site_lang') || 'fr';
+document.querySelectorAll('[data-' + currentLang + ']').forEach(el => {
+    el.innerHTML = el.getAttribute('data-' + currentLang);
+});
+
+// Galeri Yükleme
 const gallery=document.querySelector(".gallery");
 const folder=gallery.dataset.folder;
 const maxImages=30;
