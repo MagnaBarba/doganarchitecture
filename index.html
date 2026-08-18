@@ -56,19 +56,12 @@ a{
     pointer-events:none;
 
     opacity:1;
-
-    animation:
-    openingFadeOut .45s 1.72s
-    cubic-bezier(.16,1,.3,1)
-    forwards;
 }
 
 
-/*
-   Bu katman başlangıçta bütün siteyi kapatıyor.
-   Sonradan logo ve kolların hareketiyle
-   "temizlenmiş" hissi veriyor.
-*/
+/* =========================================================
+   OPENING CLEANING MASK
+========================================================= */
 
 .opening-clean{
 
@@ -80,51 +73,128 @@ a{
 
     z-index:1;
 
-    clip-path:
-    polygon(
+    clip-path:polygon(
         0 0,
         100% 0,
         100% 100%,
         0 100%
     );
 
-    animation:
-    openingClean .62s 1.25s
-    cubic-bezier(.16,.75,.25,1)
-    forwards;
 }
 
 
 /* =========================================================
-   OPENING MOVING GROUP
+   OPENING GROUP
 ========================================================= */
 
 .opening-group{
 
     position:absolute;
 
-    left:50%;
+    z-index:5;
 
+    left:50%;
     top:50%;
 
-    width:180px;
-
+    width:100vw;
     height:120px;
 
-    z-index:10;
-
     transform:
-    translate(-50%,-50%);
+        translate(-50%,-50%)
+        rotate(0deg);
+
+    transform-origin:center center;
 
     animation:
-    openingMove 1.08s .82s
-    cubic-bezier(.22,.72,.18,1)
-    forwards;
+        openingGroupIn .45s .50s
+        cubic-bezier(.16,1,.3,1) forwards,
+
+        openingGroupMove 1.05s .95s
+        cubic-bezier(.76,0,.18,1) forwards;
+
 }
 
 
 /* =========================================================
-   LOGO
+   OPENING ARMS
+========================================================= */
+
+.opening-arm{
+
+    position:absolute;
+
+    top:50%;
+
+    width:50vw;
+
+    height:1px;
+
+    background:#fff;
+
+    transform-origin:center center;
+
+    opacity:0;
+
+}
+
+
+.opening-arm.left{
+
+    right:50%;
+
+    transform:
+        translateY(-50%)
+        scaleX(0);
+
+    animation:
+        armIn .45s .50s
+        cubic-bezier(.16,1,.3,1) forwards;
+
+}
+
+
+.opening-arm.right{
+
+    left:50%;
+
+    transform:
+        translateY(-50%)
+        scaleX(0);
+
+    animation:
+        armIn .45s .50s
+        cubic-bezier(.16,1,.3,1) forwards;
+
+}
+
+
+@keyframes armIn{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(-50%)
+            scaleX(0);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(-50%)
+            scaleX(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   OPENING LOGO HOLDER
 ========================================================= */
 
 .opening-logo-holder{
@@ -132,16 +202,14 @@ a{
     position:absolute;
 
     left:50%;
-
     top:50%;
 
     width:120px;
-
     height:120px;
 
     transform:
-    translate(-50%,-50%)
-    scale(.72);
+        translate(-50%,-50%)
+        scale(.72);
 
     border-radius:50%;
 
@@ -157,276 +225,153 @@ a{
 
     opacity:0;
 
+    z-index:10;
+
     animation:
-    openingLogoAppear .30s .50s
-    cubic-bezier(.16,1,.3,1)
-    forwards;
+        openingLogoIn .35s .50s
+        cubic-bezier(.16,1,.3,1) forwards;
+
 }
 
 
 .opening-logo{
 
     width:100%;
-
     height:100%;
 
     object-fit:contain;
 
     display:block;
 
+    background:transparent;
+
     filter:
-    brightness(0)
-    invert(1);
-}
-
-
-/* =========================================================
-   OPENING ARMS
-========================================================= */
-
-.opening-arms{
-
-    position:absolute;
-
-    left:50%;
-
-    top:50%;
-
-    width:100vw;
-
-    height:3px;
-
-    transform:
-    translate(-50%,-50%)
-    scaleX(0);
-
-    transform-origin:center;
-
-    opacity:0;
-
-    z-index:-1;
-
-    animation:
-    armsAppear .40s .62s
-    cubic-bezier(.16,1,.3,1)
-    forwards;
-}
-
-
-.opening-arm{
-
-    position:absolute;
-
-    top:0;
-
-    width:50%;
-
-    height:2px;
-
-    background:#fff;
-
-    transform-origin:center;
-
-    box-shadow:
-    0 0 8px rgba(255,255,255,.08);
-}
-
-
-.opening-arm.left{
-
-    left:0;
-
-}
-
-
-.opening-arm.right{
-
-    right:0;
-
-}
-
-
-/*
-   Hafif daha uzun dış uzantı.
-   Böylece ekranın tamamına kadar gidiyor.
-*/
-
-.opening-arm::after{
-
-    content:"";
-
-    position:absolute;
-
-    top:-1px;
-
-    width:45vw;
-
-    height:4px;
-
-    background:#fff;
-
-    opacity:.95;
-
-}
-
-
-.opening-arm.left::after{
-
-    right:100%;
-
-}
-
-
-.opening-arm.right::after{
-
-    left:100%;
+        brightness(0)
+        invert(1);
 
 }
 
 
 /* =========================================================
-   OPENING LOGO + ARMS ROTATION
+   GROUP ENTER
 ========================================================= */
 
-/*
-   Kollar ve logo aynı opening-group içerisinde.
+@keyframes openingGroupIn{
 
-   Böylece artık:
-   - logo bir yerde
-   - kollar başka yerde
-   gibi görünmüyor.
-
-   Tek parça olarak dönüyorlar.
-*/
-
-@keyframes openingLogoAppear{
-
-    0%{
+    from{
 
         opacity:0;
 
         transform:
-        translate(-50%,-50%)
-        scale(.72);
+            translate(-50%,-50%)
+            rotate(0deg);
 
     }
 
-    100%{
+    to{
 
         opacity:1;
 
         transform:
-        translate(-50%,-50%)
-        scale(1);
+            translate(-50%,-50%)
+            rotate(0deg);
 
     }
 
 }
 
 
-@keyframes armsAppear{
+/* =========================================================
+   LOGO ENTER
+========================================================= */
 
-    0%{
+@keyframes openingLogoIn{
+
+    from{
 
         opacity:0;
 
         transform:
-        translate(-50%,-50%)
-        scaleX(0);
+            translate(-50%,-50%)
+            scale(.72);
 
     }
 
-    100%{
+    to{
 
         opacity:1;
 
         transform:
-        translate(-50%,-50%)
-        scaleX(1);
+            translate(-50%,-50%)
+            scale(1);
 
     }
 
 }
 
 
-/*
-   Logo + kolların ana hareketi.
+/* =========================================================
+   MAIN OPENING MOVEMENT
 
-   0.82 sn:
-   hareket başlıyor.
+   ONE CONTINUOUS ROTATION
 
-   1.50 sn:
-   yolun ortasına geliyor.
+   NO 360° STOP
+========================================================= */
 
-   1.90 sn:
-   sol üste ulaşıyor.
-
-   rotate(0deg)
-   -> rotate(520deg)
-
-   Yani yalnızca 45° değil,
-   gerçek bir topaç gibi dönüyor.
-*/
-
-@keyframes openingMove{
+@keyframes openingGroupMove{
 
     0%{
 
         left:50%;
-
         top:50%;
 
         transform:
-        translate(-50%,-50%)
-        rotate(0deg);
+            translate(-50%,-50%)
+            rotate(0deg);
 
     }
 
     45%{
 
-        left:38%;
-
-        top:38%;
+        left:35%;
+        top:42%;
 
         transform:
-        translate(-50%,-50%)
-        rotate(210deg);
+            translate(-50%,-50%)
+            rotate(-315deg);
 
     }
 
-    65%{
+    70%{
 
-        left:27%;
-
-        top:27%;
+        left:18%;
+        top:25%;
 
         transform:
-        translate(-50%,-50%)
-        rotate(330deg);
+            translate(-50%,-50%)
+            rotate(-540deg);
 
     }
 
-    82%{
+    88%{
 
-        left:14%;
-
-        top:14%;
+        left:7%;
+        top:10%;
 
         transform:
-        translate(-50%,-50%)
-        rotate(440deg);
+            translate(-50%,-50%)
+            rotate(-675deg);
 
     }
 
     100%{
 
-        left:40px;
-
-        top:45px;
+        left:0;
+        top:0;
 
         transform:
-        translate(-50%,-50%)
-        rotate(520deg);
+            translate(-22px,-22px)
+            rotate(-720deg);
 
     }
 
@@ -435,157 +380,54 @@ a{
 
 /* =========================================================
    CLEANING EFFECT
+
+   BLACK FIELD IS REMOVED BY THE MOVING ARMS
 ========================================================= */
 
-/*
-   Buradaki amaç basit bir fade değil.
-
-   Siyah perde, hareket eden grubun
-   arkasından açılıyormuş hissi veriyor.
-
-   Büyük şeffaf bir "temizleme alanı"
-   ortaya çıkıyor ve giderek genişliyor.
-*/
-
-.opening-clean::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:120px;
-
-    height:120px;
-
-    left:50%;
-
-    top:50%;
-
-    border-radius:50%;
-
-    background:transparent;
-
-    transform:
-    translate(-50%,-50%)
-    scale(0);
-
-    box-shadow:
-    0 0 0 0 #111;
+.opening-clean{
 
     animation:
-    cleanStart .70s 1.22s
-    cubic-bezier(.16,1,.3,1)
-    forwards;
+        openingClean 1.05s .95s
+        cubic-bezier(.76,0,.18,1) forwards;
+
 }
 
 
-/*
-   Gerçek temizleme hissini güçlendiren
-   ikinci katman.
-*/
-
-.opening-clean::after{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-
-    radial-gradient(
-        ellipse
-        180px
-        120px
-        at 50% 50%,
-        transparent 0%,
-        transparent 35%,
-        rgba(17,17,17,.98) 70%
-    );
-
-    opacity:0;
-
-    animation:
-    cleaningTrail .65s 1.23s
-    cubic-bezier(.16,1,.3,1)
-    forwards;
-}
-
-
-/*
-   Siyah katmanın büyük kısmını
-   temizleme hissiyle ortadan kaldırıyoruz.
-*/
-
-@keyframes cleanStart{
+@keyframes openingClean{
 
     0%{
 
-        transform:
-        translate(-50%,-50%)
-        scale(0);
-
-        opacity:1;
-
-    }
-
-    35%{
-
-        transform:
-        translate(-50%,-50%)
-        scale(5);
-
-        opacity:1;
+        clip-path:
+            polygon(
+                0 0,
+                100% 0,
+                100% 100%,
+                0 100%
+            );
 
     }
 
-    70%{
+    45%{
 
-        transform:
-        translate(-50%,-50%)
-        scale(12);
-
-        opacity:.75;
-
-    }
-
-    100%{
-
-        transform:
-        translate(-50%,-50%)
-        scale(22);
-
-        opacity:0;
+        clip-path:
+            polygon(
+                0 0,
+                100% 0,
+                100% 100%,
+                0 100%
+            );
 
     }
 
-}
+    55%{
 
-
-@keyframes cleaningTrail{
-
-    0%{
-
-        opacity:0;
-
-        transform:
-        scale(.2);
-
-    }
-
-    25%{
-
-        opacity:.9;
-
-    }
-
-    65%{
-
-        opacity:.55;
-
-        transform:
-        scale(4);
+        clip-path:
+            polygon(
+                100% 0,
+                100% 0,
+                100% 100%,
+                100% 100%
+            );
 
     }
 
@@ -593,8 +435,13 @@ a{
 
         opacity:0;
 
-        transform:
-        scale(10);
+        clip-path:
+            polygon(
+                100% 0,
+                100% 0,
+                100% 100%,
+                100% 100%
+            );
 
     }
 
@@ -602,18 +449,20 @@ a{
 
 
 /* =========================================================
-   OPENING FINAL
+   OPENING END
 ========================================================= */
 
-@keyframes openingFadeOut{
+.opening{
 
-    0%{
+    animation:
+        openingOut .35s 1.90s forwards;
 
-        opacity:1;
+}
 
-    }
 
-    100%{
+@keyframes openingOut{
+
+    to{
 
         opacity:0;
 
@@ -654,7 +503,8 @@ a{
     opacity:0;
 
     transition:
-    opacity .2s ease;
+        opacity .2s ease;
+
 }
 
 
@@ -665,10 +515,13 @@ a{
 }
 
 
+/* =========================================================
+   LOGO
+========================================================= */
+
 .logo-link{
 
     width:45px;
-
     height:45px;
 
     display:block;
@@ -678,8 +531,9 @@ a{
     position:relative;
 
     transition:
-    transform .5s
-    cubic-bezier(.16,1,.3,1);
+        transform .5s
+        cubic-bezier(.16,1,.3,1);
+
 }
 
 
@@ -693,7 +547,6 @@ a{
 .logo-image{
 
     width:100%;
-
     height:100%;
 
     object-fit:contain;
@@ -701,11 +554,12 @@ a{
     display:block;
 
     filter:
-    brightness(0)
-    invert(1);
+        brightness(0)
+        invert(1);
 
     transition:
-    filter .18s ease;
+        filter .18s ease;
+
 }
 
 
@@ -722,6 +576,7 @@ a{
     gap:30px;
 
     pointer-events:auto;
+
 }
 
 
@@ -740,18 +595,23 @@ a{
     color:#fff;
 
     transition:
-    color .18s ease,
-    transform .3s ease;
+        color .18s ease,
+        transform .3s ease;
+
 }
 
 
 .header-link:hover{
 
     transform:
-    translateY(-2px);
+        translateY(-2px);
 
 }
 
+
+/* =========================================================
+   LANGUAGE
+========================================================= */
 
 .language{
 
@@ -771,8 +631,6 @@ a{
 
     letter-spacing:1px;
 
-    transition:
-    color .18s ease;
 }
 
 
@@ -826,6 +684,7 @@ a{
     overflow:hidden;
 
     background:#111;
+
 }
 
 
@@ -836,7 +695,6 @@ a{
     inset:0;
 
     width:100%;
-
     height:100%;
 
     object-fit:cover;
@@ -844,16 +702,19 @@ a{
     transform:scale(1.1);
 
     animation:
-    heroIn 1.6s 1.05s
-    cubic-bezier(.16,1,.3,1)
-    forwards;
+        heroIn 1.6s 1.05s
+        cubic-bezier(.16,1,.3,1)
+        forwards;
+
 }
 
 
 @keyframes heroIn{
 
     to{
+
         transform:scale(1);
+
     }
 
 }
@@ -868,11 +729,12 @@ a{
     inset:0;
 
     background:
-    linear-gradient(
-        to top,
-        rgba(0,0,0,.72),
-        rgba(0,0,0,.08) 65%
-    );
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.72),
+            rgba(0,0,0,.08) 65%
+        );
+
 }
 
 
@@ -887,19 +749,19 @@ a{
     z-index:10;
 
     left:40px;
-
     right:40px;
 
     bottom:42px;
 
     color:#fff;
+
 }
 
 
 .office-name{
 
     font-size:
-    clamp(55px,9.5vw,150px);
+        clamp(55px,9.5vw,150px);
 
     line-height:.82;
 
@@ -912,9 +774,10 @@ a{
     opacity:0;
 
     animation:
-    heroTextIn .8s 1.12s
-    cubic-bezier(.16,1,.3,1)
-    forwards;
+        heroTextIn .8s 1.12s
+        cubic-bezier(.16,1,.3,1)
+        forwards;
+
 }
 
 
@@ -931,22 +794,31 @@ a{
     opacity:0;
 
     animation:
-    heroMetaIn .7s 1.22s
-    cubic-bezier(.16,1,.3,1)
-    forwards;
+        heroMetaIn .7s 1.22s
+        cubic-bezier(.16,1,.3,1)
+        forwards;
+
 }
 
 
 @keyframes heroTextIn{
 
     from{
+
         opacity:0;
-        transform:translateY(70px);
+
+        transform:
+            translateY(70px);
+
     }
 
     to{
+
         opacity:1;
-        transform:translateY(0);
+
+        transform:
+            translateY(0);
+
     }
 
 }
@@ -955,13 +827,21 @@ a{
 @keyframes heroMetaIn{
 
     from{
+
         opacity:0;
-        transform:translateY(20px);
+
+        transform:
+            translateY(20px);
+
     }
 
     to{
+
         opacity:1;
-        transform:translateY(0);
+
+        transform:
+            translateY(0);
+
     }
 
 }
@@ -992,7 +872,8 @@ a{
     opacity:.7;
 
     animation:
-    scrollPulse 2s infinite;
+        scrollPulse 2s infinite;
+
 }
 
 
@@ -1010,7 +891,7 @@ a{
 
 
 /* =========================================================
-   PROJECTS INTRO
+   PROJECT INTRO
 ========================================================= */
 
 .projects-intro{
@@ -1026,6 +907,7 @@ a{
     justify-content:space-between;
 
     align-items:flex-end;
+
 }
 
 
@@ -1036,6 +918,7 @@ a{
     letter-spacing:2px;
 
     text-transform:uppercase;
+
 }
 
 
@@ -1044,13 +927,14 @@ a{
     max-width:600px;
 
     font-size:
-    clamp(24px,3vw,42px);
+        clamp(24px,3vw,42px);
 
     line-height:1.05;
 
     letter-spacing:-1.5px;
 
     font-weight:300;
+
 }
 
 
@@ -1073,23 +957,25 @@ a{
     opacity:0;
 
     transform:
-    translateX(100px)
-    scale(.985);
+        translateX(100px)
+        scale(.985);
 
     transition:
-    opacity .65s
-    cubic-bezier(.16,1,.3,1),
+        opacity .65s
+        cubic-bezier(.16,1,.3,1),
 
-    transform .8s
-    cubic-bezier(.16,1,.3,1);
+        transform .8s
+        cubic-bezier(.16,1,.3,1);
+
 }
 
 
 .project.from-left{
 
     transform:
-    translateX(-100px)
-    scale(.985);
+        translateX(-100px)
+        scale(.985);
+
 }
 
 
@@ -1098,8 +984,24 @@ a{
     opacity:1;
 
     transform:
-    translateX(0)
-    scale(1);
+        translateX(0)
+        scale(1);
+
+}
+
+
+/* =========================================================
+   PROJECT IMAGE
+========================================================= */
+
+.project-link{
+
+    display:block;
+
+    position:relative;
+
+    overflow:hidden;
+
 }
 
 
@@ -1116,24 +1018,30 @@ a{
     display:block;
 
     transform:
-    scale(1.05)
-    translateY(20px);
+        scale(1.05)
+        translateY(20px);
 
     transition:
-    transform 1s
-    cubic-bezier(.16,1,.3,1),
+        transform 1s
+        cubic-bezier(.16,1,.3,1),
 
-    filter .7s ease;
+        filter .7s ease;
+
 }
 
 
 .project.visible .project-image{
 
     transform:
-    scale(1)
-    translateY(0);
+        scale(1)
+        translateY(0);
+
 }
 
+
+/* =========================================================
+   PROJECT OVERLAY
+========================================================= */
 
 .project-link::after{
 
@@ -1144,32 +1052,35 @@ a{
     inset:0;
 
     background:
-    linear-gradient(
-        to top,
-        rgba(0,0,0,.75),
-        transparent 60%
-    );
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.75),
+            transparent 60%
+        );
 
     opacity:.65;
 
     transition:
-    opacity .6s ease;
+        opacity .6s ease;
+
 }
 
 
 .project-link:hover::after{
 
     opacity:.9;
+
 }
 
 
 .project-link:hover .project-image{
 
     transform:
-    scale(1.035);
+        scale(1.035);
 
     filter:
-    brightness(.82);
+        brightness(.82);
+
 }
 
 
@@ -1184,7 +1095,6 @@ a{
     z-index:5;
 
     left:40px;
-
     right:40px;
 
     bottom:35px;
@@ -1198,6 +1108,7 @@ a{
     justify-content:space-between;
 
     pointer-events:none;
+
 }
 
 
@@ -1211,26 +1122,30 @@ a{
 
     opacity:0;
 
-    transform:translateY(15px);
+    transform:
+        translateY(15px);
 
     transition:
-    transform .7s .15s,
-    opacity .7s .15s;
+        transform .7s .15s,
+        opacity .7s .15s;
+
 }
 
 
 .project.visible .project-number{
 
-    transform:translateY(0);
+    transform:
+        translateY(0);
 
     opacity:.7;
+
 }
 
 
 .project-title{
 
     font-size:
-    clamp(50px,8vw,125px);
+        clamp(50px,8vw,125px);
 
     line-height:.82;
 
@@ -1240,23 +1155,27 @@ a{
 
     text-transform:uppercase;
 
-    transform:translateY(40px);
+    transform:
+        translateY(40px);
 
     opacity:0;
 
     transition:
-    transform .8s .2s
-    cubic-bezier(.16,1,.3,1),
+        transform .8s .2s
+        cubic-bezier(.16,1,.3,1),
 
-    opacity .8s .2s;
+        opacity .8s .2s;
+
 }
 
 
 .project.visible .project-title{
 
-    transform:translateY(0);
+    transform:
+        translateY(0);
 
     opacity:1;
+
 }
 
 
@@ -1272,28 +1191,33 @@ a{
 
     text-transform:uppercase;
 
-    transform:translateY(20px);
+    transform:
+        translateY(20px);
 
     opacity:0;
 
     transition:
-    transform .7s .3s,
-    opacity .7s .3s;
+        transform .7s .3s,
+        opacity .7s .3s;
+
 }
 
 
 .project.visible .project-details{
 
-    transform:translateY(0);
+    transform:
+        translateY(0);
 
     opacity:1;
+
 }
 
 
 .project-link:hover .project-title{
 
     transform:
-    translateX(15px);
+        translateX(15px);
+
 }
 
 
@@ -1316,6 +1240,7 @@ a{
     grid-template-columns:1fr 1fr;
 
     gap:80px;
+
 }
 
 
@@ -1324,6 +1249,7 @@ a{
     font-size:10px;
 
     letter-spacing:2px;
+
 }
 
 
@@ -1332,13 +1258,14 @@ a{
     margin-top:45px;
 
     font-size:
-    clamp(55px,9vw,135px);
+        clamp(55px,9vw,135px);
 
     line-height:.82;
 
     letter-spacing:-6px;
 
     font-weight:500;
+
 }
 
 
@@ -1349,21 +1276,19 @@ a{
     font-size:13px;
 
     line-height:2;
+
 }
 
 
 .contact-info a{
 
     border-bottom:
-    1px solid #777;
+        1px solid #777;
+
 }
 
 
-/* =========================================================
-   INSTAGRAM
-========================================================= */
-
-.instagram-link{
+.contact-instagram{
 
     display:inline-flex;
 
@@ -1371,40 +1296,29 @@ a{
 
     gap:9px;
 
-    margin-top:2px;
-
-    border-bottom:
-    1px solid #777 !important;
+    margin-top:0;
 
     font-size:13px;
 
-    line-height:1.4;
+    line-height:1;
 
-    transition:
-    opacity .25s ease;
-}
-
-
-.instagram-link:hover{
-
-    opacity:.6;
 }
 
 
 .instagram-icon{
 
-    width:16px;
+    width:17px;
 
-    height:16px;
+    height:17px;
 
     display:block;
 
-    filter:
-    brightness(0)
-    invert(1);
+    object-fit:contain;
 
-    transition:
-    filter .18s ease;
+    filter:
+        brightness(0)
+        invert(1);
+
 }
 
 
@@ -1419,6 +1333,7 @@ a{
     text-transform:uppercase;
 
     color:#aaa;
+
 }
 
 
@@ -1435,7 +1350,7 @@ a{
     color:#fff;
 
     border-top:
-    1px solid #333;
+        1px solid #333;
 
     display:flex;
 
@@ -1446,6 +1361,7 @@ a{
     letter-spacing:1.5px;
 
     text-transform:uppercase;
+
 }
 
 
@@ -1460,20 +1376,22 @@ a{
         height:70px;
 
         padding:0 18px;
+
     }
 
 
     .logo-link{
 
         width:36px;
-
         height:36px;
+
     }
 
 
     .header-right{
 
         gap:14px;
+
     }
 
 
@@ -1485,33 +1403,40 @@ a{
         font-size:8px;
 
         letter-spacing:.8px;
+
     }
 
 
     .hero{
 
         min-height:600px;
+
     }
 
 
     .hero-content{
 
         left:18px;
-
         right:18px;
 
         bottom:30px;
+
     }
 
 
     .office-name{
 
         font-size:
-        clamp(42px,13vw,75px);
+            clamp(42px,13vw,75px);
 
         line-height:.88;
 
         letter-spacing:-3px;
+
+        white-space:normal;
+
+        word-break:normal;
+
     }
 
 
@@ -1522,6 +1447,7 @@ a{
         font-size:8px;
 
         letter-spacing:1.2px;
+
     }
 
 
@@ -1532,6 +1458,7 @@ a{
         bottom:30px;
 
         font-size:8px;
+
     }
 
 
@@ -1540,7 +1467,8 @@ a{
         display:block;
 
         padding:
-        100px 18px 70px;
+            100px 18px 70px;
+
     }
 
 
@@ -1551,6 +1479,7 @@ a{
         font-size:25px;
 
         line-height:1.05;
+
     }
 
 
@@ -1559,24 +1488,27 @@ a{
         margin-bottom:5px;
 
         transform:
-        translateX(60px)
-        scale(.985);
+            translateX(60px)
+            scale(.985);
+
     }
 
 
     .project.from-left{
 
         transform:
-        translateX(-60px)
-        scale(.985);
+            translateX(-60px)
+            scale(.985);
+
     }
 
 
     .project.visible{
 
         transform:
-        translateX(0)
-        scale(1);
+            translateX(0)
+            scale(1);
+
     }
 
 
@@ -1585,18 +1517,19 @@ a{
         height:72svh;
 
         min-height:500px;
+
     }
 
 
     .project-info{
 
         left:18px;
-
         right:18px;
 
         bottom:22px;
 
         display:block;
+
     }
 
 
@@ -1605,17 +1538,19 @@ a{
         font-size:8px;
 
         margin-bottom:10px;
+
     }
 
 
     .project-title{
 
         font-size:
-        clamp(42px,12vw,72px);
+            clamp(42px,12vw,72px);
 
         line-height:.86;
 
         letter-spacing:-3px;
+
     }
 
 
@@ -1628,6 +1563,7 @@ a{
         font-size:8px;
 
         line-height:1.7;
+
     }
 
 
@@ -1636,7 +1572,8 @@ a{
         display:block;
 
         padding:
-        100px 18px;
+            100px 18px;
+
     }
 
 
@@ -1645,9 +1582,10 @@ a{
         margin-top:35px;
 
         font-size:
-        clamp(48px,13vw,75px);
+            clamp(48px,13vw,75px);
 
         letter-spacing:-3px;
+
     }
 
 
@@ -1656,21 +1594,13 @@ a{
         margin-top:70px;
 
         font-size:12px;
+
     }
 
 
-    .instagram-link{
+    .contact-instagram{
 
         font-size:12px;
-
-    }
-
-
-    .instagram-icon{
-
-        width:15px;
-
-        height:15px;
 
     }
 
@@ -1678,17 +1608,9 @@ a{
     .footer{
 
         padding:
-        22px 18px;
+            22px 18px;
 
         font-size:8px;
-    }
-
-
-    .opening-group{
-
-        width:140px;
-
-        height:100px;
 
     }
 
@@ -1696,82 +1618,17 @@ a{
     .opening-logo-holder{
 
         width:90px;
-
         height:90px;
 
     }
 
 
-    .opening-arm::after{
+    .opening-group{
 
-        width:50vw;
-
-    }
-
-
-    @keyframes openingMove{
-
-        0%{
-
-            left:50%;
-
-            top:50%;
-
-            transform:
-            translate(-50%,-50%)
-            rotate(0deg);
-
-        }
-
-        45%{
-
-            left:38%;
-
-            top:38%;
-
-            transform:
-            translate(-50%,-50%)
-            rotate(210deg);
-
-        }
-
-        65%{
-
-            left:27%;
-
-            top:27%;
-
-            transform:
-            translate(-50%,-50%)
-            rotate(330deg);
-
-        }
-
-        82%{
-
-            left:14%;
-
-            top:14%;
-
-            transform:
-            translate(-50%,-50%)
-            rotate(440deg);
-
-        }
-
-        100%{
-
-            left:28px;
-
-            top:35px;
-
-            transform:
-            translate(-50%,-50%)
-            rotate(520deg);
-
-        }
+        height:90px;
 
     }
+
 
 }
 
@@ -1793,6 +1650,7 @@ a{
         transition-duration:.01ms !important;
 
         scroll-behavior:auto !important;
+
     }
 
 }
@@ -1816,13 +1674,9 @@ a{
 
     <div class="opening-group">
 
-        <div class="opening-arms">
+        <div class="opening-arm left"></div>
 
-            <div class="opening-arm left"></div>
-
-            <div class="opening-arm right"></div>
-
-        </div>
+        <div class="opening-arm right"></div>
 
 
         <div class="opening-logo-holder">
@@ -1874,10 +1728,10 @@ a{
         <a
             href="equipe.html"
             class="header-link"
-            data-fr="ÉQUIPE"
+            data-fr="EQUIPE"
             data-en="TEAM">
 
-            ÉQUIPE
+            EQUIPE
 
         </a>
 
@@ -2404,7 +2258,7 @@ a{
             href="https://www.instagram.com/dogan.architecture/"
             target="_blank"
             rel="noopener noreferrer"
-            class="instagram-link">
+            class="contact-instagram">
 
             <img
                 src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
@@ -2549,12 +2403,11 @@ new IntersectionObserver(
             }else{
 
                 /*
-                   ÖNEMLİ:
-                   Sayfadan çıkınca class kaldırılıyor.
-
-                   Böylece yukarı çıkarken aynı
-                   animasyon reverse olarak tekrar
-                   çalışıyor.
+                   IMPORTANT:
+                   When scrolling back up,
+                   the animation is reset.
+                   Therefore it plays in reverse
+                   naturally when the element enters again.
                 */
 
                 entry.target.classList.remove(
@@ -2571,7 +2424,7 @@ new IntersectionObserver(
         threshold:.12,
 
         rootMargin:
-        "0px 0px -5% 0px"
+            "0px 0px -5% 0px"
     }
 
 );
@@ -2655,6 +2508,10 @@ Array.from(
 );
 
 
+/* =========================================================
+   IMAGE LUMINANCE
+========================================================= */
+
 function getImageLuminance(
     image,
     x,
@@ -2666,7 +2523,7 @@ function getImageLuminance(
         !image.naturalWidth
     ){
 
-        return .5;
+        return 0.5;
 
     }
 
@@ -2689,6 +2546,7 @@ function getImageLuminance(
 
     const width =
     image.naturalWidth;
+
 
     const height =
     image.naturalHeight;
@@ -2801,7 +2659,7 @@ function getImageLuminance(
 
     }catch(error){
 
-        return .5;
+        return 0.5;
 
     }
 
@@ -2854,10 +2712,14 @@ function getImageLuminance(
 
     return count
         ? total / count
-        : .5;
+        : 0.5;
 
 }
 
+
+/* =========================================================
+   BACKGROUND UNDER POINT
+========================================================= */
 
 function getBackgroundLuminance(
     x,
@@ -2898,10 +2760,14 @@ function getBackgroundLuminance(
     }
 
 
-    return .067;
+    return 0.067;
 
 }
 
+
+/* =========================================================
+   HEADER COLOR
+========================================================= */
 
 function updateHeaderColor(){
 
@@ -2912,7 +2778,9 @@ function updateHeaderColor(){
 
 
     if(
-        !header.classList.contains("ready")
+        !header.classList.contains(
+            "ready"
+        )
     ){
 
         return;
@@ -3052,20 +2920,15 @@ function updateHeaderColor(){
             link.getBoundingClientRect();
 
 
-            const x =
-            rect.left +
-            rect.width / 2;
-
-
-            const y =
-            rect.top +
-            rect.height / 2;
-
-
             const brightness =
             getBackgroundLuminance(
-                x,
-                y
+
+                rect.left +
+                rect.width / 2,
+
+                rect.top +
+                rect.height / 2
+
             );
 
 
@@ -3119,6 +2982,10 @@ function updateHeaderColor(){
 
 }
 
+
+/* =========================================================
+   COLOR UPDATE
+========================================================= */
 
 let colorUpdateRunning = false;
 
@@ -3232,7 +3099,7 @@ setTimeout(
 
     },
 
-    2100
+    2000
 
 );
 
