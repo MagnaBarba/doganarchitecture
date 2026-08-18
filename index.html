@@ -44,76 +44,125 @@ a{
 .opening{
 
     position:fixed;
+
     inset:0;
 
     background:#111;
 
     z-index:99999;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    overflow:hidden;
 
     pointer-events:none;
 
-    animation:openingOut .35s 1.15s forwards;
+    animation:
+    openingOut .01s 2s forwards;
 }
 
 
-.opening-line{
+/* =========================================================
+   OPENING WIPE
+========================================================= */
+
+.opening-wipe{
 
     position:absolute;
 
-    left:0;
-    top:50%;
+    inset:-20%;
 
-    width:0;
-    height:1px;
+    background:#111;
 
-    background:#fff;
+    z-index:1;
 
-    transform:translateY(-50%);
+    transform:
+    rotate(-16deg)
+    scale(1.2);
+
+    transform-origin:
+    50% 50%;
+
+    clip-path:
+    polygon(
+        0 0,
+        100% 0,
+        100% 100%,
+        0 100%
+    );
 
     animation:
-    lineIn .45s .05s
+    wipeAway .5s 1.5s
     cubic-bezier(.16,1,.3,1)
     forwards;
 }
 
 
-.opening-logo-holder{
+@keyframes wipeAway{
 
-    position:relative;
-    z-index:2;
+    0%{
+        clip-path:
+        polygon(
+            0 0,
+            100% 0,
+            100% 100%,
+            0 100%
+        );
+    }
 
-    width:120px;
-    height:120px;
+    100%{
+        clip-path:
+        polygon(
+            100% 0,
+            100% 0,
+            100% 100%,
+            100% 100%
+        );
+    }
 
-    border-radius:50%;
-
-    background:#111;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    overflow:hidden;
-
-    opacity:0;
-
-    transform:scale(.75);
-
-    animation:
-    openingLogoHolderIn .35s .25s forwards,
-    openingLogoHolderOut .55s .65s
-    cubic-bezier(.16,1,.3,1) forwards;
 }
 
 
+/* =========================================================
+   OPENING GRAPHIC
+========================================================= */
+
+.opening-graphic{
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:340px;
+    height:120px;
+
+    z-index:3;
+
+    transform:
+    translate(-50%,-50%);
+
+    animation:
+    openingMove 1s 1s
+    cubic-bezier(.16,1,.3,1)
+    forwards;
+}
+
+
+/*
+   Logo + kollar tek bir sistem.
+*/
+
 .opening-logo{
 
-    width:100%;
-    height:100%;
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:100px;
+    height:100px;
+
+    transform:
+    translate(-50%,-50%);
 
     object-fit:contain;
 
@@ -121,72 +170,190 @@ a{
     brightness(0)
     invert(1);
 
+    opacity:0;
+
     animation:
-    openingLogoColor .5s .65s
+    openingLogoIn .45s .5s
     cubic-bezier(.16,1,.3,1)
     forwards;
 }
 
 
-@keyframes lineIn{
+/* =========================================================
+   ARMS
+========================================================= */
 
-    to{
-        width:100%;
-    }
+.opening-arm{
 
+    position:absolute;
+
+    top:50%;
+
+    width:125px;
+    height:1px;
+
+    background:#fff;
+
+    transform-origin:
+    center center;
+
+    opacity:0;
+
+    animation:
+    openingArmsIn .45s .55s
+    cubic-bezier(.16,1,.3,1)
+    forwards;
 }
 
 
-@keyframes openingLogoHolderIn{
+.opening-arm.left{
 
-    to{
-        opacity:1;
-        transform:scale(1);
-    }
+    right:calc(50% + 48px);
 
+    transform:
+    translateY(-50%)
+    scaleX(0);
+
+    transform-origin:right center;
 }
 
 
-@keyframes openingLogoHolderOut{
+.opening-arm.right{
 
-    to{
+    left:calc(50% + 48px);
 
-        opacity:0;
+    transform:
+    translateY(-50%)
+    scaleX(0);
 
-        transform:
-        scale(.45)
-        translate(
-            calc(-50vw + 75px),
-            calc(-50vh + 50px)
-        );
-
-    }
-
+    transform-origin:left center;
 }
 
 
-@keyframes openingLogoColor{
+/* =========================================================
+   OPENING LOGO IN
+========================================================= */
+
+@keyframes openingLogoIn{
 
     0%{
-        filter:
-        brightness(0)
-        invert(1);
+        opacity:0;
+        transform:
+        translate(-50%,-50%)
+        scale(.65);
     }
 
     100%{
-        filter:
-        brightness(0)
-        invert(0);
+        opacity:1;
+        transform:
+        translate(-50%,-50%)
+        scale(1);
     }
 
 }
 
+
+@keyframes openingArmsIn{
+
+    0%{
+        opacity:0;
+        transform:
+        translateY(-50%)
+        scaleX(0);
+    }
+
+    100%{
+        opacity:1;
+        transform:
+        translateY(-50%)
+        scaleX(1);
+    }
+
+}
+
+
+/* =========================================================
+   ORBITAL MOVEMENT
+========================================================= */
+
+@keyframes openingMove{
+
+    0%{
+
+        left:50%;
+        top:50%;
+
+        transform:
+        translate(-50%,-50%)
+        rotate(0deg);
+
+    }
+
+    100%{
+
+        left:40px;
+        top:45px;
+
+        transform:
+        translate(-50%,-50%)
+        rotate(-48deg);
+
+    }
+
+}
+
+
+/* =========================================================
+   ARMS DISAPPEAR
+========================================================= */
+
+.opening-arm.left{
+
+    animation:
+    openingArmsIn .45s .55s
+    cubic-bezier(.16,1,.3,1) forwards,
+    armsDisappear .5s 1.5s
+    cubic-bezier(.16,1,.3,1) forwards;
+}
+
+
+.opening-arm.right{
+
+    animation:
+    openingArmsIn .45s .55s
+    cubic-bezier(.16,1,.3,1) forwards,
+    armsDisappear .5s 1.5s
+    cubic-bezier(.16,1,.3,1) forwards;
+}
+
+
+@keyframes armsDisappear{
+
+    0%{
+        opacity:1;
+        width:125px;
+    }
+
+    100%{
+        opacity:0;
+        width:0;
+    }
+
+}
+
+
+/* =========================================================
+   OPENING END
+========================================================= */
 
 @keyframes openingOut{
 
     to{
+
         opacity:0;
+
         visibility:hidden;
+
     }
 
 }
@@ -204,12 +371,15 @@ a{
     left:0;
 
     width:100%;
+
     height:90px;
 
     padding:0 40px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
 
     z-index:5000;
@@ -218,18 +388,18 @@ a{
 
     opacity:0;
 
-    transition:opacity .2s ease;
+    transition:
+    opacity .2s ease;
+
 }
 
 
 .header.ready{
+
     opacity:1;
+
 }
 
-
-/* =========================================================
-   LOGO
-========================================================= */
 
 .logo-link{
 
@@ -240,6 +410,8 @@ a{
 
     pointer-events:auto;
 
+    position:relative;
+
     transition:
     transform .5s
     cubic-bezier(.16,1,.3,1);
@@ -247,7 +419,9 @@ a{
 
 
 .logo-link:hover{
+
     transform:scale(1.08);
+
 }
 
 
@@ -264,7 +438,8 @@ a{
     brightness(0)
     invert(1);
 
-    transition:filter .18s ease;
+    transition:
+    filter .18s ease;
 }
 
 
@@ -275,6 +450,7 @@ a{
 .header-right{
 
     display:flex;
+
     align-items:center;
 
     gap:30px;
@@ -304,13 +480,17 @@ a{
 
 
 .header-link:hover{
-    transform:translateY(-2px);
+
+    transform:
+    translateY(-2px);
+
 }
 
 
 .language{
 
     display:flex;
+
     align-items:center;
 
     gap:5px;
@@ -322,15 +502,18 @@ a{
     color:#fff;
 
     font-size:10px;
+
     letter-spacing:1px;
 
-    transition:color .18s ease;
+    transition:
+    color .18s ease;
 }
 
 
 .language button{
 
     border:0;
+
     background:none;
 
     color:inherit;
@@ -342,16 +525,21 @@ a{
     padding:0;
 
     opacity:.4;
+
 }
 
 
 .language button.active{
+
     opacity:1;
+
 }
 
 
 .language span{
+
     opacity:.35;
+
 }
 
 
@@ -362,6 +550,7 @@ a{
 .hero{
 
     width:100%;
+
     height:100svh;
 
     min-height:600px;
@@ -377,9 +566,11 @@ a{
 .hero-image{
 
     position:absolute;
+
     inset:0;
 
     width:100%;
+
     height:100%;
 
     object-fit:cover;
@@ -407,6 +598,7 @@ a{
     content:"";
 
     position:absolute;
+
     inset:0;
 
     background:
@@ -429,7 +621,9 @@ a{
     z-index:10;
 
     left:40px;
+
     right:40px;
+
     bottom:42px;
 
     color:#fff;
@@ -508,7 +702,7 @@ a{
 
 
 /* =========================================================
-   SCROLL
+   SCROLL INDICATOR
 ========================================================= */
 
 .scroll-indicator{
@@ -518,6 +712,7 @@ a{
     z-index:10;
 
     right:40px;
+
     bottom:42px;
 
     color:#fff;
@@ -530,7 +725,8 @@ a{
 
     opacity:.7;
 
-    animation:scrollPulse 2s infinite;
+    animation:
+    scrollPulse 2s infinite;
 }
 
 
@@ -641,6 +837,10 @@ a{
 }
 
 
+/* =========================================================
+   PROJECT IMAGE
+========================================================= */
+
 .project-link{
 
     display:block;
@@ -692,6 +892,7 @@ a{
     content:"";
 
     position:absolute;
+
     inset:0;
 
     background:
@@ -703,20 +904,24 @@ a{
 
     opacity:.65;
 
-    transition:opacity .6s ease;
+    transition:
+    opacity .6s ease;
 }
 
 
 .project-link:hover::after{
+
     opacity:.9;
 }
 
 
 .project-link:hover .project-image{
 
-    transform:scale(1.035);
+    transform:
+    scale(1.035);
 
-    filter:brightness(.82);
+    filter:
+    brightness(.82);
 }
 
 
@@ -731,7 +936,9 @@ a{
     z-index:5;
 
     left:40px;
+
     right:40px;
+
     bottom:35px;
 
     color:#fff;
@@ -836,7 +1043,9 @@ a{
 
 
 .project-link:hover .project-title{
-    transform:translateX(15px);
+
+    transform:
+    translateX(15px);
 }
 
 
@@ -902,6 +1111,49 @@ a{
 }
 
 
+/* =========================================================
+   INSTAGRAM
+========================================================= */
+
+.instagram-link{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-top:20px;
+
+    border-bottom:1px solid #777;
+
+    transition:
+    opacity .25s ease,
+    transform .3s ease;
+}
+
+
+.instagram-link:hover{
+
+    opacity:.65;
+
+    transform:
+    translateX(4px);
+}
+
+
+.instagram-icon{
+
+    width:16px;
+
+    height:16px;
+
+    display:block;
+
+    fill:currentColor;
+}
+
+
 .contact-small{
 
     margin-top:35px;
@@ -960,17 +1212,21 @@ a{
     .logo-link{
 
         width:36px;
+
         height:36px;
     }
 
 
     .header-right{
+
         gap:14px;
     }
 
 
     .header-link,
     .language{
+
+        padding:4px 0;
 
         font-size:8px;
 
@@ -979,6 +1235,7 @@ a{
 
 
     .hero{
+
         min-height:600px;
     }
 
@@ -986,7 +1243,9 @@ a{
     .hero-content{
 
         left:18px;
+
         right:18px;
+
         bottom:30px;
     }
 
@@ -999,6 +1258,10 @@ a{
         line-height:.88;
 
         letter-spacing:-3px;
+
+        white-space:normal;
+
+        word-break:normal;
     }
 
 
@@ -1015,6 +1278,7 @@ a{
     .scroll-indicator{
 
         right:18px;
+
         bottom:30px;
 
         font-size:8px;
@@ -1077,10 +1341,20 @@ a{
     .project-info{
 
         left:18px;
+
         right:18px;
+
         bottom:22px;
 
         display:block;
+    }
+
+
+    .project-number{
+
+        font-size:8px;
+
+        margin-bottom:10px;
     }
 
 
@@ -1102,6 +1376,8 @@ a{
         text-align:left;
 
         font-size:8px;
+
+        line-height:1.7;
     }
 
 
@@ -1133,6 +1409,12 @@ a{
     }
 
 
+    .instagram-link{
+
+        margin-top:18px;
+    }
+
+
     .footer{
 
         padding:
@@ -1142,10 +1424,35 @@ a{
     }
 
 
-    .opening-logo-holder{
+    .opening-graphic{
+
+        width:260px;
+        height:100px;
+    }
+
+
+    .opening-logo{
+
+        width:82px;
+        height:82px;
+    }
+
+
+    .opening-arm{
 
         width:90px;
-        height:90px;
+    }
+
+
+    .opening-arm.left{
+
+        right:calc(50% + 39px);
+    }
+
+
+    .opening-arm.right{
+
+        left:calc(50% + 39px);
     }
 
 }
@@ -1186,14 +1493,18 @@ a{
 
 <div class="opening">
 
-    <div class="opening-line"></div>
+    <div class="opening-wipe"></div>
 
-    <div class="opening-logo-holder">
+    <div class="opening-graphic">
+
+        <div class="opening-arm left"></div>
 
         <img
             src="images/logo.png"
             class="opening-logo"
             alt="DOGAN ARCHITECTURE">
+
+        <div class="opening-arm right"></div>
 
     </div>
 
@@ -1232,12 +1543,9 @@ a{
         </a>
 
 
-        <!-- SADECE BURADA ÉQUIPE VAR -->
         <a
             href="equipe.html"
-            class="header-link"
-            data-fr="ÉQUIPE"
-            data-en="TEAM">
+            class="header-link">
 
             ÉQUIPE
 
@@ -1267,7 +1575,8 @@ a{
 
             <span>/</span>
 
-            <button id="enBtn">
+            <button
+                id="enBtn">
 
                 EN
 
@@ -1751,17 +2060,43 @@ a{
 
     <div class="contact-info">
 
-        <a href="tel:+330658036077">
+        <a href="tel:+33658036077">
             +33 6 58 03 60 77
         </a>
 
         <br>
 
-        60180 Nogent-sur-Oise
+        20 Rue Verdi
+
+        <br>
+
+        93130 Noisy-le-Sec
 
         <br>
 
         France
+
+
+        <!-- INSTAGRAM -->
+
+        <a
+            href="https://www.instagram.com/dogan.architecture/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="instagram-link">
+
+            <svg
+                class="instagram-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true">
+
+                <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm5.25-3.25a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5Z"/>
+
+            </svg>
+
+            dogan.architecture
+
+        </a>
 
 
         <div class="contact-small">
@@ -1828,11 +2163,13 @@ function changeLanguage(language){
     if(language === "fr"){
 
         frBtn.classList.add("active");
+
         enBtn.classList.remove("active");
 
     }else{
 
         enBtn.classList.add("active");
+
         frBtn.classList.remove("active");
 
     }
@@ -1858,19 +2195,27 @@ enBtn.addEventListener(
 );
 
 
+const savedLanguage =
+localStorage.getItem(
+    "dogan-language"
+);
+
+
 changeLanguage(
-    localStorage.getItem(
-        "dogan-language"
-    ) || "fr"
+    savedLanguage || "fr"
 );
 
 
 /* =========================================================
    PROJECT REVEAL
+   AŞAĞI GİRER
+   YUKARI GERİ ÇIKAR
 ========================================================= */
 
 const projects =
-document.querySelectorAll(".project");
+document.querySelectorAll(
+    ".project"
+);
 
 
 const projectObserver =
@@ -1882,7 +2227,24 @@ new IntersectionObserver(
 
             if(entry.isIntersecting){
 
-                entry.target.classList.add("visible");
+                entry.target.classList.add(
+                    "visible"
+                );
+
+            }else{
+
+                /*
+                   ÖNEMLİ:
+                   Artık görünümden çıkınca
+                   visible kaldırılıyor.
+
+                   Böylece yukarı çıkarken
+                   animasyon tersine dönüyor.
+                */
+
+                entry.target.classList.remove(
+                    "visible"
+                );
 
             }
 
@@ -1892,17 +2254,23 @@ new IntersectionObserver(
 
     {
         threshold:.12,
-        rootMargin:"0px 0px -5% 0px"
+
+        rootMargin:
+        "0px 0px -5% 0px"
     }
 
 );
 
 
-projects.forEach(project => {
+projects.forEach(
+    project => {
 
-    projectObserver.observe(project);
+        projectObserver.observe(
+            project
+        );
 
-});
+    }
+);
 
 
 /* =========================================================
@@ -1916,18 +2284,26 @@ window.addEventListener(
     () => {
 
         const hero =
-        document.querySelector(".hero-image");
+        document.querySelector(
+            ".hero-image"
+        );
+
 
         if(!hero) return;
+
 
         const scroll =
         window.scrollY;
 
-        if(scroll < window.innerHeight){
+
+        if(
+            scroll <
+            window.innerHeight
+        ){
 
             hero.style.transform =
-            `scale(1.03)
-             translateY(${scroll * .08}px)`;
+                `scale(1.03)
+                 translateY(${scroll * .08}px)`;
 
         }
 
@@ -1941,7 +2317,7 @@ window.addEventListener(
 
 
 /* =========================================================
-   HEADER COLOR
+   SMART HEADER COLOR
 ========================================================= */
 
 const colorCanvas =
@@ -1964,13 +2340,23 @@ Array.from(
 );
 
 
-function getImageLuminance(image,x,y){
+/* =========================================================
+   IMAGE LUMINANCE
+========================================================= */
+
+function getImageLuminance(
+    image,
+    x,
+    y
+){
 
     if(
         !image.complete ||
         !image.naturalWidth
     ){
-        return .5;
+
+        return 0.5;
+
     }
 
 
@@ -1984,15 +2370,19 @@ function getImageLuminance(image,x,y){
         y < rect.top ||
         y > rect.bottom
     ){
+
         return null;
+
     }
 
 
     const width =
     image.naturalWidth;
 
+
     const height =
     image.naturalHeight;
+
 
     const boxWidth =
     rect.width;
@@ -2000,20 +2390,24 @@ function getImageLuminance(image,x,y){
     const boxHeight =
     rect.height;
 
+
     const imageRatio =
     width / height;
 
     const boxRatio =
     boxWidth / boxHeight;
 
+
     let renderedWidth;
     let renderedHeight;
 
-    let offsetX=0;
-    let offsetY=0;
+    let offsetX = 0;
+    let offsetY = 0;
 
 
-    if(imageRatio > boxRatio){
+    if(
+        imageRatio > boxRatio
+    ){
 
         renderedHeight =
         boxHeight;
@@ -2022,7 +2416,7 @@ function getImageLuminance(image,x,y){
         boxHeight * imageRatio;
 
         offsetX =
-        (renderedWidth-boxWidth)/2;
+        (renderedWidth - boxWidth) / 2;
 
     }else{
 
@@ -2033,54 +2427,71 @@ function getImageLuminance(image,x,y){
         boxWidth / imageRatio;
 
         offsetY =
-        (renderedHeight-boxHeight)/2;
+        (renderedHeight - boxHeight) / 2;
 
     }
 
 
     const localX =
-    x-rect.left;
+    x - rect.left;
 
     const localY =
-    y-rect.top;
+    y - rect.top;
 
 
     const imageX =
-    (localX+offsetX)
-    /renderedWidth
-    *width;
+    (
+        localX +
+        offsetX
+    )
+    /
+    renderedWidth
+    *
+    width;
 
 
     const imageY =
-    (localY+offsetY)
-    /renderedHeight
-    *height;
+    (
+        localY +
+        offsetY
+    )
+    /
+    renderedHeight
+    *
+    height;
 
 
-    const sampleSize=7;
+    const sampleSize = 7;
 
 
-    colorCanvas.width=sampleSize;
-    colorCanvas.height=sampleSize;
+    colorCanvas.width =
+    sampleSize;
+
+    colorCanvas.height =
+    sampleSize;
 
 
     try{
 
         colorContext.drawImage(
+
             image,
-            imageX-3,
-            imageY-3,
+
+            imageX - 3,
+            imageY - 3,
             7,
             7,
+
             0,
             0,
             7,
             7
+
         );
 
     }catch(error){
 
-        return .5;
+        return 0.5;
 
     }
 
@@ -2094,28 +2505,37 @@ function getImageLuminance(image,x,y){
     ).data;
 
 
-    let total=0;
-    let count=0;
+    let total = 0;
+
+    let count = 0;
 
 
     for(
-        let i=0;
-        i<pixels.length;
-        i+=4
+        let i = 0;
+        i < pixels.length;
+        i += 4
     ){
 
-        const r=pixels[i];
-        const g=pixels[i+1];
-        const b=pixels[i+2];
+        const r =
+        pixels[i];
+
+        const g =
+        pixels[i + 1];
+
+        const b =
+        pixels[i + 2];
 
 
-        total +=
-        (
-            .2126*r+
-            .7152*g+
-            .0722*b
-        )/255;
+        const luminance =
+            (
+                0.2126 * r +
+                0.7152 * g +
+                0.0722 * b
+            )
+            / 255;
 
+
+        total += luminance;
 
         count++;
 
@@ -2123,13 +2543,22 @@ function getImageLuminance(image,x,y){
 
 
     return count
-        ? total/count
-        : .5;
+        ?
+        total / count
+        :
+        0.5;
 
 }
 
 
-function getBackgroundLuminance(x,y){
+/* =========================================================
+   FIND BACKGROUND
+========================================================= */
+
+function getBackgroundLuminance(
+    x,
+    y
+){
 
     for(
         const image of backgroundImages
@@ -2140,99 +2569,224 @@ function getBackgroundLuminance(x,y){
 
 
         if(
-            x>=rect.left &&
-            x<=rect.right &&
-            y>=rect.top &&
-            y<=rect.bottom
+            x >= rect.left &&
+            x <= rect.right &&
+            y >= rect.top &&
+            y <= rect.bottom
         ){
 
-            return getImageLuminance(
+            const result =
+            getImageLuminance(
                 image,
                 x,
                 y
             );
+
+
+            if(result !== null){
+
+                return result;
+
+            }
 
         }
 
     }
 
 
-    return .067;
+    return 0.067;
 
 }
 
 
+/* =========================================================
+   SMART HEADER COLOR
+========================================================= */
+
 function updateHeaderColor(){
 
     const header =
-    document.querySelector(".header");
+    document.querySelector(
+        ".header"
+    );
 
 
     if(
-        !header.classList.contains("ready")
+        !header.classList.contains(
+            "ready"
+        )
     ){
+
         return;
+
     }
 
 
     const logo =
-    document.querySelector(".logo-link");
+    document.querySelector(
+        ".logo-link"
+    );
+
+
+    const links =
+    document.querySelectorAll(
+        ".header-link"
+    );
+
+
+    const language =
+    document.querySelector(
+        ".language"
+    );
 
 
     const logoRect =
     logo.getBoundingClientRect();
 
 
-    const logoBrightness =
-    getBackgroundLuminance(
-        logoRect.left+
-        logoRect.width/2,
+    const logoPoints = [
 
-        logoRect.top+
-        logoRect.height/2
+        [
+            logoRect.left +
+            logoRect.width * .5,
+
+            logoRect.top +
+            logoRect.height * .5
+        ],
+
+        [
+            logoRect.left +
+            logoRect.width * .25,
+
+            logoRect.top +
+            logoRect.height * .25
+        ],
+
+        [
+            logoRect.left +
+            logoRect.width * .75,
+
+            logoRect.top +
+            logoRect.height * .25
+        ],
+
+        [
+            logoRect.left +
+            logoRect.width * .25,
+
+            logoRect.top +
+            logoRect.height * .75
+        ],
+
+        [
+            logoRect.left +
+            logoRect.width * .75,
+
+            logoRect.top +
+            logoRect.height * .75
+        ]
+
+    ];
+
+
+    let logoBrightness = 0;
+
+    let logoCount = 0;
+
+
+    logoPoints.forEach(
+        point => {
+
+            const value =
+            getBackgroundLuminance(
+                point[0],
+                point[1]
+            );
+
+
+            if(value !== null){
+
+                logoBrightness += value;
+
+                logoCount++;
+
+            }
+
+        }
     );
 
 
-    const logoImage =
-    document.querySelector(".logo-image");
-
-
-    logoImage.style.filter =
-    logoBrightness < .38
+    logoBrightness =
+    logoCount
     ?
-    "brightness(0) invert(1)"
+    logoBrightness / logoCount
     :
-    "brightness(0) invert(0)";
+    .067;
 
 
-    document
-    .querySelectorAll(".header-link")
-    .forEach(link => {
-
-        const rect =
-        link.getBoundingClientRect();
+    const logoShouldBeWhite =
+    logoBrightness < .38;
 
 
-        const brightness =
-        getBackgroundLuminance(
-            rect.left+
-            rect.width/2,
-
-            rect.top+
-            rect.height/2
-        );
+    const logoImage =
+    document.querySelector(
+        ".logo-image"
+    );
 
 
-        link.style.color =
-        brightness < .38
-        ? "#fff"
-        : "#000";
+    if(logoShouldBeWhite){
 
-    });
+        logoImage.style.filter =
+            "brightness(0) invert(1)";
+
+    }else{
+
+        logoImage.style.filter =
+            "brightness(0) invert(0)";
+
+    }
 
 
-    const language =
-    document.querySelector(".language");
+    links.forEach(
+        link => {
+
+            const rect =
+            link.getBoundingClientRect();
+
+
+            const x =
+            rect.left +
+            rect.width / 2;
+
+
+            const y =
+            rect.top +
+            rect.height / 2;
+
+
+            const brightness =
+            getBackgroundLuminance(
+                x,
+                y
+            );
+
+
+            if(
+                brightness < .38
+            ){
+
+                link.style.color =
+                    "#fff";
+
+            }else{
+
+                link.style.color =
+                    "#000";
+
+            }
+
+        }
+    );
 
 
     const languageRect =
@@ -2241,39 +2795,63 @@ function updateHeaderColor(){
 
     const languageBrightness =
     getBackgroundLuminance(
-        languageRect.left+
-        languageRect.width/2,
 
-        languageRect.top+
-        languageRect.height/2
+        languageRect.left +
+        languageRect.width / 2,
+
+        languageRect.top +
+        languageRect.height / 2
+
     );
 
 
-    language.style.color =
-    languageBrightness < .38
-    ? "#fff"
-    : "#000";
+    if(
+        languageBrightness < .38
+    ){
+
+        language.style.color =
+            "#fff";
+
+    }else{
+
+        language.style.color =
+            "#000";
+
+    }
 
 }
 
 
-let colorUpdateRunning=false;
+/* =========================================================
+   HEADER COLOR UPDATE
+========================================================= */
+
+let colorUpdateRunning = false;
 
 
 function requestColorUpdate(){
 
-    if(colorUpdateRunning) return;
+    if(colorUpdateRunning){
 
-    colorUpdateRunning=true;
+        return;
+
+    }
 
 
-    requestAnimationFrame(() => {
+    colorUpdateRunning = true;
 
-        updateHeaderColor();
 
-        colorUpdateRunning=false;
+    requestAnimationFrame(
 
-    });
+        () => {
+
+            updateHeaderColor();
+
+            colorUpdateRunning = false;
+
+        }
+
+    );
 
 }
 
@@ -2281,7 +2859,9 @@ function requestColorUpdate(){
 window.addEventListener(
     "scroll",
     requestColorUpdate,
-    {passive:true}
+    {
+        passive:true
+    }
 );
 
 
@@ -2298,39 +2878,69 @@ window.addEventListener(
 
 
 /* =========================================================
-   START
+   START HEADER
 ========================================================= */
 
-setTimeout(() => {
+setTimeout(
 
-    const header =
-    document.querySelector(".header");
+    () => {
+
+        const header =
+        document.querySelector(
+            ".header"
+        );
 
 
-    header.classList.add("ready");
+        header.classList.add(
+            "ready"
+        );
 
 
-    requestColorUpdate();
+        requestColorUpdate();
 
-    setTimeout(requestColorUpdate,300);
-    setTimeout(requestColorUpdate,800);
-    setTimeout(requestColorUpdate,1600);
 
-},1200);
+        setTimeout(
+            requestColorUpdate,
+            300
+        );
+
+        setTimeout(
+            requestColorUpdate,
+            800
+        );
+
+        setTimeout(
+            requestColorUpdate,
+            1600
+        );
+
+    },
+
+    1200
+
+);
 
 
 /* =========================================================
    OPENING SCROLL LOCK
 ========================================================= */
 
-document.body.style.overflow="hidden";
+document.body.style.overflow =
+"hidden";
 
 
-setTimeout(() => {
+setTimeout(
 
-    document.body.style.overflow="";
+    () => {
 
-},1500);
+        document.body.style.overflow =
+        "";
+
+    },
+
+    1500
+
+);
 
 </script>
 
