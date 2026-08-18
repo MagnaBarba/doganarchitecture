@@ -51,14 +51,12 @@ a{
     z-index:99999;
 
     display:flex;
-
     align-items:center;
     justify-content:center;
 
     pointer-events:none;
 
-    animation:
-    openingOut .35s 1.15s forwards;
+    animation:openingOut .35s 1.15s forwards;
 }
 
 
@@ -86,7 +84,6 @@ a{
 .opening-logo-holder{
 
     position:relative;
-
     z-index:2;
 
     width:120px;
@@ -97,7 +94,6 @@ a{
     background:#111;
 
     display:flex;
-
     align-items:center;
     justify-content:center;
 
@@ -120,8 +116,6 @@ a{
     height:100%;
 
     object-fit:contain;
-
-    display:block;
 
     filter:
     brightness(0)
@@ -146,11 +140,8 @@ a{
 @keyframes openingLogoHolderIn{
 
     to{
-
         opacity:1;
-
         transform:scale(1);
-
     }
 
 }
@@ -177,19 +168,15 @@ a{
 @keyframes openingLogoColor{
 
     0%{
-
         filter:
         brightness(0)
         invert(1);
-
     }
 
     100%{
-
         filter:
         brightness(0)
         invert(0);
-
     }
 
 }
@@ -198,11 +185,8 @@ a{
 @keyframes openingOut{
 
     to{
-
         opacity:0;
-
         visibility:hidden;
-
     }
 
 }
@@ -220,15 +204,12 @@ a{
     left:0;
 
     width:100%;
-
     height:90px;
 
     padding:0 40px;
 
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
 
     z-index:5000;
@@ -237,21 +218,14 @@ a{
 
     opacity:0;
 
-    transition:
-    opacity .2s ease;
+    transition:opacity .2s ease;
 }
 
 
 .header.ready{
-
     opacity:1;
-
 }
 
-
-/* =========================================================
-   LOGO
-========================================================= */
 
 .logo-link{
 
@@ -269,9 +243,7 @@ a{
 
 
 .logo-link:hover{
-
     transform:scale(1.08);
-
 }
 
 
@@ -282,25 +254,17 @@ a{
 
     object-fit:contain;
 
-    display:block;
-
     filter:
     brightness(0)
     invert(1);
 
-    transition:
-    filter .18s ease;
+    transition:filter .18s ease;
 }
 
-
-/* =========================================================
-   HEADER MENU
-========================================================= */
 
 .header-right{
 
     display:flex;
-
     align-items:center;
 
     gap:30px;
@@ -330,40 +294,30 @@ a{
 
 
 .header-link:hover{
-
-    transform:
-    translateY(-2px);
-
+    transform:translateY(-2px);
 }
 
 
 .language{
 
     display:flex;
-
     align-items:center;
 
     gap:5px;
 
     padding:4px 0;
 
-    background:transparent;
-
     color:#fff;
 
     font-size:10px;
 
     letter-spacing:1px;
-
-    transition:
-    color .18s ease;
 }
 
 
 .language button{
 
     border:0;
-
     background:none;
 
     color:inherit;
@@ -375,26 +329,21 @@ a{
     padding:0;
 
     opacity:.4;
-
 }
 
 
 .language button.active{
-
     opacity:1;
-
 }
 
 
 .language span{
-
     opacity:.35;
-
 }
 
 
 /* =========================================================
-   HERO — EQUIPE
+   EQUIPE HERO
 ========================================================= */
 
 .team-hero{
@@ -427,9 +376,18 @@ a{
     transform:scale(1.1);
 
     animation:
-    heroImageIn 1.6s 1.05s
+    teamHeroIn 1.6s 1.05s
     cubic-bezier(.16,1,.3,1)
     forwards;
+}
+
+
+@keyframes teamHeroIn{
+
+    to{
+        transform:scale(1);
+    }
+
 }
 
 
@@ -450,17 +408,6 @@ a{
 }
 
 
-@keyframes heroImageIn{
-
-    to{
-
-        transform:scale(1);
-
-    }
-
-}
-
-
 /* =========================================================
    HERO TITLE
 ========================================================= */
@@ -472,11 +419,9 @@ a{
     z-index:10;
 
     left:40px;
-
     right:40px;
 
     bottom:42px;
-
 }
 
 
@@ -498,20 +443,17 @@ a{
     transform:translateY(70px);
 
     animation:
-    heroTitleIn .8s 1.12s
+    teamTitleIn .8s 1.12s
     cubic-bezier(.16,1,.3,1)
     forwards;
 }
 
 
-@keyframes heroTitleIn{
+@keyframes teamTitleIn{
 
     to{
-
         opacity:1;
-
         transform:translateY(0);
-
     }
 
 }
@@ -528,10 +470,7 @@ a{
     z-index:10;
 
     right:40px;
-
     bottom:42px;
-
-    color:#fff;
 
     font-size:9px;
 
@@ -541,8 +480,7 @@ a{
 
     opacity:.7;
 
-    animation:
-    scrollPulse 2s infinite;
+    animation:scrollPulse 2s infinite;
 }
 
 
@@ -560,21 +498,20 @@ a{
 
 
 /* =========================================================
-   TEAM INTRO
+   INTRO
 ========================================================= */
 
 .team-intro{
 
     background:#111;
 
-    padding:150px 40px 110px;
+    padding:150px 40px 100px;
 
     display:flex;
 
     justify-content:space-between;
 
     align-items:flex-end;
-
 }
 
 
@@ -590,7 +527,7 @@ a{
 
 .team-description{
 
-    max-width:620px;
+    max-width:600px;
 
     font-size:
     clamp(24px,3vw,42px);
@@ -604,16 +541,29 @@ a{
 
 
 /* =========================================================
-   ARCHITECT SECTION
+   ARCHITECT BLOCK
 ========================================================= */
+
+/*
+   ÇOK ÖNEMLİ:
+
+   FOTOĞRAF + YAZI TEK BLOK.
+
+   Bütün section beraber hareket ediyor.
+
+   01 = SOLDAN
+   02 = SAĞDAN
+   03 = SOLDAN
+*/
+
 
 .architect-section{
 
+    position:relative;
+
     width:100%;
 
-    height:100svh;
-
-    min-height:650px;
+    min-height:100svh;
 
     display:grid;
 
@@ -626,27 +576,19 @@ a{
     opacity:0;
 
     transform:
-    translateX(-110px)
-    scale(.985);
+    translateX(-110px);
 
     transition:
-    opacity .65s
-    cubic-bezier(.16,1,.3,1),
-
-    transform .8s
+    opacity .7s ease,
+    transform .85s
     cubic-bezier(.16,1,.3,1);
 }
 
 
-/* =========================================================
-   SECTION FROM RIGHT
-========================================================= */
-
 .architect-section.from-right{
 
     transform:
-    translateX(110px)
-    scale(.985);
+    translateX(110px);
 }
 
 
@@ -655,68 +597,44 @@ a{
     opacity:1;
 
     transform:
-    translateX(0)
-    scale(1);
+    translateX(0);
 }
 
 
 /* =========================================================
-   ARCHITECT IMAGE
+   PHOTO
 ========================================================= */
 
 .architect-photo{
 
     width:100%;
-
     height:100%;
 
-    overflow:hidden;
+    min-height:100svh;
 
-    background:#111;
+    overflow:hidden;
 }
 
 
 .architect-photo img{
 
     width:100%;
-
     height:100%;
-
-    display:block;
 
     object-fit:cover;
 
-    transform:scale(1.05);
-
-    transition:
-    transform 1s
-    cubic-bezier(.16,1,.3,1);
-}
-
-
-.architect-section.visible
-.architect-photo img{
-
-    transform:scale(1);
-
-}
-
-
-.architect-section:hover
-.architect-photo img{
-
-    transform:scale(1.025);
-
+    display:block;
 }
 
 
 /* =========================================================
-   ARCHITECT TEXT
+   TEXT
 ========================================================= */
 
 .architect-info{
 
-    height:100%;
+    width:100%;
+    min-height:100svh;
 
     background:#111;
 
@@ -730,8 +648,7 @@ a{
 
     padding:
     60px
-    clamp(40px,7vw,120px);
-
+    clamp(45px,7vw,120px);
 }
 
 
@@ -741,99 +658,54 @@ a{
 
     letter-spacing:2px;
 
-    opacity:.45;
+    opacity:.4;
 
     margin-bottom:30px;
-
 }
 
 
 .architect-name{
 
     font-size:
-    clamp(45px,5vw,85px);
+    clamp(45px,5.5vw,90px);
 
-    line-height:.85;
+    line-height:.82;
 
-    letter-spacing:-3px;
+    letter-spacing:-4px;
 
     font-weight:600;
 
     text-transform:uppercase;
+}
 
-    opacity:0;
 
-    transform:translateY(35px);
+.architect-role{
 
-    transition:
-    opacity .7s .15s,
-    transform .8s .15s
-    cubic-bezier(.16,1,.3,1);
+    margin-top:30px;
+
+    font-size:
+    clamp(12px,1vw,15px);
+
+    letter-spacing:1px;
+
+    color:#aaa;
 }
 
 
 .architect-description{
 
-    max-width:500px;
+    max-width:520px;
 
-    margin-top:35px;
+    margin-top:30px;
 
     font-size:
-    clamp(15px,1.25vw,20px);
+    clamp(16px,1.35vw,21px);
 
     line-height:1.45;
-
-    letter-spacing:-.2px;
 
     font-weight:300;
 
     color:#ddd;
-
-    opacity:0;
-
-    transform:translateY(30px);
-
-    transition:
-    opacity .7s .25s,
-    transform .8s .25s
-    cubic-bezier(.16,1,.3,1);
-}
-
-
-.architect-role{
-
-    margin-top:35px;
-
-    font-size:9px;
-
-    letter-spacing:2px;
-
-    text-transform:uppercase;
-
-    opacity:0;
-
-    transform:translateY(20px);
-
-    transition:
-    opacity .7s .35s,
-    transform .8s .35s
-    cubic-bezier(.16,1,.3,1);
-}
-
-
-.architect-section.visible
-.architect-name,
-
-.architect-section.visible
-.architect-description,
-
-.architect-section.visible
-.architect-role{
-
-    opacity:1;
-
-    transform:translateY(0);
-
 }
 
 
@@ -875,23 +747,19 @@ a{
         height:70px;
 
         padding:0 18px;
-
     }
 
 
     .logo-link{
 
         width:36px;
-
         height:36px;
-
     }
 
 
     .header-right{
 
         gap:14px;
-
     }
 
 
@@ -901,25 +769,21 @@ a{
         font-size:8px;
 
         letter-spacing:.8px;
-
     }
 
 
     .team-hero{
 
         min-height:600px;
-
     }
 
 
     .team-hero-content{
 
         left:18px;
-
         right:18px;
 
         bottom:30px;
-
     }
 
 
@@ -929,18 +793,15 @@ a{
         clamp(58px,18vw,95px);
 
         letter-spacing:-4px;
-
     }
 
 
     .scroll-indicator{
 
         right:18px;
-
         bottom:30px;
 
         font-size:8px;
-
     }
 
 
@@ -950,7 +811,6 @@ a{
 
         padding:
         100px 18px 70px;
-
     }
 
 
@@ -959,47 +819,40 @@ a{
         margin-top:35px;
 
         font-size:25px;
-
     }
 
 
     /*
-       MOBİLDE HER MİMAR BÖLÜMÜ
-       FOTOĞRAF + YAZI ALT ALTA.
+       MOBİL:
+
+       Bütün mimar bloğu yine tek parça
+       halinde sağdan / soldan geliyor.
     */
 
     .architect-section{
-
-        height:auto;
-
-        min-height:0;
 
         display:flex;
 
         flex-direction:column;
 
-        transform:
-        translateX(-60px)
-        scale(.985);
+        min-height:0;
 
+        transform:
+        translateX(-70px);
     }
 
 
     .architect-section.from-right{
 
         transform:
-        translateX(60px)
-        scale(.985);
-
+        translateX(70px);
     }
 
 
     .architect-section.visible{
 
         transform:
-        translateX(0)
-        scale(1);
-
+        translateX(0);
     }
 
 
@@ -1009,55 +862,61 @@ a{
 
         height:auto;
 
+        min-height:0;
+
         aspect-ratio:4 / 5;
 
+        flex:none;
     }
 
 
     .architect-info{
 
-        min-height:480px;
+        width:100%;
+
+        min-height:520px;
 
         padding:
         70px 18px;
 
-        justify-content:center;
+        flex:none;
 
+        justify-content:center;
     }
 
 
     .architect-number{
 
         margin-bottom:25px;
-
     }
 
 
     .architect-name{
 
         font-size:
-        clamp(40px,12vw,65px);
+        clamp(42px,12vw,70px);
 
         letter-spacing:-3px;
-
-    }
-
-
-    .architect-description{
-
-        margin-top:28px;
-
-        font-size:15px;
-
-        line-height:1.5;
-
     }
 
 
     .architect-role{
 
-        margin-top:28px;
+        margin-top:25px;
 
+        font-size:9px;
+
+        letter-spacing:1.5px;
+    }
+
+
+    .architect-description{
+
+        margin-top:25px;
+
+        font-size:15px;
+
+        line-height:1.5;
     }
 
 
@@ -1067,7 +926,6 @@ a{
         22px 18px;
 
         font-size:8px;
-
     }
 
 }
@@ -1090,7 +948,6 @@ a{
         transition-duration:.01ms !important;
 
         scroll-behavior:auto !important;
-
     }
 
 }
@@ -1203,7 +1060,7 @@ a{
 
 
 <!-- =====================================================
-     HERO
+     EQUIPE HERO
 ===================================================== -->
 
 <section class="team-hero">
@@ -1273,10 +1130,10 @@ a{
 
 <!-- =====================================================
      ARCHITECTE 01
+     ENTIER = ENTRE PAR LA GAUCHE
 ===================================================== -->
 
 <section class="architect-section">
-
 
     <div class="architect-photo">
 
@@ -1299,6 +1156,16 @@ a{
         </h2>
 
 
+        <div
+            class="architect-role"
+            data-fr="ARCHITECTE · DIRECTION DE PROJET"
+            data-en="ARCHITECT · PROJECT DIRECTOR">
+
+            ARCHITECTE · DIRECTION DE PROJET
+
+        </div>
+
+
         <p
             class="architect-description"
             data-fr="Une approche attentive du projet, de la matière et de la lumière. Chaque intervention cherche un équilibre entre identité architecturale, fonctionnalité et contexte."
@@ -1312,16 +1179,6 @@ a{
 
         </p>
 
-
-        <div
-            class="architect-role"
-            data-fr="Architecte · Direction de projet"
-            data-en="Architect · Project Director">
-
-            Architecte · Direction de projet
-
-        </div>
-
     </div>
 
 </section>
@@ -1329,10 +1186,10 @@ a{
 
 <!-- =====================================================
      ARCHITECTE 02
+     ENTIER = ENTRE PAR LA DROITE
 ===================================================== -->
 
 <section class="architect-section from-right">
-
 
     <div class="architect-info">
 
@@ -1344,6 +1201,16 @@ a{
         <h2 class="architect-name">
             ARCHITECTE 02
         </h2>
+
+
+        <div
+            class="architect-role"
+            data-fr="ARCHITECTE · CONCEPTION"
+            data-en="ARCHITECT · DESIGN">
+
+            ARCHITECTE · CONCEPTION
+
+        </div>
 
 
         <p
@@ -1358,16 +1225,6 @@ a{
             et aux détails.
 
         </p>
-
-
-        <div
-            class="architect-role"
-            data-fr="Architecte · Conception"
-            data-en="Architect · Design">
-
-            Architecte · Conception
-
-        </div>
 
     </div>
 
@@ -1385,10 +1242,10 @@ a{
 
 <!-- =====================================================
      ARCHITECTE 03
+     ENTIER = ENTRE PAR LA GAUCHE
 ===================================================== -->
 
 <section class="architect-section">
-
 
     <div class="architect-photo">
 
@@ -1411,6 +1268,16 @@ a{
         </h2>
 
 
+        <div
+            class="architect-role"
+            data-fr="ARCHITECTE · DÉVELOPPEMENT DE PROJET"
+            data-en="ARCHITECT · PROJECT DEVELOPMENT">
+
+            ARCHITECTE · DÉVELOPPEMENT DE PROJET
+
+        </div>
+
+
         <p
             class="architect-description"
             data-fr="Une sensibilité particulière portée à l'intégration du projet dans son environnement. L'objectif est de créer des architectures durables, cohérentes et intemporelles."
@@ -1422,16 +1289,6 @@ a{
             durables, cohérentes et intemporelles.
 
         </p>
-
-
-        <div
-            class="architect-role"
-            data-fr="Architecte · Développement de projet"
-            data-en="Architect · Project Development">
-
-            Architecte · Développement de projet
-
-        </div>
 
     </div>
 
@@ -1479,9 +1336,9 @@ function changeLanguage(language){
         .forEach(element => {
 
             element.innerHTML =
-                element.getAttribute(
-                    "data-" + language
-                );
+            element.getAttribute(
+                "data-" + language
+            );
 
         });
 
@@ -1489,13 +1346,11 @@ function changeLanguage(language){
     if(language === "fr"){
 
         frBtn.classList.add("active");
-
         enBtn.classList.remove("active");
 
     }else{
 
         enBtn.classList.add("active");
-
         frBtn.classList.remove("active");
 
     }
@@ -1521,19 +1376,15 @@ enBtn.addEventListener(
 );
 
 
-const savedLanguage =
-localStorage.getItem(
-    "dogan-language"
-);
-
-
 changeLanguage(
-    savedLanguage || "fr"
+    localStorage.getItem(
+        "dogan-language"
+    ) || "fr"
 );
 
 
 /* =========================================================
-   ARCHITECT SECTION REVEAL
+   ARCHITECT BLOCK REVEAL
 ========================================================= */
 
 const architectSections =
@@ -1562,24 +1413,26 @@ new IntersectionObserver(
     },
 
     {
-        threshold:.18,
+        /*
+           Biraz daha erken tetikleniyor.
+           Böylece kullanıcı kaydırırken
+           hareketi net olarak görüyor.
+        */
+
+        threshold:0.08,
 
         rootMargin:
-        "0px 0px -8% 0px"
+        "0px 0px -10% 0px"
     }
 
 );
 
 
-architectSections.forEach(
-    section => {
+architectSections.forEach(section => {
 
-        architectObserver.observe(
-            section
-        );
+    architectObserver.observe(section);
 
-    }
-);
+});
 
 
 /* =========================================================
@@ -1611,8 +1464,8 @@ window.addEventListener(
         ){
 
             heroImage.style.transform =
-                `scale(1.03)
-                 translateY(${scroll * .08}px)`;
+            `scale(1.03)
+             translateY(${scroll * .08}px)`;
 
         }
 
@@ -1629,47 +1482,33 @@ window.addEventListener(
    HEADER
 ========================================================= */
 
-setTimeout(
+setTimeout(() => {
 
-    () => {
-
-        const header =
-        document.querySelector(
-            ".header"
-        );
+    const header =
+    document.querySelector(
+        ".header"
+    );
 
 
-        header.classList.add(
-            "ready"
-        );
+    header.classList.add(
+        "ready"
+    );
 
-    },
-
-    1200
-
-);
+},1200);
 
 
 /* =========================================================
    OPENING SCROLL LOCK
 ========================================================= */
 
-document.body.style.overflow =
-"hidden";
+document.body.style.overflow="hidden";
 
 
-setTimeout(
+setTimeout(() => {
 
-    () => {
+    document.body.style.overflow="";
 
-        document.body.style.overflow =
-        "";
-
-    },
-
-    1500
-
-);
+},1500);
 
 </script>
 
