@@ -9,7 +9,7 @@
 @property --sweep {
   syntax: '<angle>';
   inherits: false;
-  initial-value: 360deg;
+  initial-value: 0deg;
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
@@ -25,7 +25,8 @@ a{color:inherit;text-decoration:none}
   animation:openingOut .01s 1.85s forwards;
 }
 
-/* Siyah Perde: Sahneyle birlikte sol üste kayar, logonun kollarıyla aynı yönde (saat yönü) tam temizlenir */
+/* Siyah Perde: Sayfa açılır açılmaz %100 kapalıdır. 
+   Logo sol üste doğru kayarken tam logonun merkezinden saat yönünde dönerek altındaki ana ekranı temizler. */
 .opening-surface{
   position:absolute;
   left:50%;top:50%;
@@ -33,10 +34,10 @@ a{color:inherit;text-decoration:none}
   transform:translate(-50%,-50%);
   z-index:1;
   background:#111;
-  mask-image: conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent var(--sweep, 0deg), #000 var(--sweep, 0deg), #000 360deg);
-  -webkit-mask-image: conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent var(--sweep, 0deg), #000 var(--sweep, 0deg), #000 360deg);
+  mask-image: conic-gradient(from 90deg at 50% 50%, transparent 0deg, transparent var(--sweep, 0deg), #000 var(--sweep, 0deg), #000 360deg);
+  -webkit-mask-image: conic-gradient(from 90deg at 50% 50%, transparent 0deg, transparent var(--sweep, 0deg), #000 var(--sweep, 0deg), #000 360deg);
   animation: surfaceMove 1.15s 0.65s cubic-bezier(.16,1,.3,1) forwards,
-             wipeSurface 0.65s 1.15s linear forwards;
+             wipeSurface 0.85s 0.85s cubic-bezier(.16,1,.3,1) forwards;
 }
 
 @keyframes surfaceMove{
@@ -55,7 +56,7 @@ a{color:inherit;text-decoration:none}
   100%{ --sweep: 360deg; }
 }
 
-/* Logo ve Yan Kolları Sahnesi - Ekran ortasından sol üst header logosu boyutuna (45px) küçülerek kayar */
+/* Logo ve Yan Kolları Sahnesi */
 .opening-stage{
   position:absolute;
   left:50%;top:50%;
@@ -73,7 +74,6 @@ a{color:inherit;text-decoration:none}
   filter:brightness(0) invert(1);
 }
 
-/* Logonun Yanlarından Çıkan Sonsuz Çizgiler (Kollar) */
 .opening-stage .opening-arm{
   position:absolute;
   top:50%;
@@ -131,7 +131,6 @@ a{color:inherit;text-decoration:none}
 }
 .header.ready{opacity:1}
 
-/* Header logosu açılış tamamlanana kadar gizlidir */
 .logo-link{
   width:45px;height:45px;display:block;pointer-events:auto;
   opacity:0;
@@ -153,7 +152,6 @@ a{color:inherit;text-decoration:none}
 .language button.active{opacity:1}
 .language span{opacity:.35}
 
-/* Zorlama Renk İstisnaları (data-nav) */
 .header.nav-dark{
   mix-blend-mode:normal;
   color:#000;
