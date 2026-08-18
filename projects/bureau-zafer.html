@@ -1,417 +1,237 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <title>BUREAU ZAFER — DOGAN ARCHITECTURE</title>
 
 <style>
+*{margin:0;padding:0;box-sizing:border-box}
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+/* MOBİL TAŞMAYI ENGELLER & TEMEL TİPOGRAFİ */
+html, body{
+  width:100%;
+  max-width:100%;
+  overflow-x:hidden!important;
+  scroll-behavior:smooth;
+  background:#111;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+}
+a{color:inherit;text-decoration:none}
+
+/* HEADER & NAV */
+.header{
+  position:fixed;top:0;left:0;width:100%;height:90px;
+  padding:0 40px;display:flex;align-items:center;
+  justify-content:space-between;z-index:1000;
+  mix-blend-mode:difference;
+}
+.logo{width:45px;height:45px;object-fit:contain;filter:brightness(0) invert(1)}
+.nav{display:flex;align-items:center;gap:30px}
+.nav-link, .language{
+  background:none;border:0;color:inherit;font-size:10px;
+  letter-spacing:1.5px;text-transform:uppercase;
+  cursor:pointer;font-family:Arial,Helvetica,sans-serif;
+}
+.language{display:flex;gap:5px}
+.language button{border:0;background:none;color:inherit;font:inherit;cursor:pointer;opacity:.4}
+.language button.active{opacity:1}
+.language span{opacity:.35}
+
+/* PROJECT CONTAINER */
+.project-detail{
+  padding:160px 40px 100px;
+  max-width:1400px;
+  margin:0 auto;
 }
 
-html{
-    scroll-behavior:smooth;
+.project-header{
+  margin-bottom:60px;
 }
 
-body{
-    background:#111;
-    color:#fff;
-    font-family:Arial,Helvetica,sans-serif;
-    overflow-x:hidden;
+.project-number{
+  font-size:11px;
+  letter-spacing:1.5px;
+  margin-bottom:20px;
+  opacity:.5;
+  text-transform:uppercase;
 }
 
-a{
-    color:inherit;
-    text-decoration:none;
+.project-title{
+  font-size:clamp(50px,8vw,120px);
+  line-height:.85;
+  letter-spacing:-4px;
+  font-weight:500;
+  text-transform:uppercase;
+  margin-bottom:35px;
 }
 
-
-/* HEADER */
-
-header{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:90px;
-    padding:0 45px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    z-index:1000;
-    mix-blend-mode:difference;
+/* ANA SAYFA İLE TAM UYUMLU DETAY BİLGİLERİ & METİN */
+.project-meta-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+  gap:25px;
+  padding:30px 0;
+  border-top:1px solid #333;
+  border-bottom:1px solid #333;
+  margin-bottom:50px;
 }
 
-.logo{
-    width:48px;
-    height:48px;
-    display:block;
+.meta-item-label{
+  font-size:10px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  opacity:.5;
+  margin-bottom:6px;
 }
 
-.logo img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    display:block;
-    filter:brightness(0) invert(1);
+.meta-item-value{
+  font-size:clamp(12px, 0.95vw, 14px);
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  font-weight:600;
+  color:#fff;
 }
 
-.back{
-    font-size:10px;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
+/* ANA SAYFA İLE EŞİTLENMİŞ AÇIKLAMA METNİ STİLİ */
+.project-description{
+  font-size:clamp(13px, 1.1vw, 16px);
+  line-height:1.75;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  font-weight:500;
+  color:#ddd;
+  max-width:850px;
+  margin-bottom:80px;
 }
 
-
-/* HERO */
-
-.hero{
-    height:100svh;
-    min-height:600px;
-    position:relative;
-    overflow:hidden;
+/* GÖRSEL GALERİİ */
+.project-gallery{
+  display:flex;
+  flex-direction:column;
+  gap:40px;
+  width:100%;
 }
 
-.hero > img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transform:scale(1.08);
-    animation:heroZoom 1.6s cubic-bezier(.16,1,.3,1) forwards;
+.project-gallery img{
+  width:100%;
+  height:auto;
+  display:block;
+  object-fit:cover;
 }
 
-@keyframes heroZoom{
-    to{
-        transform:scale(1);
-    }
+/* FOOTER */
+.footer{
+  padding:30px 40px;
+  border-top:1px solid #333;
+  display:flex;
+  justify-content:space-between;
+  font-size:10px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  width:100%;
 }
 
-.hero::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(
-        to top,
-        rgba(0,0,0,.75),
-        transparent 65%
-    );
-}
-
-.hero-info{
-    position:absolute;
-    z-index:2;
-    bottom:45px;
-    left:45px;
-    right:45px;
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-}
-
-.title{
-    font-size:clamp(55px,9vw,140px);
-    line-height:.82;
-    letter-spacing:-5px;
-    font-weight:500;
-}
-
-.number{
-    font-size:10px;
-    letter-spacing:2px;
-    margin-bottom:15px;
-}
-
-.details{
-    text-align:right;
-    font-size:10px;
-    line-height:1.8;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-}
-
-
-/* INTRO */
-
-.intro{
-    min-height:65vh;
-    padding:150px 45px;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:100px;
-}
-
-.intro-title{
-    font-size:10px;
-    letter-spacing:2px;
-    text-transform:uppercase;
-}
-
-.description{
-    max-width:650px;
-    font-size:23px;
-    line-height:1.4;
-    font-weight:300;
-}
-
-
-/* GALLERY */
-
-.gallery{
-    width:100%;
-    overflow:hidden;
-}
-
-.gallery-item{
-    width:100%;
-    margin-bottom:3px;
-    overflow:hidden;
-    opacity:0;
-    transform:translateX(-120px) scale(.985);
-    transition:
-        opacity .65s cubic-bezier(.16,1,.3,1),
-        transform .85s cubic-bezier(.16,1,.3,1);
-}
-
-.gallery-item:nth-child(even){
-    transform:translateX(120px) scale(.985);
-}
-
-.gallery-item.visible{
-    opacity:1;
-    transform:translateX(0) scale(1);
-}
-
-.gallery-item img{
-    width:100%;
-    height:auto;
-    display:block;
-    transition:transform 1s cubic-bezier(.16,1,.3,1);
-}
-
-.gallery-item:hover img{
-    transform:scale(1.015);
-}
-
-
-/* NEXT */
-
-.next{
-    min-height:50vh;
-    padding:100px 45px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-top:1px solid #333;
-}
-
-.next-label{
-    font-size:10px;
-    letter-spacing:2px;
-}
-
-.next-title{
-    font-size:clamp(45px,7vw,110px);
-    letter-spacing:-4px;
-}
-
-
-/* MOBILE */
-
+/* MOBILE RESPONSIVE */
 @media(max-width:700px){
-
-    header{
-        height:70px;
-        padding:0 20px;
-    }
-
-    .logo{
-        width:38px;
-        height:38px;
-    }
-
-    .hero-info{
-        left:20px;
-        right:20px;
-        bottom:35px;
-        display:block;
-    }
-
-    .title{
-        font-size:15vw;
-        margin-bottom:25px;
-    }
-
-    .details{
-        text-align:left;
-    }
-
-    .intro{
-        display:block;
-        padding:90px 20px;
-    }
-
-    .intro-title{
-        margin-bottom:50px;
-    }
-
-    .description{
-        font-size:18px;
-    }
-
-    .next{
-        padding:70px 20px;
-        display:block;
-    }
-
-    .next-title{
-        margin-top:30px;
-    }
+  .header{height:70px;padding:0 18px}
+  .logo{width:36px;height:36px}
+  .nav{gap:14px}
+  .nav-link, .language{font-size:8px;letter-spacing:.8px}
+  .project-detail{padding:110px 18px 60px}
+  .project-title{font-size:clamp(38px,10vw,68px);letter-spacing:-3px}
+  .project-meta-grid{grid-template-columns:1fr 1fr;gap:20px;padding:22px 0}
+  .meta-item-value{font-size:11px;letter-spacing:1px}
+  .project-description{font-size:12px;line-height:1.7;letter-spacing:1px;margin-bottom:50px}
+  .project-gallery{gap:20px}
+  .footer{padding:22px 18px;font-size:8px;letter-spacing:1px}
 }
-
 </style>
 </head>
 
-
 <body>
 
+<header class="header">
+  <a href="../index.html">
+    <img src="../images/logo.png" class="logo" alt="DOGAN ARCHITECTURE">
+  </a>
 
-<header>
+  <nav class="nav">
+    <a href="../index.html#projects" class="nav-link" data-fr="PROJETS" data-en="PROJECTS">PROJETS</a>
+    <a href="../equipe.html" class="nav-link" data-fr="ÉQUIPE" data-en="TEAM">ÉQUIPE</a>
+    <a href="../index.html#contact" class="nav-link" data-fr="CONTACT" data-en="CONTACT">CONTACT</a>
 
-<a href="../index.html" class="logo">
-    <img src="../images/logo.png" alt="DOGAN ARCHITECTURE">
-</a>
-
-<a href="../index.html" class="back">
-    ← PROJETS
-</a>
-
+    <div class="language">
+      <button id="frBtn" class="active">FR</button>
+      <span>/</span>
+      <button id="enBtn">EN</button>
+    </div>
+  </nav>
 </header>
 
+<main class="project-detail">
+  <header class="project-header">
+    <div class="project-number">01 / 07</div>
+    <h1 class="project-title">BUREAU<br>ZAFER</h1>
+  </header>
 
-<section class="hero">
+  <!-- PROJE METADATA -->
+  <div class="project-meta-grid">
+    <div>
+      <div class="meta-item-label" data-fr="LOCALISATION" data-en="LOCATION">LOCALISATION</div>
+      <div class="meta-item-value">SAINTE-GENEVIÈVE-DES-BOIS</div>
+    </div>
+    <div>
+      <div class="meta-item-label" data-fr="ANNÉE" data-en="YEAR">ANNÉE</div>
+      <div class="meta-item-value">2023</div>
+    </div>
+    <div>
+      <div class="meta-item-label" data-fr="PROGRAMME" data-en="PROGRAM">PROGRAMME</div>
+      <div class="meta-item-value" data-fr="BUREAUX" data-en="OFFICES">BUREAUX</div>
+    </div>
+    <div>
+      <div class="meta-item-label" data-fr="SURFACE" data-en="SURFACE">SURFACE</div>
+      <div class="meta-item-value">670 m²</div>
+    </div>
+  </div>
 
-<img
-    src="../images/bureau-zafer/cover.jpg"
-    alt="Bureau Zafer">
+  <!-- AÇIKLAMA METNİ -->
+  <div class="project-description"
+       data-fr="CONCEPTION D'UN ENSEMBLE DE BUREAUX MODERNES ALLIANT FONCTIONNALITÉ, CONFORT WORKSPACE ET UNE ESTHÉTIQUE ÉPURÉE. CE PROJET INTÈGRE DES ESPACES DE TRAVAIL LUMINEUX ET OPTIMISÉS POUR RÉPONDRE AUX EXIGENCES CONTEMPORAINES DE L'ENTREPRISE."
+       data-en="DESIGN OF A MODERN OFFICE COMPLEX COMBINING FUNCTIONALITY, WORKSPACE COMFORT, AND A CLEAN AESTHETIC. THIS PROJECT INTEGRATES BRIGHT AND OPTIMIZED WORKSPACES TO MEET CONTEMPORARY BUSINESS REQUIREMENTS.">
+    CONCEPTION D'UN ENSEMBLE DE BUREAUX MODERNES ALLIANT FONCTIONNALITÉ, CONFORT WORKSPACE ET UNE ESTHÉTIQUE ÉPURÉE. CE PROJET INTÈGRE DES ESPACES DE TRAVAIL LUMINEUX ET OPTIMISÉS POUR RÉPONDRE AUX EXIGENCES CONTEMPORAINES DE L'ENTREPRISE.
+  </div>
 
-<div class="hero-info">
+  <!-- GÖRSELLER -->
+  <section class="project-gallery">
+    <img src="../images/bureau-zafer/cover.jpg" alt="Bureau Zafer Image 1">
+  </section>
+</main>
 
-<div>
-
-<div class="number">01 / 07</div>
-
-<h1 class="title">
-BUREAU<br>ZAFER
-</h1>
-
-</div>
-
-<div class="details">
-SAINTE-GENEVIÈVE-DES-BOIS<br>
-2023<br>
-BUREAUX<br>
-670 m²
-</div>
-
-</div>
-
-</section>
-
-
-<section class="intro">
-
-<div class="intro-title">
-PROJECT
-</div>
-
-<div class="description">
-
-Bureau Zafer est un projet de bureaux
-situé à Sainte-Geneviève-des-Bois,
-en France.
-
-<br><br>
-
-Le projet développe une architecture
-contemporaine adaptée à son contexte
-et à son programme professionnel.
-
-</div>
-
-</section>
-
-
-<section
-    class="gallery"
-    data-folder="../images/bureau-zafer/">
-</section>
-
-
-<a href="villa-dogan.html" class="next">
-
-<div class="next-label">
-NEXT PROJECT
-</div>
-
-<div class="next-title">
-VILLA DOGAN →
-</div>
-
-</a>
-
+<footer class="footer">
+  <div>© 2026 DOGAN ARCHITECTURE</div>
+  <div>FRANCE</div>
+</footer>
 
 <script>
+/* LANGUAGE SWITCHER */
+const frBtn=document.getElementById("frBtn");
+const enBtn=document.getElementById("enBtn");
 
-const gallery=document.querySelector(".gallery");
-const folder=gallery.dataset.folder;
-const maxImages=30;
-
-const observer=new IntersectionObserver(
-    entries=>{
-        entries.forEach(entry=>{
-            if(entry.isIntersecting){
-                entry.target.classList.add("visible");
-            }
-        });
-    },
-    {
-        threshold:.08,
-        rootMargin:"0px 0px -8% 0px"
-    }
-);
-
-for(let i=1;i<=maxImages;i++){
-
-    const number=String(i).padStart(2,"0");
-
-    const item=document.createElement("div");
-    item.className="gallery-item";
-
-    const img=document.createElement("img");
-
-    img.src=folder+number+".jpg";
-    img.alt="Bureau Zafer "+number;
-
-    img.onload=function(){
-
-        gallery.appendChild(item);
-        item.appendChild(img);
-
-        observer.observe(item);
-
-    };
-
-    img.onerror=function(){
-        item.remove();
-    };
+function changeLanguage(lang){
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-fr]").forEach(el=>{
+    el.innerHTML=el.getAttribute("data-"+lang);
+  });
+  frBtn.classList.toggle("active",lang==="fr");
+  enBtn.classList.toggle("active",lang==="en");
+  localStorage.setItem("dogan-language",lang);
 }
 
+frBtn.onclick=()=>changeLanguage("fr");
+enBtn.onclick=()=>changeLanguage("en");
+changeLanguage(localStorage.getItem("dogan-language")||"fr");
 </script>
 
 </body>
